@@ -10,6 +10,7 @@ gem 'haml'
 gem "twitter-bootstrap-rails"
 gem 'simple_form'
 gem 'sqlite3'
+gem 'sorcery'
 
 
 # Gems used only for assets and not required

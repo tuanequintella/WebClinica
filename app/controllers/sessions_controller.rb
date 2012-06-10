@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
 
   def create
     if @user = login(params[:user][:username],params[:user][:password],params[:remember])
-      redirect_back_or_to '/'
+      redirect_back_or_to root_path
     else
 		  flash.now[:error] = "Login invalido."
 		  render :action => "new"

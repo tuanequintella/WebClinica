@@ -37,6 +37,11 @@ class AdminsController < ApplicationController
 
   def destroy
     @admin = Admin.find_by_id(params[:id])
+
+    if @admin == current_user
+      redirect_to logout_path
+    end
+
     if @admin.destroy
       flash[:success] = 'Excluido com sucesso'
     else

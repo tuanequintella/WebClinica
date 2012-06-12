@@ -1,0 +1,12 @@
+=simple_form_for(@secretary, :html => { :class => 'form-horizontal' }) do |f|
+  %fieldset
+    %legend
+      Adicionar nova secretária
+    =f.input :name
+    =f.input :email
+    =f.input :username
+    =f.input :cpf
+    =f.input :rg
+    =f.input :birthdate
+    %div.form-actions
+      =f.button :submit, "Cadastrar"

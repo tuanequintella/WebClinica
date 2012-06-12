@@ -1,0 +1,31 @@
+%h1
+  Gerenciamento de Secretárias
+
+%p
+  =link_to 'Adicionar nova', new_secretary_path, :class => :btn
+
+%table.table.table-striped.table-bordered.table-condensed
+  %thead
+    %tr
+      %th
+        Nome
+      %th
+        Nome de usuário
+      %th
+        E-mail
+      %th
+        Ações
+
+  %tbody
+    - @secretaries.each do |secretary|
+      %tr
+        %td
+          =link_to secretary.name, secretary_path(secretary)
+        %td
+          =secretary.username
+        %td
+          =secretary.email
+        %td
+          =link_to 'Editar', edit_secretary_path(secretary)
+          |
+          =link_to 'Remover', secretary_path(secretary), :method => :delete, :confirm => 'Tem certeza que deseja excluir?'

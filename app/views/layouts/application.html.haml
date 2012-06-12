@@ -8,7 +8,21 @@
     = csrf_meta_tags
 
   %body
-    -flash.each do |key,value|
-      %div{:class => "alert alert-#{key}"}
-        =value
-    = yield
+    %div.navbar.navbar-fixed-top
+      %div.navbar-inner
+        %div.container
+          =link_to "WebClinica", "#", :class => :brand
+          %ul.nav.pull-right
+            %li
+              =link_to 'Sair', logout_path
+
+
+    %div.container-fluid
+      %div.row-fluid
+        %div.span2.well
+          =render :partial => 'layouts/sidebar'
+        %div.span10
+          -flash.each do |key,value|
+            %div{:class => "alert alert-#{key}"}
+              =value
+          = yield

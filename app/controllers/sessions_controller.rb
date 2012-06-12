@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  layout 'outside'
   skip_before_filter :require_login, :except => [:destroy]
   before_filter :require_no_login, :except => [:destroy]
 

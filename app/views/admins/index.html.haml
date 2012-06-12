@@ -1,0 +1,31 @@
+%h1
+  Gerenciamento de Administradores
+
+%p
+  =link_to 'Adicionar novo', new_admin_path, :class => :btn
+
+%table.table.table-striped.table-bordered.table-condensed
+  %thead
+    %tr
+      %th
+        Nome
+      %th
+        Nome de usuário
+      %th
+        E-mail
+      %th
+        Ações
+
+  %tbody
+    - @admins.each do |admin|
+      %tr
+        %td
+          =admin.name
+        %td
+          =admin.username
+        %td
+          =admin.email
+        %td
+          =link_to 'Editar', edit_admin_path(admin)
+          |
+          =link_to 'Remover', admin_path(admin), :method => :delete, :confirm => 'Tem certeza que deseja excluir?'

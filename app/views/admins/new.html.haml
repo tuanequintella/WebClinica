@@ -1,0 +1,9 @@
+=simple_form_for(@admin, :html => { :class => 'form-horizontal' }) do |f|
+  %fieldset
+    %legend
+      Adicionar novo administrador
+    =f.input :name
+    =f.input :email
+    =f.input :username
+    %div.form-actions
+      =f.button :submit, "Cadastrar"

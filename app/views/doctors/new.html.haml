@@ -1,0 +1,16 @@
+=simple_form_for(@doctor, :html => { :class => 'form-horizontal' }) do |f|
+  %fieldset
+    %legend
+      Adicionar novo médico
+    =f.input :name
+    =f.input :email
+    =f.input :username
+    =f.input :cpf
+    =f.input :rg
+    =f.input :birthdate, :start_year => Date.today.year - 90, :end_year => Date.today.year - 12
+    =f.input :crm
+    =f.input :gradyear, :start_year => Date.today.year, :end_year => Date.today.year - 70, :discard_day => true
+    =f.input :occupation
+    =f.input :appointmentprice, :as => :currency
+    %div.form-actions
+      =f.button :submit, "Cadastrar"

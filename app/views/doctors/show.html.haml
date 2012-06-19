@@ -1,0 +1,38 @@
+%h1
+  =@doctor.name
+
+%p
+  Nome de usuário:
+  =@doctor.username
+
+%p
+  E-mail:
+  =@doctor.email
+
+%p
+  CPF:
+  =@doctor.cpf
+
+%p
+  RG:
+  =@doctor.rg
+
+%p
+  Data de nascimento:
+  = l @doctor.birthdate
+
+%p
+  CRM:
+  =@doctor.crm
+
+%p
+  Data de formatura:
+  =@doctor.gradyear
+
+%p
+  Especialidades:
+  =@doctor.occupation
+
+%p
+  Preço da consulta:
+  =number_to_currency(@doctor.appointmentprice)

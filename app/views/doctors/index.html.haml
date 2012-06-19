@@ -1,0 +1,31 @@
+%h1
+  Gerenciamento de Médicos
+%br
+%p
+  =link_to 'Adicionar novo', new_doctor_path, :class => :btn
+
+%table.table.table-striped.table-bordered.table-condensed
+  %thead
+    %tr
+      %th
+        Nome
+      %th
+        Nome de usuário
+      %th
+        E-mail
+      %th
+        Ações
+
+  %tbody
+    - @doctors.each do |doctor|
+      %tr
+        %td
+          =link_to doctor.name, doctor_path(doctor)
+        %td
+          =doctor.username
+        %td
+          =doctor.email
+        %td
+          =link_to 'Editar', edit_doctor_path(doctor)
+          |
+          =link_to 'Remover', doctor_path(doctor), :method => :delete, :confirm => 'Tem certeza que deseja excluir?'

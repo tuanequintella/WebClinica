@@ -1,7 +1,7 @@
 %h3
   Entre com sua nova senha:
 %br
-=simple_form_for(@user, :url => password_reset_path(@user)) do |f|
+=simple_form_for(@user, :as => :user , :url => password_reset_path(@user)) do |f|
   =hidden_field_tag :token, @token
   =f.input :password
   =f.input :password_confirmation

@@ -7,6 +7,6 @@
     =f.input :username
     =f.input :cpf
     =f.input :rg
-    =f.input :birthdate
+    =f.input :birthdate, :start_year => Date.today.year - 90, :end_year => Date.today.year - 12
     %div.form-actions
       =f.button :submit, "Cadastrar"

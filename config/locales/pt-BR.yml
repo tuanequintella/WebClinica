@@ -205,3 +205,13 @@ pt-BR:
   activerecord:
     errors:
       <<: *errors
+    attributes:
+      user:
+        name: 'Nome'
+        email: 'E-mail'
+        username: 'Nome de usuário'
+        password: 'Senha'
+        password_confirmation: 'Confirme a senha'
+        cpf: 'CPF'
+        rg: 'RG'
+        birthdate: 'Data de Nascimento'

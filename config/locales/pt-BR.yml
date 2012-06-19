@@ -207,11 +207,15 @@ pt-BR:
       <<: *errors
     attributes:
       user:
-        name: 'Nome'
-        email: 'E-mail'
-        username: 'Nome de usuário'
-        password: 'Senha'
-        password_confirmation: 'Confirme a senha'
-        cpf: 'CPF'
-        rg: 'RG'
-        birthdate: 'Data de Nascimento'
+        name: Nome
+        email: E-mail
+        username: Nome de usuário
+        password: Senha
+        password_confirmation: Confirme a senha
+        cpf: CPF
+        rg: RG
+        birthdate: Data de nascimento
+        crm: CRM
+        gradyear: Data de formatura
+        occupation: Especialidades
+        appointmentprice: Preço da consulta

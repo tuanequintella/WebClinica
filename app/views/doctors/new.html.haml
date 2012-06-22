@@ -1,4 +1,4 @@
-=simple_form_for(@doctor, :html => { :class => 'form-horizontal' }) do |f|
+=simple_nested_form_for(@doctor, :html => { :class => 'form-horizontal' }) do |f|
   %fieldset
     %legend
       Adicionar novo médico
@@ -12,5 +12,10 @@
     =f.input :gradyear, :start_year => Date.today.year, :end_year => Date.today.year - 70, :discard_day => true
     =f.input :occupation
     =f.input :appointmentprice, :as => :currency
+    =f.fields_for :contatc_infos do |cinfos_form|
+      =cinfos_form.input :type
+      =cinfos_form.input :value
+      =cinfos_form.link_to_remove "Remover contato"
+    =f.link_to_add "Adicionar contato", :contact_infos
     %div.form-actions
       =f.button :submit, "Cadastrar"

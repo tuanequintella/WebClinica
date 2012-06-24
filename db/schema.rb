@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(:version => 20120619034702) do
 
   create_table "contact_infos", :force => true do |t|
-    t.string   "type"
+    t.string   "contact_type"
     t.string   "value"
     t.integer  "reachable_id"
     t.string   "reachable_type"

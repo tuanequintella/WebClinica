@@ -219,3 +219,9 @@ pt-BR:
         gradyear: Data de formatura
         occupation: Especialidades
         appointmentprice: Preço da consulta
+      contact_info:
+        contact_type:
+          phone: Telefone
+          email: E-mail
+          address: Endereço
+          webpage: Site

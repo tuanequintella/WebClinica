@@ -119,6 +119,7 @@ pt-BR:
       too_long: ! 'é muito longo (máximo: %{count} caracteres)'
       too_short: ! 'é muito curto (mínimo: %{count} caracteres)'
       wrong_length: não possui o tamanho esperado (%{count} caracteres)
+      cpf: não é um CPF válido
     template:
       body: ! 'Por favor, verifique o(s) seguinte(s) campo(s):'
       header:

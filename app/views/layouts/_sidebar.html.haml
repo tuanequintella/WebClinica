@@ -6,11 +6,14 @@
   %br
   %li
     =link_to 'Inicio', root_path
-  %li
-    =link_to 'Gerenciar Admins', admins_path
-  %li
-    =link_to 'Gerenciar Secretarias', secretaries_path
-  %li
-    =link_to 'Gerenciar Medicos', doctors_path
+  -if can? :read, Admin
+    %li
+      =link_to 'Gerenciar Admins', admins_path
+  -if can? :read, Secretary
+    %li
+      =link_to 'Gerenciar Secretarias', secretaries_path
+  -if can? :read, Doctor
+    %li
+      =link_to 'Gerenciar Medicos', doctors_path
   %li
     =link_to 'Link 3', '#'

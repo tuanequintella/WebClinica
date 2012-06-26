@@ -9,7 +9,7 @@ class Secretary < User
   accepts_nested_attributes_for :contact_infos, :allow_destroy => true
 
   def to_s
-    "Secretária"
+    "Secretaria"
   end
 
 end

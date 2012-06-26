@@ -1,8 +1,10 @@
 %h1
   Gerenciamento de Médicos
 %br
-%p
-  =link_to 'Adicionar novo', new_doctor_path, :class => :btn
+
+-if can? :manage, Doctor
+  %p
+    =link_to 'Adicionar novo', new_doctor_path, :class => :btn
 
 %table.table.table-striped.table-bordered.table-condensed
   %thead
@@ -13,8 +15,9 @@
         Nome de usuário
       %th
         E-mail
-      %th
-        Ações
+      -if can? :manage, Doctor
+        %th
+          Ações
 
   %tbody
     - @doctors.each do |doctor|
@@ -25,7 +28,8 @@
           =doctor.username
         %td
           =doctor.email
-        %td
-          =link_to 'Editar', edit_doctor_path(doctor)
-          |
-          =link_to 'Remover', doctor_path(doctor), :method => :delete, :confirm => 'Tem certeza que deseja excluir?'
+        -if can? :manage, Doctor
+          %td
+            =link_to 'Editar', edit_doctor_path(doctor)
+            |
+            =link_to 'Remover', doctor_path(doctor), :method => :delete, :confirm => 'Tem certeza que deseja excluir?'

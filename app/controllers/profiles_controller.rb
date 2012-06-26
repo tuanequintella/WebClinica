@@ -19,4 +19,11 @@ class ProfilesController < ApplicationController
       render :edit
     end
   end
+
+  def reset_password
+    @user = current_user
+    @user.deliver_reset_password_instructions! if @user
+    redirect_to(profile_path, :notice => "Instrucoes foram mandadas no seu e-mail.")
+  end
+
 end

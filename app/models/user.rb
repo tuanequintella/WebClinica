@@ -5,10 +5,10 @@ class User < ActiveRecord::Base
 
   validates_presence_of :name, :username, :email
   validates_uniqueness_of :username, :email, :case_sensitive => false
-  validates_uniqueness_of :rg, :crm #, :cpf
+  validates_uniqueness_of :rg, :crm, :allow_blank => true #, :cpf
   validates_confirmation_of :password, :if => :password
-  validates :password, :presence => true, :length => {:minimum => 6}, :on => :update
-  validates :password_confirmation, :presence => true, :on => :update
+  validates :password, :presence => true, :length => {:minimum => 6}, :on => :update, :if => :password
+  validates :password_confirmation, :presence => true, :on => :update, :if => :password
   validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
 
   class CpfValidator < ActiveModel::EachValidator

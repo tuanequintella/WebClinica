@@ -15,7 +15,7 @@
     =f.simple_fields_for :contact_infos do |cinfos_form|
       =cinfos_form.input :contact_type, :collection => ContactInfo.contact_types , :label => false, :default => false
       =cinfos_form.input :value, :label => false
-      =f.link_to_remove "Remover contato"
+      =cinfos_form.link_to_remove "Remover contato"
     =f.link_to_add "Adicionar contato", :contact_infos
     %div.form-actions
       =f.button :submit, "Cadastrar"

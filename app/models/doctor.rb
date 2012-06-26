@@ -1,5 +1,5 @@
 class Doctor < User
-  attr_accessible :contact_infos_attributes
+  attr_accessor :contact_infos_attributes
 
   validates_presence_of :cpf, :rg, :birthdate, :crm, :appointmentprice
   validates :crm, :numericality => true

@@ -43,6 +43,9 @@
     %p
       =cinfo.contact_type + ": " + cinfo.value
 
+%p
+  =link_to "Resetar senha", reset_password_profile_path, :class => :btn
+
 %br
 =link_to "Editar", edit_profile_path
 |

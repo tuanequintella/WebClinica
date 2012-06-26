@@ -1,5 +1,10 @@
 %ul.nav
   %li
+    ="Bem vindo, " + current_user.name.split(" ").first
+  %li
+    ="Seu perfil: " + current_user.to_s
+  %br
+  %li
     =link_to 'Inicio', root_path
   %li
     =link_to 'Gerenciar Admins', admins_path

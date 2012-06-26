@@ -1,0 +1,49 @@
+%h1
+  =@user.name
+%br
+%p
+  Nome de usuário:
+  =@user.username
+
+%p
+  E-mail:
+  =@user.email
+
+-unless @user.is_a? Admin
+  %p
+    CPF:
+    =@user.cpf
+
+  %p
+    RG:
+    =@user.rg
+
+  %p
+    Data de nascimento:
+    = l @user.birthdate
+-if @user.is_a? Doctor
+  %p
+    CRM:
+    =@user.crm
+
+  %p
+    Data de formatura:
+    =@user.gradyear.year
+
+  %p
+    Especialidades:
+    =@user.occupation
+
+  %p
+    Preço da consulta:
+    =number_to_currency(@user.appointmentprice)
+
+-unless @user.is_a? Admin
+  -@user.contact_infos.each do |cinfo|
+    %p
+      =cinfo.contact_type + ": " + cinfo.value
+
+%br
+=link_to "Editar", edit_profile_path
+|
+=link_to "Voltar", root_path

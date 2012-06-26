@@ -1,6 +1,6 @@
 %h1
   =@doctor.name
-
+%br
 %p
   Nome de usuário:
   =@doctor.username
@@ -36,3 +36,10 @@
 %p
   Preço da consulta:
   =number_to_currency(@doctor.appointmentprice)
+
+-@doctor.contact_infos.each do |cinfo|
+  %p
+    =cinfo.contact_type + ": " + cinfo.value
+
+%br
+=link_to "Voltar", doctors_path

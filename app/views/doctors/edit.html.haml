@@ -1,4 +1,4 @@
-=simple_form_for(@doctor, :html => { :class => 'form-horizontal' }) do |f|
+=simple_nested_form_for(@doctor, :html => { :class => 'form-horizontal' }) do |f|
   %fieldset
     %legend
       Editar médico
@@ -7,10 +7,16 @@
     =f.input :username, :disabled => true
     =f.input :cpf
     =f.input :rg
-    =f.input :birthdate, :start_year => Date.today.year - 90, :end_year => Date.today.year - 12
+    =f.input :birthdate, :start_year => Date.today.year - 90, :end_year => Date.today.year - 12, :input_html => {:class => 'input-small'}
     =f.input :crm
-    =f.input :gradyear, :start_year => Date.today.year, :end_year => Date.today.year - 70, :discard_day => true
+    =f.input :gradyear, :start_year => Date.today.year, :end_year => Date.today.year - 70, :discard_day => true, :input_html => {:class => 'input-small'}
     =f.input :occupation
-    =f.input :appointmentprice, :as => :currency
+    =f.input :appointmentprice, :as => :currency, :input_html => {:class => 'input-small'}
+    =f.simple_fields_for :contact_infos do |cinfos_form|
+      =cinfos_form.input :contact_type, :collection => ContactInfo.contact_types , :label => false, :default => false
+      =cinfos_form.input :value, :label => false
+      =cinfos_form.link_to_remove "Remover contato"
+    =f.link_to_add "Adicionar contato", :contact_infos
     %div.form-actions
       =f.button :submit, "Salvar"
+      =link_to "Cancelar", doctors_path, :class => :btn

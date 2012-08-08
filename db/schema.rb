@@ -14,10 +14,10 @@
 ActiveRecord::Schema.define(:version => 20120619034702) do
 
   create_table "contact_infos", :force => true do |t|
-    t.string   "contact_type"
-    t.string   "value"
     t.integer  "reachable_id"
     t.string   "reachable_type"
+    t.string   "type"
+    t.string   "value"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
   end

@@ -220,9 +220,13 @@ pt-BR:
         gradyear: Data de formatura
         occupation: Especialidades
         appointmentprice: Preço da consulta
+        type:
+          doctor: Médico
+          secretary: Secretária
+          admin: Administrador
       contact_info:
-        contact_type:
-          phone: Telefone
-          email: E-mail
-          address: Endereço
-          webpage: Site
+        type:
+          Phone: Telefone
+          Email: E-mail
+          Address: Endereço
+          Webpage: Site

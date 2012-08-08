@@ -39,7 +39,7 @@
 
 -@doctor.contact_infos.each do |cinfo|
   %p
-    =cinfo.contact_type + ": " + cinfo.value
+    =I18n.t('activerecord.attributes.contact_info.type.' + cinfo.type) + ": " + cinfo.value
 
 %br
 =link_to "Voltar", doctors_path

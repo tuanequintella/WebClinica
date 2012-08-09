@@ -41,7 +41,7 @@
 -unless @user.is_a? Admin
   -@user.contact_infos.each do |cinfo|
     %p
-      =cinfo.contact_type + ": " + cinfo.value
+      =I18n.t('activerecord.attributes.contact_info.type.' + cinfo.type) + ": " + cinfo.value
 
 %p
   =link_to "Resetar senha", reset_password_profile_path, :class => :btn

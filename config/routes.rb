@@ -4,6 +4,7 @@ WebClinica::Application.routes.draw do
 
   resources :admins, :secretaries, :doctors
   resources :password_resets
+  resources :offices#, only: [:edit, :update, :show]
   resource :profile, only: [:edit, :update, :show] do
     member do
       get 'reset_password'

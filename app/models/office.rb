@@ -1,4 +1,5 @@
 class Office < ActiveRecord::Base
+  attr_accessible :name
   attr_accessor :contact_infos_attributes
 
   validates_presence_of :name, :email, :address

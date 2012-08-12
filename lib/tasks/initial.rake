@@ -16,5 +16,19 @@ task :create_admin => :environment do
   else
     puts "Erro na criacao do usuario. Tente novamente."
   end
+end
+
+desc "Criando a clinica"
+task :create_office => :environment do
+  puts "Nome:"
+  name = STDIN.gets.strip
+
+  office = Office.new(:name => name)
+
+  if(office.save)
+    puts "Clinica \"#{name}\" criada com sucesso."
+  else
+    puts "Erro na criacao da clinica. Tente novamente."
+  end
 
 end

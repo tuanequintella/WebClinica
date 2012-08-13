@@ -22,7 +22,8 @@ class OfficesController < ApplicationController
   def notify_patients
     @office = Office.first
     #manda informações da clinica no email dos pacientes
-    redirect_to(office_path(@office), :notice => "Atualizações da clinica foram enviadas aos pacientes.")
+    flash[:success] = 'Atualizacoes da clinica foram enviadas aos pacientes.'
+    redirect_to office_path(@office)
   end
 
 end

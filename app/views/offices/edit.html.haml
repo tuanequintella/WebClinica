@@ -4,9 +4,10 @@
       Editar cadastro da Clínica
     =f.input :name
     =f.input :email
-    =f.input :username, :disabled => true
+    =f.input :address
+    =f.input :phone
     =f.simple_fields_for :contact_infos do |cinfos_form|
-      =cinfos_form.input :type, :collection => ContactInfo.subclasses , :label => false, :default => false
+      =cinfos_form.input :type, :collection => ContactInfo.contact_types , :label => false, :default => false
       =cinfos_form.input :value, :label => false
       =cinfos_form.link_to_remove "Remover contato"
     =f.link_to_add "Adicionar contato", :contact_infos

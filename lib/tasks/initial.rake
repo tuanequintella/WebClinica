@@ -22,8 +22,12 @@ desc "Criando a clinica"
 task :create_office => :environment do
   puts "Nome:"
   name = STDIN.gets.strip
+  puts "E-mail:"
+  email = STDIN.gets.strip
+  puts "Endereco:"
+  address = STDIN.gets.strip
 
-  office = Office.new(:name => name)
+  office = Office.new(:name => name, :email => email, :address => address)
 
   if(office.save)
     puts "Clinica \"#{name}\" criada com sucesso."

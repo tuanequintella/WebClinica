@@ -1,8 +1,8 @@
 class Office < ActiveRecord::Base
-  attr_accessible :name
+  attr_accessible :name, :email, :address, :phone, :contact_infos_attributes
   attr_accessor :contact_infos_attributes
 
-  validates_presence_of :name, :email, :address
+  validates_presence_of :name, :email, :address, :phone
 
   has_many :contact_infos, :as => :reachable
 

@@ -14,12 +14,14 @@ class Ability
       can :manage, Doctor
       can :manage, ContactInfo
       can :manage, Secretary
+      can :manage, Office
     end
 
     if user.is_a? Doctor
       can :read, Doctor
       can :read, ContactInfo
       can :read, Secretary
+      can :read, Office
       can :update, Doctor, :id => user.id
       can :manage, ContactInfo, :reachable_id => user.id
     end

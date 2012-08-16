@@ -230,3 +230,8 @@ pt-BR:
           Email: E-mail
           Address: Endereço
           Webpage: Site
+      office:
+        name: Nome
+        email: E-mail
+        address: Endereço
+        phone: Telefone

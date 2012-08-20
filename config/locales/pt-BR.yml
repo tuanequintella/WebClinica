@@ -220,6 +220,7 @@ pt-BR:
         gradyear: Data de formatura
         occupation: Especialidades
         appointmentprice: Preço da consulta
+        accepted_health_insurances: Convênios que aceita
         type:
           doctor: Médico
           secretary: Secretária

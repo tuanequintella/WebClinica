@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120810114059) do
+ActiveRecord::Schema.define(:version => 20120819222729) do
 
   create_table "contact_infos", :force => true do |t|
     t.integer  "reachable_id"
@@ -29,6 +29,25 @@ ActiveRecord::Schema.define(:version => 20120810114059) do
     t.string   "address"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "pacients", :force => true do |t|
+    t.string   "name"
+    t.string   "cpf"
+    t.string   "rg"
+    t.date     "birthdate"
+    t.integer  "age"
+    t.string   "health_insurances"
+    t.string   "address"
+    t.string   "phone"
+    t.string   "email"
+    t.string   "parent_name"
+    t.string   "parent_rg"
+    t.string   "parent_cpf"
+    t.integer  "file_id"
+    t.string   "file_status"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "users", :force => true do |t|
@@ -52,6 +71,7 @@ ActiveRecord::Schema.define(:version => 20120810114059) do
     t.date     "gradyear"
     t.string   "occupation"
     t.decimal  "appointmentprice"
+    t.string   "accepted_health_insurances"
   end
 
   add_index "users", ["remember_me_token"], :name => "index_users_on_remember_me_token"

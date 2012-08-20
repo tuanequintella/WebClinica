@@ -37,6 +37,10 @@
   Preço da consulta:
   =number_to_currency(@doctor.appointmentprice)
 
+%p
+  Convênios que aceita:
+  =@doctor.accepted_health_insurances
+
 -@doctor.contact_infos.each do |cinfo|
   %p
     =I18n.t('activerecord.attributes.contact_info.type.' + cinfo.type) + ": " + cinfo.value

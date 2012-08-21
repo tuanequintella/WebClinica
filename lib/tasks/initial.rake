@@ -26,8 +26,11 @@ task :create_office => :environment do
   email = STDIN.gets.strip
   puts "Endereco:"
   address = STDIN.gets.strip
+  puts "Telefone:"
+  phone = STDIN.gets.strip
 
-  office = Office.new(:name => name, :email => email, :address => address)
+
+  office = Office.new(:name => name, :email => email, :address => address, :phone => phone)
 
   if(office.save)
     puts "Clinica \"#{name}\" criada com sucesso."

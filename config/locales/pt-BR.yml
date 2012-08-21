@@ -236,3 +236,22 @@ pt-BR:
         email: E-mail
         address: Endereço
         phone: Telefone
+      pacient:
+        name: Nome completo
+        cpf: CPF
+        rg: RG
+        birthdate: Data de Nascimento
+        age: Idade
+        health_insurances: Convênios
+        address: Endereço
+        phone: Telefone
+        email: E-mail
+        parent_name: Nome do responsável
+        parent_rg: RG do responsável
+        parent_cpf: CPF do responsável
+        record_id: Nº da ficha
+        record_status: Status da ficha
+      record:
+        new: Nova ficha
+        regular: Regular
+        beginner: Primeiras vezes

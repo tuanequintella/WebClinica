@@ -1,0 +1,48 @@
+%h1
+  =@pacient.name
+%br
+%p
+  CPF:
+  =@pacient.cpf
+
+%p
+  RG:
+  =@pacient.rg
+
+%p
+  Data de nascimento:
+  = l @pacient.birthdate
+
+%p
+  Convênios:
+  =@pacient.health_insurances
+
+%p
+  E-mail:
+  =@pacient.email
+
+%p
+  Endereço:
+  =@pacient.address
+
+%p
+  Telefone:
+  =@pacient.phone
+
+%p
+  Nome do responsável
+  =@pacient.parent_name
+
+%p
+  RG do responsável:
+  =@pacient.parent_rg
+%p
+  CPF do responsável:
+  =@pacient.parent_cpf
+
+-@pacient.contact_infos.each do |cinfo|
+  %p
+    =I18n.t('activerecord.attributes.contact_info.type.' + cinfo.type) + ": " + cinfo.value
+
+%br
+=link_to "Voltar", pacients_path

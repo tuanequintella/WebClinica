@@ -1,5 +1,5 @@
 class Pacient < ActiveRecord::Base
-  #attr_accessible :name, :email, :address, :phone, :contact_infos_attributes
+  attr_accessible :name, :cpf, :rg, :birthdate, :health_insurances, :address, :phone, :email, :parent_name, :parent_rg, :parent_cpf, :record_id, :record_status, :contact_infos_attributes
   attr_accessor :contact_infos_attributes
 
   validates_presence_of :name, :email, :address, :phone, :rg, :cpf, :birthdate, :parent_name

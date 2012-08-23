@@ -19,5 +19,6 @@
   -if can? :read, Doctor
     %li
       =link_to 'Medicos', doctors_path
-  %li
-    =link_to 'Link 3', '#'
+  -if can? :read, Pacient
+    %li
+      =link_to 'Pacientes', pacients_path

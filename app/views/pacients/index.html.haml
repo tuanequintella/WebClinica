@@ -1,0 +1,31 @@
+%h1
+  Gerenciamento de Pacientes
+%br
+
+-if can? :manage, Pacient
+  %p
+    =link_to 'Adicionar novo', new_pacient_path, :class => :btn
+
+%table.table.table-striped.table-bordered.table-condensed
+  %thead
+    %tr
+      %th
+        Nome
+      %th
+        E-mail
+      -if can? :manage, Pacient
+        %th
+          Ações
+
+  %tbody
+    - @pacients.each do |pacient|
+      %tr
+        %td
+          =link_to pacient.name, pacient_path(pacient)
+        %td
+          =pacient.email
+        -if can? :manage, Secretary
+          %td
+            =link_to 'Editar', edit_pacient_path(pacient)
+            |
+            =link_to 'Remover', pacient_path(pacient), :method => :delete, :confirm => 'Tem certeza que deseja excluir?'

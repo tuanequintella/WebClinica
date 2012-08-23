@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120819222729) do
+ActiveRecord::Schema.define(:version => 20120821200443) do
 
   create_table "contact_infos", :force => true do |t|
     t.integer  "reachable_id"
@@ -44,10 +44,18 @@ ActiveRecord::Schema.define(:version => 20120819222729) do
     t.string   "parent_name"
     t.string   "parent_rg"
     t.string   "parent_cpf"
-    t.integer  "file_id"
-    t.string   "file_status"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.integer  "record_id"
+    t.string   "record_status"
+  end
+
+  create_table "record", :force => true do |t|
+    t.string   "record_id"
+    t.string   "record_status"
+    t.string   "description"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "users", :force => true do |t|

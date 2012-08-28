@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120821200443) do
+ActiveRecord::Schema.define(:version => 20120827032831) do
 
   create_table "contact_infos", :force => true do |t|
     t.integer  "reachable_id"
@@ -36,7 +36,6 @@ ActiveRecord::Schema.define(:version => 20120821200443) do
     t.string   "cpf"
     t.string   "rg"
     t.date     "birthdate"
-    t.integer  "age"
     t.string   "health_insurances"
     t.string   "address"
     t.string   "phone"

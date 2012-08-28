@@ -6,6 +6,8 @@ class ContactInfo < ActiveRecord::Base
 
   belongs_to :reachable, :polymorphic => true
 
+  validates_presence_of :value
+
   def self.contact_types
     [[I18n.t(I18N_PATH + 'Phone'), "Phone"], [I18n.t(I18N_PATH + 'Email'),"Email"], [I18n.t(I18N_PATH + 'Address'),"Address"], [I18n.t(I18N_PATH + 'Webpage'),"Webpage"]]
   end

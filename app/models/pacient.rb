@@ -11,4 +11,19 @@ class Pacient < ActiveRecord::Base
   def to_s
     self.name
   end
+
+  def age #bDate must be in the date-time format
+    years = Date.today.year - birthdate.year
+    months = Date.today.month - birthdate.month
+    if Date.today.month < birthdate.month || (Date.today.month == birthdate.month && birthdate.day >= Date.today.day)
+      years  = years  - 1
+      months = months + 12
+      if birthdate.day >= Date.today.day
+        months = months - 1
+      end
+    end
+    binding.pry
+    years.to_s + " anos e " + months.to_s + " meses"
+  end
+
 end

@@ -5,7 +5,7 @@
     =f.input :name
     =f.input :cpf
     =f.input :rg
-    =f.input :birthdate, :start_year => Date.today.year - 90, :end_year => Date.today.year - 12, :input_html => {:class => 'input-small'}
+    =f.input :birthdate, :start_year => 90.years.ago.year, :end_year => Date.today.year, :input_html => {:class => 'input-small'}
     Idade:
     =f.input :health_insurances
     =f.input :address

@@ -15,6 +15,7 @@ class Ability
       can :manage, ContactInfo
       can :manage, Secretary
       can :manage, Office
+      can :manage, Pacient
     end
 
     if user.is_a? Doctor
@@ -22,6 +23,7 @@ class Ability
       can :read, ContactInfo
       can :read, Secretary
       can :read, Office
+      can :manage, Pacient
       can :update, Doctor, :id => user.id
       can :manage, ContactInfo, :reachable_id => user.id
     end

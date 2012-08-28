@@ -12,7 +12,7 @@ class Pacient < ActiveRecord::Base
     self.name
   end
 
-  def age #bDate must be in the date-time format
+  def age
     years = Date.today.year - birthdate.year
     months = Date.today.month - birthdate.month
     if Date.today.month < birthdate.month || (Date.today.month == birthdate.month && birthdate.day >= Date.today.day)
@@ -22,7 +22,6 @@ class Pacient < ActiveRecord::Base
         months = months - 1
       end
     end
-    binding.pry
     years.to_s + " anos e " + months.to_s + " meses"
   end
 

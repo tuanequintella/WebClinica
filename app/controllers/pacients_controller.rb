@@ -13,7 +13,7 @@ class PacientsController < ApplicationController
   def create
     @pacient = Pacient.new(params[:pacient])
     if @pacient.save
-      flash[:READTHIS] = I18n.t('activerecord.attributes.record.warning', :id => @pacient.record.id)
+      flash[:READTHIS] = I18n.t('activerecord.attributes.record.warning', :id => "%04d" % @pacient.record.id)
       redirect_to pacients_path
     else
 		  render :new

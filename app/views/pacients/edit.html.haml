@@ -1,11 +1,14 @@
 =simple_nested_form_for(@pacient, :html => { :class => 'form-horizontal' }) do |f|
   %fieldset
     %legend
-      Adicionar novo paciente
+      Editar paciente
 
     =f.simple_fields_for :record do |rec_form|
       =rec_form.input :record_status, :collection => Record.statuses
-      =rec_form.input :id, :disabled => true
+      =rec_form.label :id
+      =rec_form.label "%04d" % @pacient.record.id
+      ="."
+
 
     %br
     =f.input :name, :input_html => {:class => 'input-large'}

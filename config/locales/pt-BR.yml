@@ -243,7 +243,7 @@ pt-BR:
         name: Nome completo
         cpf: CPF
         rg: RG
-        birthdate: Data de Nascimento
+        birthdate: Data de nascimento
         age: Idade
         health_insurances: Convênios
         address: Endereço
@@ -259,5 +259,5 @@ pt-BR:
         regular: Regular
         beginner: Primeiras vezes
         id: Número da ficha
-        status: Status da ficha
-        warning:  Paciente criado! Nº da ficha %{id}. ALTERE A NUMERAÇÃO NA FICHA EM PAPEL!
+        record_status: Status da ficha
+        warning:  Paciente cadastrado! Nº da ficha %{id}. ALTERE A NUMERAÇÃO NA FICHA EM PAPEL!

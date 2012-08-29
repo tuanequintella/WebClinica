@@ -24,6 +24,9 @@
         %div.span2.well
           =render :partial => 'layouts/sidebar'
         %div.span10
+          -if flash[:READTHIS]
+            :javascript
+              $(function (){ alert("#{flash[:READTHIS]}")})
           -flash.each do |key,value|
             %div{:class => "alert alert-#{key}"}
               =value

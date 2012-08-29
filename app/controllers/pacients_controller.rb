@@ -7,12 +7,13 @@ class PacientsController < ApplicationController
 
   def new
     @pacient = Pacient.new
+    @pacient.record = Record.new
   end
 
   def create
     @pacient = Pacient.new(params[:pacient])
     if @pacient.save
-      flash[:success] = 'Cadastrado com sucesso.'
+      flash[:READTHIS] = I18n.t('activerecord.attributes.record.warning', :id => @pacient.record.id)
       redirect_to pacients_path
     else
 		  render :new

@@ -46,4 +46,7 @@
     =I18n.t('activerecord.attributes.contact_info.type.' + cinfo.type) + ": " + cinfo.value
 
 %br
+-if can? :manage, Doctor
+  =link_to "Editar", edit_doctor_path(@doctor)
+  |
 =link_to "Voltar", doctors_path

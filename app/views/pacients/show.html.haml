@@ -15,7 +15,7 @@
 
 %p
   Idade:
-  =@pacient.age
+  =@pacient.age_in_words
 %p
   Convênios:
   =@pacient.health_insurances
@@ -48,4 +48,7 @@
     =I18n.t('activerecord.attributes.contact_info.type.' + cinfo.type) + ": " + cinfo.value
 
 %br
+-if can? :manage, Pacient
+  =link_to "Editar", edit_pacient_path(@pacient)
+  |
 =link_to "Voltar", pacients_path

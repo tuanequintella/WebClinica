@@ -7,7 +7,7 @@
     =f.input :username, :disabled => true
     =f.input :cpf
     =f.input :rg
-    =f.input :birthdate, :start_year => Date.today.year - 90, :end_year => Date.today.year - 12, :input_html => {:class => 'input-small'}
+    =f.input :birthdate, :start_year => Date.today.year - 80, :end_year => Date.today.year - 12, :input_html => {:class => 'input-small'}
     =f.simple_fields_for :contact_infos do |cinfos_form|
       =cinfos_form.input :type, :collection => ContactInfo.contact_types , :label => false, :default => false
       =cinfos_form.input :value, :label => false

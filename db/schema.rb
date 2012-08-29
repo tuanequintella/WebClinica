@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120827032831) do
+ActiveRecord::Schema.define(:version => 20120828222723) do
 
   create_table "contact_infos", :force => true do |t|
     t.integer  "reachable_id"
@@ -45,14 +45,13 @@ ActiveRecord::Schema.define(:version => 20120827032831) do
     t.string   "parent_cpf"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
-    t.integer  "record_id"
-    t.string   "record_status"
   end
 
-  create_table "record", :force => true do |t|
+  create_table "records", :force => true do |t|
     t.string   "record_id"
     t.string   "record_status"
     t.string   "description"
+    t.integer  "pacient_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end

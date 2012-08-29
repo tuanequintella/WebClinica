@@ -2,6 +2,12 @@
   Gerenciamento de Pacientes
 %br
 
+=simple_form_for(@pacient, :html => { :class => 'form-inline' }) do |f|
+  =f.input :name, :label => "Nome"
+  =f.button :submit, "Buscar"
+
+%br
+
 -if can? :manage, Pacient
   %p
     =link_to 'Adicionar novo', new_pacient_path, :class => :btn

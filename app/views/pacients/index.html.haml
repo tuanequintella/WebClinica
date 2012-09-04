@@ -2,9 +2,8 @@
   Gerenciamento de Pacientes
 %br
 
-=simple_form_for(@pacient, :html => { :class => 'form-inline' }) do |f|
-  =f.input :name, :label => "Nome"
-  =f.button :submit, "Buscar"
+=form_for(Pacient.new, :url => search_pacients_path, :html => { :class => 'search form-inline' }) do |f|
+  =f.text_field :name, :placeholder => "Buscar por nome"
 
 %br
 

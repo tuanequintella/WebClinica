@@ -2,6 +2,7 @@ class Record < ActiveRecord::Base
 
   attr_accessible :id, :record_status
   belongs_to :pacient
+  has_many :appointments
 
   I18N_PATH = 'activerecord.attributes.record.'
 

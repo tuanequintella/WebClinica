@@ -42,4 +42,12 @@ class Pacient < ActiveRecord::Base
     I18n.t('datetime.distance_in_words.x_years', :count => my_age[:years] ) + " " + I18n.t('datetime.distance_in_words.x_months', :count => my_age[:months] )
   end
 
+  def self.search (term)
+    if term.present?
+      where("name LIKE ?", "%#{term}%")
+    else
+      all
+    end
+  end
+
 end

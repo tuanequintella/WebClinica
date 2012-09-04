@@ -3,7 +3,11 @@ class PacientsController < ApplicationController
 
   def index
     @pacients = Pacient.all
-    @pacient = Pacient.new
+  end
+
+  def search
+    @pacients = Pacient.search(params[:pacient][:name])
+    render :search, :layout => false
   end
 
   def new

@@ -16,6 +16,38 @@
 #= require jquery_nested_form
 #= require_tree .
 
+class Agenda
+  constructor: (@id)->
+
+  getHtml: (date)->
+    $.ajax(
+      url: "/agendas/#{@id}"
+      data:
+        date: date
+    ).done (data) ->
+      $("div#agenda").html data
+      $("div.clickme").dblclick ->
+        alert("oi")
+
+class AgendaApp
+  constructor: (@today)->
+    @btnConfigure = $("a#btn-configure")
+    $("select#doctor").change (event) =>
+      if $("select#doctor option:selected").val() != ""
+        @currentAgenda = new Agenda($("select#doctor option:selected").val())
+        @currentAgenda.getHtml(@today)
+
+        @btnConfigure.click =>
+          alert(@currentAgenda.id)
+
+        @btnConfigure.attr("disabled",false)
+      else
+        @btnConfigure.attr("disabled", true)
+        @currentAgenda = null
+        $("div#agenda").html ""
+
+window.AgendaApp = AgendaApp
+
 $ ->
   $("form.search input").keyup ->
     form = $("form.search")

@@ -22,3 +22,6 @@
   -if can? :read, Pacient
     %li
       =link_to 'Pacientes', pacients_path
+  -if can? :read, Agenda
+    %li
+      =link_to 'Agendas', agendas_path

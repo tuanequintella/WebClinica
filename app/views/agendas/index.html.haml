@@ -1,0 +1,14 @@
+:javascript
+  $(function (){
+    window.agendaApp = new AgendaApp("#{Date.today.to_s}");
+  });
+
+%div.container-fluid
+  %div.row-fluid
+    =text_field_tag 'date', l(Date.today, :format => :long), :class => 'input-medium'
+
+    =select_tag "doctor", options_from_collection_for_select(Doctor.all, "agenda", "name"), :prompt => "Selecione o médico"
+
+    =link_to "Configurar", "#", :class => 'btn', :disabled => true, :id => "btn-configure"
+  %div.row-fluid
+    %div#agenda 

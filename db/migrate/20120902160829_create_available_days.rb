@@ -3,10 +3,10 @@ class CreateAvailableDays < ActiveRecord::Migration
     create_table :available_days do |t|
         t.references :agenda
         t.integer :day
-        t.time :work_start_time
-        t.time :work_end_time
-        t.time :interval_start_time
-        t.time :interval_end_time
+        t.datetime :work_start_time
+        t.datetime :work_end_time
+        t.datetime :interval_start_time
+        t.datetime :interval_end_time
 
         t.timestamps
     end

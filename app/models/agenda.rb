@@ -1,10 +1,14 @@
 class Agenda < ActiveRecord::Base
+  attr_accessor :available_days_attributes
+  attr_accessible :default_meeting_length, :available_days_attributes
 
   I18N_PATH = 'activerecord.attributes.agenda.'
 
   belongs_to :doctor
   has_many :available_days
   has_many :appointments
+
+  accepts_nested_attributes_for :available_days
 
   def week (string_date)
     date_array = string_date.split('-').map(&:to_i)
@@ -44,3 +48,4 @@ class Agenda < ActiveRecord::Base
   end
 
 end
+

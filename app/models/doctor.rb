@@ -1,5 +1,6 @@
 class Doctor < User
   attr_accessor :contact_infos_attributes
+  attr_accessor :agenda_attributes
 
   I18N_PATH = 'activerecord.attributes.user.type.'
 
@@ -11,15 +12,11 @@ class Doctor < User
   has_one :agenda
 
   accepts_nested_attributes_for :contact_infos, :allow_destroy => true
-
-  before_create :create_agenda
-
-  def create_agenda
-    self.agenda = Agenda.new
-  end
+  accepts_nested_attributes_for :agenda
 
   def to_s
     I18n.t(I18N_PATH + "doctor")
   end
 
 end
+

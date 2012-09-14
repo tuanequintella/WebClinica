@@ -7,6 +7,7 @@ class DoctorsController < ApplicationController
 
   def new
     @doctor = Doctor.new
+    @doctor.agenda = Agenda.new
   end
 
   def create
@@ -55,3 +56,4 @@ class DoctorsController < ApplicationController
     redirect_to doctors_path
   end
 end
+

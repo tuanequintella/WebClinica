@@ -263,3 +263,14 @@ pt-BR:
         id: Número da ficha
         record_status: Status da ficha
         warning:  Paciente cadastrado! Nº da ficha %{id}. ALTERE A NUMERAÇÃO NA FICHA EM PAPEL!
+      available_day:
+        sunday: Domingo
+        monday: Segunda
+        tuesday: Terça
+        wednesday: Quarta
+        thursday: Quinta
+        friday: Sexta
+        saturday: Sábado
+      agenda:
+        default_meeting_length: Duração da consulta
+

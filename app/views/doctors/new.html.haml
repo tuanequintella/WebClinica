@@ -7,17 +7,55 @@
     =f.input :username
     =f.input :cpf
     =f.input :rg
-    =f.input :birthdate, :start_year => Date.today.year - 80, :end_year => Date.today.year - 15, :input_html => {:class => 'input-small'}
+    =f.input :birthdate, :as => :date, :start_year => Date.today.year - 80, :end_year => Date.today.year - 15, :input_html => {:class => 'input-small'}
     =f.input :crm
-    =f.input :gradyear, :start_year => Date.today.year, :end_year => Date.today.year - 60, :discard_day => true, :input_html => {:class => 'input-small'}
+    =f.input :gradyear, :as => :date, :start_year => Date.today.year, :end_year => Date.today.year - 60, :discard_day => true, :input_html => {:class => 'input-small'}
     =f.input :occupation
     =f.input :appointmentprice, :as => :currency, :input_html => {:class => 'input-small'}
     =f.input :accepted_health_insurances
+
     =f.simple_fields_for :contact_infos do |cinfos_form|
       =cinfos_form.input :type, :collection => ContactInfo.contact_types , :label => false, :default => false
       =cinfos_form.input :value, :label => false
       =cinfos_form.link_to_remove "Remover contato"
     =f.link_to_add "Adicionar contato", :contact_infos
+
+    %br
+    =f.simple_fields_for :agenda do |ag_form|
+      %fieldset
+        %legend
+          Criar agenda do médico
+        =ag_form.input :default_meeting_length, :as => :minutes, :input_html => {:class => 'input-small'}
+        =ag_form.simple_fields_for :available_days do |avd_form|
+          %table.table.table-striped.table-bordered.table-condensed
+            %thead
+              %th
+                Dia
+              %th
+                Início expediente
+              %th
+                Fim expediente
+              %th
+                Início intervalo
+              %th
+                Fim intervalo
+              %th
+            %tbody
+              %tr
+                %td
+                  =avd_form.input :day, :collection => AvailableDay.days , :label => false, :default => false, :input_html => {:class => 'input-small'}
+                %td
+                  =avd_form.input :work_start_time, :as => :time, :label => false, :input_html => {:class => 'input-small'}
+                %td
+                  =avd_form.input :work_end_time, :as => :time, :label => false, :input_html => {:class => 'input-small'}
+                %td
+                  =avd_form.input :interval_start_time, :as => :time, :label => false, :input_html => {:class => 'input-small'}
+                %td
+                  =avd_form.input :interval_end_time, :as => :time, :label => false, :input_html => {:class => 'input-small'}
+                %td
+                  =avd_form.link_to_remove "Remover dia"
+        =ag_form.link_to_add "Adicionar dia de trabalho", :available_days
     %div.form-actions
       =f.button :submit, "Cadastrar"
       =link_to "Cancelar", doctors_path, :class => :btn
+

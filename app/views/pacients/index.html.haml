@@ -29,8 +29,9 @@
           =link_to pacient.name, pacient_path(pacient)
         %td
           =pacient.email
-        -if can? :manage, Secretary
+        -if can? :manage, Pacient
           %td
             =link_to 'Editar', edit_pacient_path(pacient)
             |
             =link_to 'Remover', pacient_path(pacient), :method => :delete, :confirm => 'Tem certeza que deseja excluir?'
+

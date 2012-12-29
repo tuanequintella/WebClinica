@@ -43,6 +43,12 @@ class Agenda < ActiveRecord::Base
     end
   end
 
+  def self.some_days
+    date = Date.today
+
+    (date.beginning_of_month...date.end_of_month).to_a
+  end
+
   def to_s
     id
   end

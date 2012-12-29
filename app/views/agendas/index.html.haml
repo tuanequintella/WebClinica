@@ -5,10 +5,12 @@
 
 %div.container-fluid
   %div.row-fluid
-    =text_field_tag 'date', l(Date.today, :format => :long), :class => 'input-medium'
-
     =select_tag "doctor", options_from_collection_for_select(Doctor.all, "agenda", "name"), :prompt => "Selecione o médico"
+
+    =select_tag "date", options_from_collection_for_select(Agenda.some_days, "to_s", "to_s"), :prompt => "Selecionar data"
 
     =link_to "Configurar", "#", :class => 'btn', :disabled => true, :id => "btn-configure"
   %div.row-fluid
-    %div#agenda 
+    %div#agenda
+      %div#editAgenda
+

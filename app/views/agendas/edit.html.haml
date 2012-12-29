@@ -1,0 +1,40 @@
+=simple_nested_form_for(@doctor, :html => { :class => 'form-horizontal' }) do |f|
+  =f.simple_form_for :agenda do |ag_form|
+    %fieldset
+      %legend
+        Editar agenda de
+        =@doctor.name
+      =ag_form.input :default_meeting_length, :as => :minutes, :input_html => {:class => 'input-small'}
+      =ag_form.simple_fields_for :available_days do |avd_form|
+        %table.table.table-striped.table-bordered.table-condensed
+          %thead
+            %th
+              Dia
+            %th
+              Início expediente
+            %th
+              Fim expediente
+            %th
+              Início intervalo
+            %th
+              Fim intervalo
+            %th
+          %tbody
+            %tr
+              %td
+                =avd_form.input :day, :collection => AvailableDay.days , :label => false, :default => false, :input_html => {:class => 'input-small'}
+              %td
+                =avd_form.input :work_start_time, :as => :time, :label => false, :input_html => {:class => 'input-small'}
+              %td
+                =avd_form.input :work_end_time, :as => :time, :label => false, :input_html => {:class => 'input-small'}
+              %td
+                =avd_form.input :interval_start_time, :as => :time, :label => false, :input_html => {:class => 'input-small'}
+              %td
+                =avd_form.input :interval_end_time, :as => :time, :label => false, :input_html => {:class => 'input-small'}
+              %td
+                =avd_form.link_to_remove "Remover dia"
+      =ag_form.link_to_add "Adicionar dia de trabalho", :available_days
+  %div.form-actions
+    =f.button :submit, "Cadastrar"
+    =link_to "Cancelar", agendas_path, :class => :btn
+

@@ -14,6 +14,8 @@ class AgendasController < ApplicationController
 
   def edit
     @agenda = Agenda.find_by_id(params[:id])
+    @doctor = @agenda.doctor
+    render :edit, :layout => !request.xhr?
   end
 
   def update
@@ -21,3 +23,4 @@ class AgendasController < ApplicationController
   end
 
 end
+

@@ -14,7 +14,7 @@ task :create_admin => :environment do
   if(admin.save)
     puts "Usuario \"#{username}\" criado com sucesso."
   else
-    puts "Erro na criacao do usuario. Tente novamente."
+    puts "Erro na criacao do usuario. " + admin.errors.messages
   end
 end
 
@@ -35,7 +35,7 @@ task :create_office => :environment do
   if(office.save)
     puts "Clinica \"#{name}\" criada com sucesso."
   else
-    puts "Erro na criacao da clinica. Tente novamente."
+    puts "Erro na criacao da clinica. " + office.errors.messages
   end
 
 end

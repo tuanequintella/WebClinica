@@ -43,9 +43,7 @@ class SecretariesController < ApplicationController
   def destroy
     @secretary = Secretary.find_by_id(params[:id])
 
-    if @secretary == current_user
-      redirect_to logout_path
-    end
+
 
     if @secretary.destroy
       flash[:success] = 'Excluido com sucesso'

@@ -44,9 +44,7 @@ class DoctorsController < ApplicationController
   def destroy
     @doctor = Doctor.find_by_id(params[:id])
 
-    if @doctor == current_user
-      redirect_to logout_path
-    end
+
 
     if @doctor.destroy
       flash[:success] = 'Excluido com sucesso'

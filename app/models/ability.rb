@@ -16,6 +16,9 @@ class Ability
       can :manage, Secretary
       can :manage, Office
       can :manage, Pacient
+      can :manage, Agenda
+      can :manage, Appointment
+      can :read, Record
     end
 
     if user.is_a? Doctor
@@ -23,6 +26,9 @@ class Ability
       can :read, ContactInfo
       can :read, Secretary
       can :read, Office
+      can :read, Agenda, :doctor_id => user.id
+      can :read, Appointment, :agenda_id => user.agenda.id
+      can :manage, Record
       can :manage, Pacient
       can :update, Doctor, :id => user.id
       can :manage, ContactInfo, :reachable_id => user.id

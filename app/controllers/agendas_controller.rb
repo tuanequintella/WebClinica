@@ -21,6 +21,18 @@ class AgendasController < ApplicationController
   def update
     #bla
   end
+  
+  def destroy
+    @agenda = Agenda.find(params[:id])
+    @agenda.deactivate!
+    
+    if(@agenda.save)
+      flash[:success] = "Agenda desativada com sucesso"
+    else
+      flash[:error] = "Erro ao desativar agenda"
+    end
+    redirect_to edit_doctor_path(@agenda.doctor)
+  end
 
 end
 

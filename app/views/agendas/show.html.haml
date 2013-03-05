@@ -1,29 +1,25 @@
 %div.span12
   %div.agenda
-    %table.table.table-striped.table-bordered.table-condensed
-      %thead
-        %tr
-          %th
-            Horário
-          - @week.each do |day|
-            %th{:class => "#{day.today? ? 'today':''}"}
-              =l day, :format => :agenda_day
-      %tbody
-        -@agenda.time_array(@week).each do |hour|
+    -if @agenda.active?
+      %table.table.table-striped.table-bordered.table-condensed
+        %thead
           %tr
-            %td
-              =l hour, :format => :hourly
-            -
-            %td.agenda
-              %div.clickme
-            %td
-              %div.clickme
-            %td
-              %div.clickme
-            %td
-              %div.clickme
-            %td
-              %div.clickme
-            %td
-              %div.clickme
-
+            %th
+              Horário
+            - @week.each do |day|
+              %th{:class => "#{day.today? ? 'today':''}"}
+                =l day, :format => :agenda_day
+        %tbody
+          -@agenda.time_array(@week).each do |hour|
+            %tr
+              %td
+                =l hour, :format => :hourly
+              - @week.each do |day|
+                -if @agenda.available_days.where(:day => day.wday).empty?
+                  %td{:class => :unavailable}
+                    %div
+                -else
+                  %td
+                    %div.clickme
+    -else
+      Essa não é uma agenda ativa  

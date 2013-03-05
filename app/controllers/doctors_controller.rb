@@ -12,6 +12,7 @@ class DoctorsController < ApplicationController
 
   def create
     @doctor = Doctor.new(params[:doctor])
+    @doctor.agenda.activate!
     if @doctor.save
       @doctor.deliver_reset_password_instructions!
       flash[:success] = 'Cadastrado com sucesso.'

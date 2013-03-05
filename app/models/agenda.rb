@@ -1,6 +1,6 @@
 class Agenda < ActiveRecord::Base
   attr_accessor :available_days_attributes
-  attr_accessible :default_meeting_length, :available_days_attributes
+  attr_accessible :default_meeting_length, :available_days_attributes, :active
 
   I18N_PATH = 'activerecord.attributes.agenda.'
 
@@ -9,6 +9,14 @@ class Agenda < ActiveRecord::Base
   has_many :appointments
 
   accepts_nested_attributes_for :available_days
+
+  def deactivate!
+    self.active = false
+  end
+  
+  def activate!
+    self.active = true
+  end
 
   def week (string_date)
     date_array = string_date.split('-').map(&:to_i)

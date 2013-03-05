@@ -9,15 +9,15 @@ task :populate_with_tests => :environment do
     
     user.agenda = Agenda.new(:default_meeting_length=> 20)
     
-    day = AvailableDay.new(:day=>2, :work_start_time=>Date.today.beginning_of_day + 9.hours, :work_end_time=>Date.today.beginning_of_day + 17.hours, :interval_start_time=>Date.today.beginning_of_day + 12.hours, :interval_end_time=>Date.today.beginning_of_day + 14.hours)
+    day = AvailableDay.new(:day=>1, :work_start_time=>Date.today.beginning_of_day + 9.hours, :work_end_time=>Date.today.beginning_of_day + 17.hours, :interval_start_time=>Date.today.beginning_of_day + 12.hours, :interval_end_time=>Date.today.beginning_of_day + 14.hours)
+    
+    user.agenda.available_days<< day
+    
+    day = AvailableDay.new(:day=>3, :work_start_time=>Date.today.beginning_of_day + 9.hours, :work_end_time=>Date.today.beginning_of_day + 17.hours, :interval_start_time=>Date.today.beginning_of_day + 12.hours, :interval_end_time=>Date.today.beginning_of_day + 14.hours)
     
     user.agenda.available_days<< day
     
     day = AvailableDay.new(:day=>4, :work_start_time=>Date.today.beginning_of_day + 9.hours, :work_end_time=>Date.today.beginning_of_day + 17.hours, :interval_start_time=>Date.today.beginning_of_day + 12.hours, :interval_end_time=>Date.today.beginning_of_day + 14.hours)
-    
-    user.agenda.available_days<< day
-    
-    day = AvailableDay.new(:day=>5, :work_start_time=>Date.today.beginning_of_day + 9.hours, :work_end_time=>Date.today.beginning_of_day + 17.hours, :interval_start_time=>Date.today.beginning_of_day + 12.hours, :interval_end_time=>Date.today.beginning_of_day + 14.hours)
     
     user.agenda.available_days<< day
     user.save
@@ -27,15 +27,15 @@ task :populate_with_tests => :environment do
     
     user.agenda = Agenda.new(:default_meeting_length=> 35)
     
-    day = AvailableDay.new(:day=>3, :work_start_time=>Date.today.beginning_of_day + 8.hours, :work_end_time=>Date.today.beginning_of_day + 15.hours, :interval_start_time=>Date.today.beginning_of_day + 12.hours, :interval_end_time=>Date.today.beginning_of_day + 13.hours)
+    day = AvailableDay.new(:day=>2, :work_start_time=>Date.today.beginning_of_day + 8.hours, :work_end_time=>Date.today.beginning_of_day + 15.hours, :interval_start_time=>Date.today.beginning_of_day + 12.hours, :interval_end_time=>Date.today.beginning_of_day + 13.hours)
     
     user.agenda.available_days<< day
     
-    day = AvailableDay.new(:day=>5, :work_start_time=>Date.today.beginning_of_day + 10.hours, :work_end_time=>Date.today.beginning_of_day + 16.hours, :interval_start_time=>Date.today.beginning_of_day + 12.hours, :interval_end_time=>Date.today.beginning_of_day + 13.hours)
+    day = AvailableDay.new(:day=>4, :work_start_time=>Date.today.beginning_of_day + 10.hours, :work_end_time=>Date.today.beginning_of_day + 16.hours, :interval_start_time=>Date.today.beginning_of_day + 12.hours, :interval_end_time=>Date.today.beginning_of_day + 13.hours)
     
     user.agenda.available_days<< day
     
-    day = AvailableDay.new(:day=>6, :work_start_time=>Date.today.beginning_of_day + 9.hours, :work_end_time=>Date.today.beginning_of_day + 16.hours, :interval_start_time=>Date.today.beginning_of_day + 12.hours, :interval_end_time=>Date.today.beginning_of_day + 13.hours)
+    day = AvailableDay.new(:day=>5, :work_start_time=>Date.today.beginning_of_day + 9.hours, :work_end_time=>Date.today.beginning_of_day + 16.hours, :interval_start_time=>Date.today.beginning_of_day + 12.hours, :interval_end_time=>Date.today.beginning_of_day + 13.hours)
     
     user.agenda.available_days<< day
     user.save

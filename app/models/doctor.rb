@@ -18,5 +18,15 @@ class Doctor < User
     I18n.t(I18N_PATH + "doctor")
   end
 
+  def deactivate!
+    self.agenda.deactivate!
+    self.active = false
+  end
+  
+  def activate!
+    self.agenda.activate!
+    self.active = true
+  end
+
 end
 

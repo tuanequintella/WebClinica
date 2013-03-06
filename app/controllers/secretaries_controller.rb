@@ -1,3 +1,4 @@
+#encoding: utf-8
 class SecretariesController < ApplicationController
   load_and_authorize_resource
 
@@ -11,6 +12,8 @@ class SecretariesController < ApplicationController
 
   def create
     @secretary = Secretary.new(params[:secretary])
+    @secretary.activate!
+    
     if @secretary.save
       @secretary.deliver_reset_password_instructions!
       flash[:success] = 'Cadastrado com sucesso.'
@@ -42,13 +45,12 @@ class SecretariesController < ApplicationController
 
   def destroy
     @secretary = Secretary.find_by_id(params[:id])
+    @secretary.deactivate!
 
-
-
-    if @secretary.destroy
-      flash[:success] = 'Excluido com sucesso'
+    if @secretary.save
+      flash[:success] = 'Desativado com sucesso'
     else
-      flash[:error] = 'Erro ao tentar excluir'
+      flash[:error] = 'Erro ao tentar desativar'
     end
     redirect_to secretaries_path
   end

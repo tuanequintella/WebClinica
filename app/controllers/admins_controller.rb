@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AdminsController < ApplicationController
   load_and_authorize_resource
 
@@ -11,6 +12,8 @@ class AdminsController < ApplicationController
 
   def create
     @admin = Admin.new(params[:admin])
+    @admin.activate!
+    
     if @admin.save
       @admin.deliver_reset_password_instructions!
       flash[:success] = 'Cadastrado com sucesso.'
@@ -37,14 +40,20 @@ class AdminsController < ApplicationController
   end
 
   def destroy
-    @admin = Admin.find_by_id(params[:id])
-
-    if @admin.destroy
-      flash[:success] = 'Excluido com sucesso'
+    if Admin.all.count == 1
+      flash[:error] = 'Não é possível desativar todos os administradores.'
+      redirect_to admins_path
     else
-      flash[:error] = 'Erro ao tentar excluir'
+      @admin = Admin.find_by_id(params[:id])
+      @admin.deactivate!
+      
+      if @admin.save
+        flash[:success] = 'Desativado com sucesso'
+      else
+        flash[:error] = 'Erro ao tentar desativar'
+      end
+      
+      redirect_to admins_path
     end
-    
-    redirect_to admins_path
   end
 end

@@ -1,3 +1,4 @@
+#encoding: utf-8
 class DoctorsController < ApplicationController
   load_and_authorize_resource
 
@@ -12,6 +13,7 @@ class DoctorsController < ApplicationController
 
   def create
     @doctor = Doctor.new(params[:doctor])
+    @doctor.activate!
     @doctor.agenda.activate!
     if @doctor.save
       @doctor.deliver_reset_password_instructions!
@@ -44,13 +46,13 @@ class DoctorsController < ApplicationController
 
   def destroy
     @doctor = Doctor.find_by_id(params[:id])
-
-
-
-    if @doctor.destroy
-      flash[:success] = 'Excluido com sucesso'
+    @doctor.deactivate!
+    @doctor.agenda.deactivate!
+    
+    if @doctor.save
+      flash[:success] = 'Desativado com sucesso'
     else
-      flash[:error] = 'Erro ao tentar excluir'
+      flash[:error] = 'Erro ao tentar desativar'
     end
     redirect_to doctors_path
   end

@@ -1,3 +1,4 @@
+#encoding: utf-8
 class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation
 
@@ -38,6 +39,14 @@ class User < ActiveRecord::Base
       record.errors.add attribute, (options[:message] || I18n.t("errors.messages.cpf"))
 
     end
+  end
+  
+  def deactivate!
+    self.active = false
+  end
+  
+  def activate!
+    self.active = true
   end
 
 end

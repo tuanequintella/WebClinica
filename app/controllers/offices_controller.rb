@@ -1,3 +1,4 @@
+#encoding: utf-8
 class OfficesController < ApplicationController
   load_and_authorize_resource
 
@@ -23,7 +24,7 @@ class OfficesController < ApplicationController
   def notify_patients
     @office = Office.first
     #manda informações da clinica no email dos pacientes
-    flash[:success] = 'Atualizacoes da clinica foram enviadas aos pacientes.'
+    flash[:success] = 'Atualizações da clínica foram enviadas aos pacientes.'
     redirect_to office_path(@office)
   end
 

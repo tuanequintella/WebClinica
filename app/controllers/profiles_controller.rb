@@ -1,3 +1,4 @@
+#encoding: utf-8
 class ProfilesController < ApplicationController
 
   def show
@@ -23,7 +24,7 @@ class ProfilesController < ApplicationController
   def reset_password
     @user = current_user
     @user.deliver_reset_password_instructions! if @user
-    redirect_to(profile_path, :notice => "Instrucoes foram mandadas no seu e-mail.")
+    redirect_to(profile_path, :notice => "Instruções foram mandadas no seu e-mail.")
   end
 
 end

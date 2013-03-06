@@ -1,3 +1,4 @@
+#encoding: utf-8
 class PasswordResetsController < ApplicationController
   layout 'outside'
   skip_before_filter :require_login
@@ -7,7 +8,7 @@ class PasswordResetsController < ApplicationController
   def create
     @user = User.find_by_email(params[:email])
     @user.deliver_reset_password_instructions! if @user
-    redirect_to(new_session_path, :notice => "Instrucoes foram mandadas no seu e-mail.")
+    redirect_to(new_session_path, :notice => "Instruções foram mandadas no seu e-mail.")
   end
 
 

@@ -21,4 +21,4 @@
     %div.form-actions
       =f.button :submit, "Salvar"
       =link_to "Cancelar", doctors_path, :class => :btn
-      =link_to "Desativar agenda", agenda_path(@doctor.agenda), :method => :delete, :confirm => 'Tem certeza que deseja desativar?'
+      =link_to "Desativar agenda", agenda_path(@doctor.agenda), :method => :delete, :class=> :btn, :confirm => 'Tem certeza que deseja desativar?'

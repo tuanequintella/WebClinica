@@ -39,7 +39,7 @@ class Agenda
 class AgendaApp
   constructor: (@today)->
     @btnConfigure = $("a#btn-configure")
-    @selectDate = $("select#date")
+    @selectDate = $("input#date")
     @selectDate.hide()
     $("select#doctor").change (event) =>
       if $("select#doctor option:selected").val() != ""
@@ -52,7 +52,7 @@ class AgendaApp
         @btnConfigure.attr("disabled",false)
         @selectDate.show()
         @selectDate.change (event) =>
-          @currentAgenda.getHtml($("select#date option:selected").val())
+          @currentAgenda.getHtml($("input#date option:selected").val())
       else
         @btnConfigure.attr("disabled", true)
         @selectDate.hide()
@@ -70,3 +70,5 @@ $ ->
     ).done (data) ->
       $("table tbody").html data
 
+$ ->
+  $(".datepicker").datepicker()

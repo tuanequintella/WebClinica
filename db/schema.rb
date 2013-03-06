@@ -11,19 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130305213517) do
+ActiveRecord::Schema.define(:version => 20120902160844) do
 
   create_table "agendas", :force => true do |t|
     t.integer  "doctor_id"
     t.integer  "default_meeting_length"
+    t.boolean  "active"
     t.datetime "created_at",             :null => false
     t.datetime "updated_at",             :null => false
-    t.boolean  "active"
   end
 
   create_table "appointments", :force => true do |t|
     t.integer  "agenda_id"
-    t.datetime "date_time"
+    t.datetime "scheduled_at"
     t.integer  "record_id"
   end
 
@@ -73,12 +73,12 @@ ActiveRecord::Schema.define(:version => 20130305213517) do
   end
 
   create_table "records", :force => true do |t|
-    t.string   "record_id"
-    t.string   "record_status"
+    t.string   "code"
+    t.string   "status"
     t.string   "description"
     t.integer  "pacient_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "users", :force => true do |t|
@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(:version => 20130305213517) do
     t.datetime "reset_password_token_expires_at"
     t.datetime "reset_password_email_sent_at"
     t.string   "name"
+    t.boolean  "active"
     t.string   "cpf"
     t.string   "rg"
     t.date     "birthdate"
@@ -101,7 +102,7 @@ ActiveRecord::Schema.define(:version => 20130305213517) do
     t.string   "crm"
     t.date     "gradyear"
     t.string   "occupation"
-    t.decimal  "appointmentprice"
+    t.float    "appointmentprice"
     t.string   "accepted_health_insurances"
   end
 

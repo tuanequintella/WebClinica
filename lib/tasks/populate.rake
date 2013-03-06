@@ -45,6 +45,11 @@ task :populate_with_tests => :environment do
     user.save
     puts user.errors.full_messages
     
+    User.all.each do |u|
+      u.activate!
+      u.save
+    end
+    
     office = Office.new(:name => "Clinica Crescere", :email => "clinica@email.com", :address => "R. das Margaridas, 356 - Campinas, SP", :phone => "19 3255-4456")
     office.save
     puts office.errors.full_messages

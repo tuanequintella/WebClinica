@@ -10,7 +10,8 @@ task :create_admin => :environment do
   password = STDIN.gets.strip
 
   admin = Admin.new(:name => name, :username=>username, :email=>email, :password => password, :password_confirmation => password)
-
+  admin.activate!
+  
   if(admin.save)
     puts "Usuario \"#{username}\" criado com sucesso."
   else

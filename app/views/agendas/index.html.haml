@@ -2,15 +2,12 @@
   $(function (){
     window.agendaApp = new AgendaApp("#{Date.today.to_s}");
   });
-  $(function() {
-    $('.datepicker').datepicker();
-  });
 
 %div.container-fluid
   %div.row-fluid
-    =select_tag "doctor", options_from_collection_for_select(Doctor.all, "agenda", "name"), :prompt => "Selecione o médico"
+    =select_tag :doctor, options_from_collection_for_select(Doctor.all, "agenda", "name"), :prompt => "Selecione o médico"
 
-    =text_field "date", :date, :type=>:datetime, :class=>"datepicker"
+    =text_field_tag :date, "", :placeholder => "Selecione a data", :class=>"datepicker"
 
     =link_to "Configurar", "#", :class => 'btn', :disabled => true, :id => "btn-configure"
   %div.row-fluid

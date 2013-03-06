@@ -12,6 +12,7 @@
 #
 #= require jquery
 #= require jquery_ujs
+#= require jquery.ui.all
 #= require twitter/bootstrap
 #= require jquery_nested_form
 #= require_tree .
@@ -52,7 +53,7 @@ class AgendaApp
         @btnConfigure.attr("disabled",false)
         @selectDate.show()
         @selectDate.change (event) =>
-          @currentAgenda.getHtml($("input#date option:selected").val())
+          @currentAgenda.getHtml($("input#date").val())
       else
         @btnConfigure.attr("disabled", true)
         @selectDate.hide()
@@ -69,6 +70,8 @@ $ ->
       data: form.serialize()
     ).done (data) ->
       $("table tbody").html data
-
 $ ->
-  $(".datepicker").datepicker()
+  #$(".datepicker").setDefaults( $.datepicker.regional[ "pt" ] )
+  $(".datepicker").datepicker() #{showOn: "button", buttonImage: "assets/images/calendar.png", buttonImageOnly: true }
+  $(".datepicker").datepicker("option", "dateFormat", "dd/mm/yy")
+

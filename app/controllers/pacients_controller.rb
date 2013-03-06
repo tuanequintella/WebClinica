@@ -1,3 +1,4 @@
+#encoding: utf-8
 class PacientsController < ApplicationController
   load_and_authorize_resource
 
@@ -47,11 +48,12 @@ class PacientsController < ApplicationController
 
   def destroy
     @pacient = Pacient.find_by_id(params[:id])
-
-    if @pacient.destroy
-      flash[:success] = 'Excluido com sucesso'
+    @pacient.record.status = :inactive
+    
+    if @pacient.record.save
+      flash[:success] = 'Desativado com sucesso'
     else
-      flash[:error] = 'Erro ao tentar excluir'
+      flash[:error] = 'Erro ao tentar desativar'
     end
     redirect_to pacients_path
   end

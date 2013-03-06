@@ -24,6 +24,10 @@ class Pacient < ActiveRecord::Base
     end
   end
 
+  def active?
+    self.record.status == Record.INACTIVE
+  end
+
   def age
     years = Date.today.year - birthdate.year
     months = Date.today.month - birthdate.month

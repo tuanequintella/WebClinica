@@ -1,3 +1,4 @@
+#encoding: utf-8
 class RecordsController < ApplicationController
   load_and_authorize_resource
 
@@ -41,11 +42,12 @@ class RecordsController < ApplicationController
 
   def destroy
     @record = Record.find_by_id(params[:id])
-
-    if @record.destroy
-      flash[:success] = 'Excluido com sucesso'
+    @record.status = Record.INACTIVE
+    
+    if @record.save
+      flash[:success] = 'Desativado com sucesso'
     else
-      flash[:error] = 'Erro ao tentar excluir'
+      flash[:error] = 'Erro ao tentar desativar'
     end
     redirect_to records_path
   end

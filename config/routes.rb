@@ -10,7 +10,13 @@ WebClinica::Application.routes.draw do
       get 'search'
     end
   end
-  resources :records, :agendas, :appointments
+
+  resources :agendas do
+    get 'recreate' => 'agendas#recreate'
+  end
+
+
+  resources :records, :appointments
   resource :profile, only: [:edit, :update, :show] do
     member do
       get 'reset_password'
@@ -74,3 +80,4 @@ WebClinica::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
 end
+

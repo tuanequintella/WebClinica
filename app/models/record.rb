@@ -1,6 +1,6 @@
 class Record < ActiveRecord::Base
 
-  attr_accessible :id, :record_status
+  attr_accessible :id, :record_status, :description, :pacient
   belongs_to :pacient
   has_many :appointments
 
@@ -11,3 +11,4 @@ class Record < ActiveRecord::Base
   end
 
 end
+

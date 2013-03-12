@@ -48,12 +48,24 @@ class PacientsController < ApplicationController
 
   def destroy
     @pacient = Pacient.find_by_id(params[:id])
-    @pacient.record.status = :inactive
+    @pacient.record.deactivate!
     
     if @pacient.record.save
       flash[:success] = 'Desativado com sucesso'
     else
       flash[:error] = 'Erro ao tentar desativar'
+    end
+    redirect_to pacients_path
+  end
+  
+  def recreate
+    @pacient = Pacient.find(params[:pacient_id])
+    @pacient.record.activate!
+
+    if(@pacient.record.save)
+      flash[:success] = "Paciente reativado com sucesso"
+    else
+      flash[:error] = "Erro ao reativar paciente"
     end
     redirect_to pacients_path
   end

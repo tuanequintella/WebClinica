@@ -260,8 +260,9 @@ pt-BR:
         new: Nova ficha
         regular: Regular
         beginner: Primeiras vezes
+        inactive: Inativo
         id: Número da ficha
-        record_status: Status da ficha
+        status: Status da ficha
         warning:  Paciente cadastrado! Nº da ficha %{id}. ALTERE A NUMERAÇÃO NA FICHA EM PAPEL!
       available_day:
         sunday: Domingo

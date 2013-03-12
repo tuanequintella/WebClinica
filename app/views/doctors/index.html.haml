@@ -32,4 +32,7 @@
           %td
             =link_to 'Editar', edit_doctor_path(doctor)
             |
-            =link_to 'Desativar', doctor_path(doctor), :method => :delete, :confirm => 'Ao desativar um médico, ele não poderá acessar mais o sistema com seu usuário e sua agenda também será desativada. Tem certeza que deseja desativar?'
+            -if doctor.active?
+              =link_to 'Desativar', doctor_path(doctor), :method => :delete, :confirm => 'Ao desativar um médico, ele não poderá acessar mais o sistema com seu usuário e sua agenda também será desativada. Tem certeza que deseja desativar?'
+            -else
+              =link_to 'Reativar', doctor_recreate_path(:doctor_id=>doctor), :confirm => 'Tem certeza que deseja reativar esse médico?'

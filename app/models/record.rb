@@ -15,6 +15,22 @@ class Record < ActiveRecord::Base
   def self.status
     [[I18n.t(I18N_PATH + NEW), NEW], [I18n.t(I18N_PATH + REGULAR), REGULAR], [I18n.t(I18N_PATH + BEGINNER), BEGINNER], [I18n.t(I18N_PATH + INACTIVE), INACTIVE]]
   end
+  
+  def deactivate!
+    self.status = INACTIVE
+  end
+  
+  def activate!
+    self.status = REGULAR
+  end
+  
+  def active?
+    unless self.status == INACTIVE
+      true
+    else
+      false
+    end
+  end
 
 end
 

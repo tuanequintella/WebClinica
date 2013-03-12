@@ -30,4 +30,7 @@
         %td
           =link_to 'Editar', edit_admin_path(admin)
           |
-          =link_to 'Desativar', admin_path(admin), :method => :delete, :confirm => 'Tem certeza que deseja desativar um administrador do sistema?'
+          -if admin.active?
+            =link_to 'Desativar', admin_path(admin), :method => :delete, :confirm => 'Tem certeza que deseja desativar um administrador do sistema?'
+          -else
+            =link_to 'Reativar', admin_recreate_path(:admin_id=>admin), :confirm => 'Tem certeza que deseja reativar esse administrador do sistema?'

@@ -54,4 +54,16 @@ class SecretariesController < ApplicationController
     end
     redirect_to secretaries_path
   end
+  
+  def recreate
+    @secretary = Secretary.find(params[:secretary_id])
+    @secretary.activate!
+
+    if(@secretary.save)
+      flash[:success] = "Usuário reativado com sucesso"
+    else
+      flash[:error] = "Erro ao reativar usuário"
+    end
+    redirect_to secretaries_path
+  end
 end

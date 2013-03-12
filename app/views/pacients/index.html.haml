@@ -33,5 +33,8 @@
           %td
             =link_to 'Editar', edit_pacient_path(pacient)
             |
-            =link_to 'Remover', pacient_path(pacient), :method => :delete, :confirm => 'Tem certeza que deseja excluir?'
+            -if pacient.record.active?
+              =link_to 'Desativar', pacient_path(pacient), :method => :delete, :confirm => 'Tem certeza que deseja desativar esse paciente?'
+            -else
+              =link_to 'Reativar', pacient_recreate_path(:pacient_id=>pacient), :confirm => 'Tem certeza que deseja reativar esse paciente no sistema?'
 

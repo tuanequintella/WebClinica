@@ -4,7 +4,7 @@
       Adicionar novo paciente
 
     =f.simple_fields_for :record do |rec_form|
-      =rec_form.input :record_status, :collection => Record.statuses
+      =rec_form.input :status, :collection => Record.status
 
     %br
     =f.input :name, :input_html => {:class => 'input-large'}

@@ -40,7 +40,7 @@ class AdminsController < ApplicationController
   end
 
   def destroy
-    if Admin.all.count == 1
+    if Admin.where(:active=>true).count == 1
       flash[:error] = 'Não é possível desativar todos os administradores.'
       redirect_to admins_path
     else
@@ -55,5 +55,17 @@ class AdminsController < ApplicationController
       
       redirect_to admins_path
     end
+  end
+  
+  def recreate
+    @admin = Admin.find(params[:admin_id])
+    @admin.activate!
+
+    if(@admin.save)
+      flash[:success] = "Usuário reativado com sucesso"
+    else
+      flash[:error] = "Erro ao reativar usuário"
+    end
+    redirect_to admins_path
   end
 end

@@ -2,10 +2,21 @@ WebClinica::Application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
   get '/logout' => 'sessions#destroy', :as => :logout
 
-  resources :admins, :secretaries, :doctors
+  
+  
+  resources :admins do
+    get 'recreate' => 'admins#recreate'
+  end
+  resources :secretaries do
+    get 'recreate' => 'secretaries#recreate'
+  end
+  resources :doctors do
+    get 'recreate' => 'doctors#recreate'
+  end
   resources :password_resets
   resources :offices#, only: [:edit, :update, :show]
   resources :pacients do
+    get 'recreate' => 'pacients#recreate'
     collection do
       get 'search'
     end

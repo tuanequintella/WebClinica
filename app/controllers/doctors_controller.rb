@@ -56,5 +56,18 @@ class DoctorsController < ApplicationController
     end
     redirect_to doctors_path
   end
+  
+  def recreate
+    @doctor = Doctor.find(params[:doctor_id])
+    @doctor.activate!
+    @doctor.agenda.activate!
+
+    if(@doctor.save)
+      flash[:success] = "Usuário reativado com sucesso"
+    else
+      flash[:error] = "Erro ao reativar usuário"
+    end
+    redirect_to doctors_path
+  end
 end
 

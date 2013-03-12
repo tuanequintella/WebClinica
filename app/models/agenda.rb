@@ -13,21 +13,20 @@ class Agenda < ActiveRecord::Base
   def deactivate!
     self.active = false
   end
-  
+
   def activate!
     self.active = true
   end
 
   def week (string_date)
-    date_array = string_date.split('-').map(&:to_i)
-    date = Date.new(date_array[0],date_array[1],date_array[2])
+    date = string_date.to_date
 
     (date.beginning_of_week...date.end_of_week).to_a
   end
 
   def time_array(week)
-    d = [available_days.all.map(&:work_start_time).map(&:hour).min]
-    d << available_days.all.map(&:work_end_time).map(&:hour).max
+    d = [available_days.pluck(:work_start_time).map(&:hour).min]
+    d << available_days.pluck(:work_end_time).map(&:hour).max
     week.each do |day|
       d += appointments_for_day(day).map(&:date_time).map(&:hour)
     end
@@ -45,6 +44,22 @@ class Agenda < ActiveRecord::Base
     time_array
   end
 
+  def available_datetime? (day, hour)
+    week_day = available_days.where(:day => day.wday).first
+
+    if not(week_day.nil?)
+      start_time = time_in_milis(week_day.work_start_time)
+      end_time = time_in_milis(week_day.work_end_time)
+      interval_start = time_in_milis(week_day.interval_start_time)
+      interval_end = time_in_milis(week_day.interval_end_time)
+      time = time_in_milis(hour)
+
+      return ( time.between?(start_time, end_time) && not(time.between?(interval_start, interval_end)) )
+    else
+      return false
+    end
+  end
+
   def appointments_for_day(day)
     self.appointments.all.select do |a|
       a.date_time.to_date == day
@@ -59,6 +74,10 @@ class Agenda < ActiveRecord::Base
 
   def to_s
     id
+  end
+
+  def time_in_milis(time)
+    return Time.at(time.hour * 60 * 60 + time.min * 60 + time.sec)
   end
 
 end

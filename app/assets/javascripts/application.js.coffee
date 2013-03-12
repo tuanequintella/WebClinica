@@ -13,6 +13,7 @@
 #= require jquery
 #= require jquery_ujs
 #= require jquery.ui.all
+#= require jquery-fallr
 #= require twitter/bootstrap
 #= require jquery_nested_form
 #= require_tree .
@@ -27,8 +28,8 @@ class Agenda
         date: date
     ).done (data) ->
       $("div#agenda").html data
-      $("div.clickme").dblclick ->
-        alert("oi")
+      #$("div.clickme").dblclick ->
+       # alert("oi")
 
   enableConfigure: ->
     $.ajax(
@@ -71,7 +72,6 @@ $ ->
     ).done (data) ->
       $("table tbody").html data
 $ ->
-  #$(".datepicker").setDefaults( $.datepicker.regional[ "pt" ] )
-  $(".datepicker").datepicker() #{showOn: "button", buttonImage: "assets/images/calendar.png", buttonImageOnly: true }
+  $(".datepicker").datepicker()
   $(".datepicker").datepicker("option", "dateFormat", "dd/mm/yy")
 

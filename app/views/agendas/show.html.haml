@@ -12,7 +12,7 @@
     buttons: {
       "Criar consulta": function() {
         
-        alert('criou!');
+        alert('bater na url de create aqui!');
         $( this ).dialog( "close" );
       },
       "Cancelar": function() {
@@ -22,7 +22,7 @@
   });
 
 %div#dialog-form{:title=>'Nova consulta'}
-  =render :partial => 'appointments/new'
+  =render :partial => 'appointments/new', :locals=> {:agenda => @agenda}
 
 %div.span12
   %div.agenda

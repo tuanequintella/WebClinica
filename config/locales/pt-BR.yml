@@ -279,4 +279,8 @@ pt-BR:
         interval_end_time: Término do intervalo
       agenda:
         default_meeting_length: Duração da consulta
+      appointment:
+        agenda: Agenda
+        record: Paciente
+        scheduled_at: Data e hora
 

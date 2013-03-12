@@ -28,6 +28,14 @@ class Pacient < ActiveRecord::Base
     self.record.status == Record.INACTIVE
   end
 
+  def self.records_list
+    list = []
+    Pacient.all.each do |p|
+      list << [p.name, p.record.id]
+    end
+    list
+  end
+
   def age
     years = Date.today.year - birthdate.year
     months = Date.today.month - birthdate.month

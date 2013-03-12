@@ -13,7 +13,6 @@
 #= require jquery
 #= require jquery_ujs
 #= require jquery.ui.all
-#= require jquery-fallr
 #= require twitter/bootstrap
 #= require jquery_nested_form
 #= require_tree .
@@ -28,8 +27,7 @@ class Agenda
         date: date
     ).done (data) ->
       $("div#agenda").html data
-      #$("div.clickme").dblclick ->
-       # alert("oi")
+      #colocar a ação da div clickme aqui!
 
   enableConfigure: ->
     $.ajax(

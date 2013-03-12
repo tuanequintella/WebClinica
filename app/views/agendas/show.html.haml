@@ -1,3 +1,20 @@
+:javascript
+  $("div.clickme").dblclick(function() {
+    var gap = 30;
+    var boxH = $(window).height() - gap;
+    var boxW = $(window).width() - (2 * gap);
+
+    $.fallr('show', {
+        content:'= render :partial => \'appointment/new\'',
+        width:boxW,
+        height:boxH,
+        position:'center',
+        icon:'left',
+        closeKey:true,
+        closeOverlay:true
+    });
+  });
+
 %div.span12
   %div.agenda
     -if @agenda.active?
@@ -15,11 +32,12 @@
               %td
                 =l hour, :format => :hourly
               - @week.each do |day|
-                -if @agenda.available_days.where(:day => day.wday).empty?
-                  %td{:class => :unavailable}
-                    %div
-                -else
+                -if @agenda.available_datetime?(day, hour)
                   %td
                     %div.clickme
+                -else
+                  %td{:class => :unavailable}
+                    %div
     -else
-      Essa não é uma agenda ativa  
+      Essa não é uma agenda ativa
+

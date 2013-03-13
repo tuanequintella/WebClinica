@@ -17,6 +17,18 @@
 #= require jquery_nested_form
 #= require_tree .
 
+class NewAppointment
+  constructor: (agenda_id, date)->
+
+  getHtml: ->
+    $.ajax(
+      url: "/appointments/new"
+      data:
+        date: date
+        agenda_id: agenda_id
+    ).done (data) ->
+      $("div#dialog-form").html data
+
 class Agenda
   constructor: (@id)->
 

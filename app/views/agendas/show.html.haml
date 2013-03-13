@@ -1,9 +1,10 @@
 :javascript
   //traduzir isso pra coffeescript e colocar no application.js
   $( "div#clickme" ).dblclick(function() {
+      new NewAppointment(@agenda.id, "#{Date.today.to_s}");
       $( "#dialog-form" ).dialog( "open" );
     });
-  
+
   $("#dialog-form" ).dialog({
     autoOpen: false,
     height: 500,
@@ -11,7 +12,7 @@
     modal: true,
     buttons: {
       "Criar consulta": function() {
-        
+
         alert('bater na url de create aqui!');
         $( this ).dialog( "close" );
       },
@@ -22,7 +23,6 @@
   });
 
 %div#dialog-form{:title=>'Nova consulta'}
-  =render :partial => 'appointments/new', :locals=> {:agenda => @agenda}
 
 %div.span12
   %div.agenda
@@ -49,5 +49,4 @@
                     %div
     -else
       Essa não é uma agenda ativa
-
 

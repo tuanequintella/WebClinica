@@ -1,27 +1,29 @@
 :javascript
-  //traduzir isso pra coffeescript e colocar no application.js
-  $( "div#clickme" ).dblclick(function() {
-      new NewAppointment(@agenda.id, "#{Date.today.to_s}");
-      $( "#dialog-form" ).dialog( "open" );
-    });
+  $(function () {
+  
+    //traduzir isso pra coffeescript e colocar no application.js
+    $( "div#clickme" ).dblclick(function() {
+        new NewAppointment("#{@agenda.id}", $(this).data("date"));
+        $( "#dialog-form" ).dialog( "open" );
+      });
 
-  $("#dialog-form" ).dialog({
-    autoOpen: false,
-    height: 500,
-    width: 550,
-    modal: true,
-    buttons: {
-      "Criar consulta": function() {
+    $("#dialog-form" ).dialog({
+      autoOpen: false,
+      height: 500,
+      width: 550,
+      modal: true,
+      buttons: {
+        "Criar consulta": function() {
 
-        alert('bater na url de create aqui!');
-        $( this ).dialog( "close" );
-      },
-      "Cancelar": function() {
-        $( this ).dialog( "close" );
+          alert('bater na url de create aqui!');
+          $( this ).dialog( "close" );
+        },
+        "Cancelar": function() {
+          $( this ).dialog( "close" );
+        }
       }
-    }
+    });
   });
-
 %div#dialog-form{:title=>'Nova consulta'}
 
 %div.span12
@@ -41,9 +43,10 @@
               %td
                 =l hour, :format => :hourly
               - @week.each do |day|
+                -binding.pry
                 -if @agenda.available_datetime?(day, hour)
                   %td
-                    %div#clickme
+                    %div#clickme{'data-date' => "#{Date.today}"}
                 -else
                   %td{:class => :unavailable}
                     %div

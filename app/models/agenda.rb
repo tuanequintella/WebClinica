@@ -44,20 +44,24 @@ class Agenda < ActiveRecord::Base
     time_array
   end
 
-  def available_datetime? (day, hour)
-    week_day = available_days.where(:day => day.wday).first
+  def available_datetime? (datetime)
+    week_day = available_days.where(:day => datetime.wday).first
 
     if not(week_day.nil?)
       start_time = time_in_milis(week_day.work_start_time)
       end_time = time_in_milis(week_day.work_end_time)
       interval_start = time_in_milis(week_day.interval_start_time)
       interval_end = time_in_milis(week_day.interval_end_time)
-      time = time_in_milis(hour)
+      time = time_in_milis(datetime)
 
       return ( time.between?(start_time, end_time) && not(time.between?(interval_start, interval_end)) )
     else
       return false
     end
+  end
+
+  def appointment_at(datetime)
+    nil
   end
 
   def appointments_for_day(day)

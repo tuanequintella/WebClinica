@@ -1,27 +1,28 @@
 :javascript
-  //traduzir isso pra coffeescript e colocar no application.js
-  $( "div#clickme" ).dblclick(function() {
-      new NewAppointment(@agenda.id, "#{Date.today.to_s}");
-      $( "#dialog-form" ).dialog( "open" );
-    });
+  $(function() {
+    //traduzir isso pra coffeescript e colocar no application.js
+    $( "div#clickme" ).dblclick(function() {
+        new NewAppointment(@agenda.id, $(this).data('date');
+        $( "#dialog-form" ).dialog( "open" );
+      });
 
-  $("#dialog-form" ).dialog({
-    autoOpen: false,
-    height: 500,
-    width: 550,
-    modal: true,
-    buttons: {
-      "Criar consulta": function() {
+    $("#dialog-form" ).dialog({
+      autoOpen: false,
+      height: 500,
+      width: 550,
+      modal: true,
+      buttons: {
+        "Criar consulta": function() {
 
-        alert('bater na url de create aqui!');
-        $( this ).dialog( "close" );
-      },
-      "Cancelar": function() {
-        $( this ).dialog( "close" );
+          alert('bater na url de create aqui!');
+          $( this ).dialog( "close" );
+        },
+        "Cancelar": function() {
+          $( this ).dialog( "close" );
+        }
       }
-    }
+    });
   });
-
 %div#dialog-form{:title=>'Nova consulta'}
 
 %div.span12
@@ -36,17 +37,21 @@
               %th{:class => "#{day.today? ? 'today':''}"}
                 =l day, :format => :agenda_day
         %tbody
-          -@agenda.time_array(@week).each do |hour|
+          -@agenda.time_array(@week).each do |time|
             %tr
               %td
-                =l hour, :format => :hourly
+                =l time, :format => :hourly
               - @week.each do |day|
-                -if @agenda.available_datetime?(day, hour)
-                  %td
-                    %div#clickme
-                -else
+                datetime = day.to_date + time.hour.hours + time.min.minutes
+                -if not @agenda.available_datetime?(datetime)
                   %td{:class => :unavailable}
                     %div
+                -elsif @agenda.appointment_at(datetime).nil?
+                  %td
+                    %div#free-spot{'data-date' => datetime.to_s}
+                -else
+                  %td
+                    %div#busy-spot
     -else
       Essa não é uma agenda ativa
 

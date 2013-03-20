@@ -19,8 +19,6 @@
 
 class NewAppointment
   constructor: (agenda_id, date)->
-
-  getHtml: ->
     $.ajax(
       url: "/appointments/new"
       data:
@@ -72,6 +70,7 @@ class AgendaApp
         $("div#agenda").html ""
 
 window.AgendaApp = AgendaApp
+window.NewAppointment = NewAppointment
 
 $ ->
   $("form.search input").keyup ->

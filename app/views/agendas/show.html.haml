@@ -1,8 +1,16 @@
 :javascript
+<<<<<<< HEAD
   $(function() {
     //traduzir isso pra coffeescript e colocar no application.js
     $( "div#clickme" ).dblclick(function() {
         new NewAppointment(@agenda.id, $(this).data('date');
+=======
+  $(function () {
+
+    //traduzir isso pra coffeescript e colocar no application.js
+    $( "div#clickme" ).dblclick(function() {
+        new NewAppointment("#{@agenda.id}", $(this).data("date"));
+>>>>>>> 52e4a7767e48acf0af0a0df0cbce515d7a36b8b9
         $( "#dialog-form" ).dialog( "open" );
       });
 
@@ -42,7 +50,7 @@
               %td
                 =l time, :format => :hourly
               - @week.each do |day|
-                datetime = day.to_date + time.hour.hours + time.min.minutes
+                -datetime = day.to_date + time.hour.hours + time.min.minutes
                 -if not @agenda.available_datetime?(datetime)
                   %td{:class => :unavailable}
                     %div

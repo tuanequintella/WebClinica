@@ -19,6 +19,7 @@
 
 class NewAppointment
   constructor: (agenda_id, date)->
+    @date = date
     $.ajax(
       url: "/appointments/new"
       data:
@@ -37,7 +38,8 @@ class Agenda
         date: date
     ).done (data) ->
       $("div#agenda").html data
-      #colocar a ação da div clickme aqui!
+      bindLinks()
+      setupDialog()
 
   enableConfigure: ->
     $.ajax(
@@ -72,6 +74,14 @@ class AgendaApp
 window.AgendaApp = AgendaApp
 window.NewAppointment = NewAppointment
 
+window.setupDialog = () ->
+  $("#dialog-form" ).dialog
+    autoOpen: false,
+    height: 'auto',
+    width: 'auto',
+    modal: true,
+    
+        
 $ ->
   $("form.search input").keyup ->
     form = $("form.search")
@@ -83,4 +93,6 @@ $ ->
 $ ->
   $(".datepicker").datepicker()
   $(".datepicker").datepicker("option", "dateFormat", "dd/mm/yy")
+
+
 

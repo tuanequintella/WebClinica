@@ -32,5 +32,9 @@ class Record < ActiveRecord::Base
     end
   end
 
+  def to_s
+    "%04d" % self.id
+  end
+
 end
 

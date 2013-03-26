@@ -1,9 +1,25 @@
+:javascript
+  $("#appointment_record").on('change', function() {
+    
+  });
+
 =simple_nested_form_for(@appointment, :html => { :class => 'form-horizontal' }) do |f|
   %fieldset
+    %legend
+      =l(@appointment.scheduled_at)
+      
     -f.input :agenda, :hidden => true
-    =f.input :scheduled_at
-
-    =f.input :record, :collection => Pacient.records_list, :include_blank=> "Novo paciente"
+    =f.input :record, :collection => Record.all, :include_blank=> "Novo paciente"
     
     %div#pacient-info
+      =simple_fields_for :pacient do |pac_f|
+        =pac_f.input :name
+        =pac_f.input :health_insurances
+        =pac_f.input :phone
+        =pac_f.input :last_appointment, :hidden => true
+        %span
+          A última consulta ocorreu em menos de 30 dias. Para evitar retorno marque a partir de
+          = "dd/mm/aaaa"
+    %div.form-actions
+      =f.button :submit, 'Marcar consulta'
       

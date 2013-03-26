@@ -281,6 +281,6 @@ pt-BR:
         default_meeting_length: Duração da consulta
       appointment:
         agenda: Agenda
-        record: Paciente
+        record: Ficha
         scheduled_at: Data e hora
 

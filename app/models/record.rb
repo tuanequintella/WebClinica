@@ -1,6 +1,7 @@
 class Record < ActiveRecord::Base
 
-  attr_accessible :code, :status, :description, :pacient
+  attr_accessible :status, :description, :pacient, :last_appointment
+  belongs_to :last_appointment, :foreign_key => "last_appointment_id", :class_name => "Appointment"
   belongs_to :pacient
   has_many :appointments
   
@@ -8,6 +9,7 @@ class Record < ActiveRecord::Base
   NEW = "new"
   REGULAR = "regular"
   BEGINNER = "beginner"
+  #TODO: novo status TEMP para novos pacientes a partir de um agendamento de consulta
   
   
   I18N_PATH = 'activerecord.attributes.record.'
@@ -34,6 +36,11 @@ class Record < ActiveRecord::Base
 
   def to_s
     "%04d" % self.id
+  end
+  
+  def as_json (options)
+    options[:include] = :pacient
+    super(options)
   end
 
 end

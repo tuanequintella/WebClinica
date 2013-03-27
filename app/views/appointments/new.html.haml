@@ -1,25 +1,55 @@
 :javascript
-  $("#appointment_record").on('change', function() {
+  $( function() {
+    $('div#last_appointment_date').hide();
+  
     
+  
+    $("#appointment_record").on('change', function () {
+      if($(this).val()!="") {
+        $.ajax({
+          url: "/records/" + $(this).val(),
+          dataType: 'json'
+        }).done( function (data) {
+          $('#pacient_name').val(data['pacient']['name']);
+          $('#pacient_health_insurances').val(data['pacient']['health_insurances']);
+          $('#pacient_phone').val(data['pacient']['phone']);
+          $('#record_last_appointment').val(data['last_appointment']);
+          $('div#last_appointment_date').show();
+          if($('input#last_appointment').val())
+        });
+      }
+      else {
+        $('#pacient_name').val("");
+        $('#pacient_health_insurances').val("");
+        $('#pacient_phone').val("");
+        $('#record_last_appointment').val("");
+        $('div#last_appointment_date').hide();
+      }
+    });
   });
+  
+-#TODO: Fazer o span da warning só aparecer qndo a data for < 30 dias
 
 =simple_nested_form_for(@appointment, :html => { :class => 'form-horizontal' }) do |f|
   %fieldset
     %legend
       =l(@appointment.scheduled_at)
       
-    -f.input :agenda, :hidden => true
+    =f.hidden_field :agenda
     =f.input :record, :collection => Record.all, :include_blank=> "Novo paciente"
     
-    %div#pacient-info
-      =simple_fields_for :pacient do |pac_f|
-        =pac_f.input :name
-        =pac_f.input :health_insurances
-        =pac_f.input :phone
-        =pac_f.input :last_appointment, :hidden => true
-        %span
+    =simple_fields_for :pacient do |pac_f|
+      =pac_f.input :name
+      =pac_f.input :health_insurances
+      =pac_f.input :phone
+    
+    %div#last_appointment_date 
+      =simple_fields_for :record do |rec_f|
+        =rec_f.input :last_appointment, :disabled => true
+        %div#warning
           A última consulta ocorreu em menos de 30 dias. Para evitar retorno marque a partir de
           = "dd/mm/aaaa"
+        
     %div.form-actions
       =f.button :submit, 'Marcar consulta'
       

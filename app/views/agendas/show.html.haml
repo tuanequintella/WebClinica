@@ -2,9 +2,11 @@
   window.bindLinks = function () {
     $( "a.free-spot-link" ).on('click', function() {
         window.appointment = new NewAppointment("#{@agenda.id}", $(this).parent().data('date'));
-        $( "#dialog-form" ).dialog( "open" );
+        $( "#dialog-form" ).dialog( "open" );        
       });
   };
+  
+  
   
   
 %div#dialog-form{:title=>'Nova consulta'}

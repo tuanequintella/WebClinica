@@ -18,8 +18,14 @@ class PacientsController < ApplicationController
 
   def create
     @pacient = Pacient.new(params[:pacient])
+    
     if @pacient.save
-      flash[:READTHIS] = I18n.t('activerecord.attributes.record.warning', :id => "%04d" % @pacient.record.id)
+      unless(@pacient.record.status == Record::NEW)
+        ap = Appointment.new(:scheduled_at => params[:last_appointment_date], :record => @pacient.record)
+        ap.save
+        @pacient.record.last_appointment = ap
+        flash[:READTHIS] = I18n.t('activerecord.attributes.record.warning', :id => "%04d" % @pacient.record.id)
+      end
       redirect_to pacients_path
     else
 		  render :new

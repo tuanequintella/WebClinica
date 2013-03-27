@@ -209,6 +209,10 @@ pt-BR:
     errors:
       <<: *errors
   activerecord:
+    models:
+      Doctor: Médico
+      Secretary: Secretária
+      Admin: Administrador
     errors:
       <<: *errors
     attributes:
@@ -257,6 +261,8 @@ pt-BR:
         record_id: Nº da ficha
         record_status: Status da ficha
       record:
+        last_appointment: Última consulta
+        appointments: Consultas
         new: Nova ficha
         regular: Regular
         beginner: Primeiras vezes

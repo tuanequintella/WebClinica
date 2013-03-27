@@ -22,7 +22,7 @@ class AppointmentsController < ApplicationController
 
   def create
     @appointment = Appointment.new(params[:appointment])
-
+    #TODO: tratar os outros parametros que vem (record, pacient...)
     if @appointment.save
       redirect_to agenda_path(@appointment.agenda)
     else

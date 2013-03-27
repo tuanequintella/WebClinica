@@ -1,6 +1,7 @@
 #encoding: utf-8
 class RecordsController < ApplicationController
   load_and_authorize_resource
+  respond_to :html, :json
 
   def index
     @records = Record.all
@@ -22,6 +23,7 @@ class RecordsController < ApplicationController
 
   def show
     @record = Record.find_by_id(params[:id])
+    respond_with @record
   end
 
   def edit

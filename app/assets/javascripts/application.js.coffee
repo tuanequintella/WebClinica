@@ -79,9 +79,8 @@ window.setupDialog = () ->
     autoOpen: false,
     height: 'auto',
     width: 'auto',
-    modal: true,
-    
-        
+    modal: true
+     
 $ ->
   $("form.search input").keyup ->
     form = $("form.search")
@@ -94,5 +93,4 @@ $ ->
   $(".datepicker").datepicker()
   $(".datepicker").datepicker("option", "dateFormat", "dd/mm/yy")
 
-
-
+  

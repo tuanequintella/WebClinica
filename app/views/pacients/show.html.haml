@@ -20,8 +20,8 @@
   Idade:
   =@pacient.age_in_words
 %p
-  Convênios:
-  =@pacient.health_insurances
+  Convênio:
+  =@pacient.try(:health_insurance).try(:name)
 
 %p
   E-mail:

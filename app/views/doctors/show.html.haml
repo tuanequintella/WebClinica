@@ -27,11 +27,14 @@
 
 %p
   Data de formatura:
-  =@doctor.gradyear.year
+  =@doctor.try(:gradyear).try(:year)
 
 %p
   Especialidades:
-  =@doctor.occupation
+  %br
+  -@doctor.occupations.each do |oc|
+    = '- ' + oc.name
+    %br
 
 %p
   Preço da consulta:
@@ -39,7 +42,10 @@
 
 %p
   Convênios que aceita:
-  =@doctor.accepted_health_insurances
+  %br
+  -@doctor.health_insurances.each do |hi|
+    = '- ' + hi.name
+    %br
 
 -@doctor.contact_infos.each do |cinfo|
   %p

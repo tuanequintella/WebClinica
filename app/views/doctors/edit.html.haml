@@ -10,9 +10,9 @@
     =f.input :birthdate, :start_year => Date.today.year - 80, :end_year => Date.today.year - 15, :input_html => {:class => 'input-small'}
     =f.input :crm
     =f.input :gradyear, :start_year => Date.today.year, :end_year => Date.today.year - 60, :discard_day => true, :input_html => {:class => 'input-small'}
-    =f.input :occupation
+    =f.association :occupations, :as => :check_boxes
     =f.input :appointmentprice, :as => :currency, :input_html => {:class => 'input-small'}
-    =f.input :accepted_health_insurances
+    =f.association :health_insurances, :as => :check_boxes
     =f.simple_fields_for :contact_infos do |cinfos_form|
       =cinfos_form.input :type, :collection => ContactInfo.contact_types , :label => false, :default => false
       =cinfos_form.input :value, :label => false

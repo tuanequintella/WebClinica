@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130326215246) do
+ActiveRecord::Schema.define(:version => 20130402002435) do
 
   create_table "agendas", :force => true do |t|
     t.integer  "doctor_id"
@@ -47,6 +47,28 @@ ActiveRecord::Schema.define(:version => 20130326215246) do
     t.datetime "updated_at",     :null => false
   end
 
+  create_table "doctors_health_insurances", :id => false, :force => true do |t|
+    t.integer "health_insurance_id"
+    t.integer "doctor_id"
+  end
+
+  create_table "doctors_occupations", :id => false, :force => true do |t|
+    t.integer "occupation_id"
+    t.integer "doctor_id"
+  end
+
+  create_table "health_insurances", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "occupations", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "offices", :force => true do |t|
     t.string   "name"
     t.string   "email"
@@ -61,15 +83,15 @@ ActiveRecord::Schema.define(:version => 20130326215246) do
     t.string   "cpf"
     t.string   "rg"
     t.date     "birthdate"
-    t.string   "health_insurances"
     t.string   "address"
     t.string   "phone"
     t.string   "email"
     t.string   "parent_name"
     t.string   "parent_rg"
     t.string   "parent_cpf"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.integer  "health_insurance_id"
   end
 
   create_table "records", :force => true do |t|
@@ -102,9 +124,7 @@ ActiveRecord::Schema.define(:version => 20130326215246) do
     t.string   "type"
     t.string   "crm"
     t.date     "gradyear"
-    t.string   "occupation"
     t.float    "appointmentprice"
-    t.string   "accepted_health_insurances"
   end
 
   add_index "users", ["remember_me_token"], :name => "index_users_on_remember_me_token"

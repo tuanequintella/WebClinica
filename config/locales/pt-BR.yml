@@ -227,9 +227,9 @@ pt-BR:
         birthdate: Data de nascimento
         crm: CRM
         gradyear: Data de formatura
-        occupation: Especialidades
+        occupations: Especialidades
         appointmentprice: Preço da consulta
-        accepted_health_insurances: Convênios que aceita
+        health_insurances: Convênios que aceita
         type:
           doctor: Médico
           secretary: Secretária
@@ -251,7 +251,7 @@ pt-BR:
         rg: RG
         birthdate: Data de nascimento
         age: Idade
-        health_insurances: Convênios
+        health_insurance: Convênio
         address: Endereço
         phone: Telefone
         email: E-mail

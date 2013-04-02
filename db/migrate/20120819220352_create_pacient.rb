@@ -5,7 +5,7 @@ class CreatePacient < ActiveRecord::Migration
       t.string :cpf
       t.string :rg
       t.date :birthdate
-      t.string :health_insurances
+      t.references :health_insurance
       t.string :address
       t.string :phone
       t.string :email

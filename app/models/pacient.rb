@@ -1,11 +1,12 @@
 class Pacient < ActiveRecord::Base
-  attr_accessible :name, :cpf, :rg, :birthdate, :health_insurances, :address, :phone, :email, :parent_name, :parent_rg, :parent_cpf, :contact_infos_attributes, :record_attributes
+  attr_accessible :name, :cpf, :rg, :birthdate, :address, :phone, :email, :parent_name, :parent_rg, :parent_cpf,:health_insurance_id, :contact_infos_attributes, :record_attributes
   attr_accessor :contact_infos_attributes, :record_attributes
 
-  validates_presence_of :name, :email, :address, :phone, :birthdate
+  validates_presence_of :name, :email, :address, :phone, :birthdate, :health_insurance
   validates :rg, :cpf, :presence => { :if => :overage? }
   validates :parent_name, :parent_rg, :parent_cpf, :presence => { :unless => :overage? }
-
+  
+  belongs_to :health_insurance
   has_many :contact_infos, :as => :reachable
   has_one :record
 
@@ -60,6 +61,11 @@ class Pacient < ActiveRecord::Base
     else
       all
     end
+  end
+  
+  def as_json(options)
+    options[:include] = [:health_insurance]
+    super(options)
   end
 
 end

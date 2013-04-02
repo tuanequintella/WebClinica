@@ -5,17 +5,18 @@ class Record < ActiveRecord::Base
   belongs_to :pacient
   has_many :appointments
   
-  INACTIVE = "inactive"
-  NEW = "new"
-  REGULAR = "regular"
-  BEGINNER = "beginner"
-  #TODO: novo status TEMP para novos pacientes a partir de um agendamento de consulta
+  INACTIVE = "Inativo"
+  NEW = "Nova ficha"
+  REGULAR = "Regular"
+  BEGINNER = "Primeiras vezes"
+  TEMP = "Temporaria"
   
+  validates_presence_of :status
   
   I18N_PATH = 'activerecord.attributes.record.'
 
   def self.status
-    [[I18n.t(I18N_PATH + NEW), NEW], [I18n.t(I18N_PATH + REGULAR), REGULAR], [I18n.t(I18N_PATH + BEGINNER), BEGINNER], [I18n.t(I18N_PATH + INACTIVE), INACTIVE]]
+    [[NEW, NEW], [REGULAR, REGULAR], [BEGINNER, BEGINNER], [INACTIVE, INACTIVE]]
   end
   
   def deactivate!
@@ -33,14 +34,17 @@ class Record < ActiveRecord::Base
       false
     end
   end
-
+  
+  def method_name
+    
+  end
+  
   def to_s
     "%04d" % self.id
   end
   
-  def as_json (options)
-    options[:include] = :pacient
-    super(options)
+  def as_json (options = {})
+    super(:include => [:last_appointment, :pacient])
   end
 
 end

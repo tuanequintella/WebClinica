@@ -50,7 +50,7 @@ namespace :populate do
     user.health_insurances << HealthInsurance.where(:name => 'Bradesco Saúde')
     user.health_insurances << HealthInsurance.where(:name => 'Amil')
     
-    user.agenda = Agenda.new(:default_meeting_length=> 20)
+    user.agenda = Agenda.new(:default_meeting_length=> 20, :active => true)
     
     day = AvailableDay.new(:day=>1, :work_start_time=>Date.today.beginning_of_day + 9.hours, :work_end_time=>Date.today.beginning_of_day + 17.hours, :interval_start_time=>Date.today.beginning_of_day + 12.hours, :interval_end_time=>Date.today.beginning_of_day + 14.hours)
     
@@ -71,7 +71,7 @@ namespace :populate do
     user.health_insurances << HealthInsurance.where(:name => 'Unimed')
     user.health_insurances << HealthInsurance.where(:name => 'Cassi')
     
-    user.agenda = Agenda.new(:default_meeting_length=> 35)
+    user.agenda = Agenda.new(:default_meeting_length=> 35, :active => true)
     
     day = AvailableDay.new(:day=>2, :work_start_time=>Date.today.beginning_of_day + 8.hours, :work_end_time=>Date.today.beginning_of_day + 15.hours, :interval_start_time=>Date.today.beginning_of_day + 12.hours, :interval_end_time=>Date.today.beginning_of_day + 13.hours)
     

@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(:version => 20130402002435) do
     t.string   "cpf"
     t.string   "rg"
     t.date     "birthdate"
+    t.integer  "health_insurance_id"
     t.string   "address"
     t.string   "phone"
     t.string   "email"
@@ -91,7 +92,6 @@ ActiveRecord::Schema.define(:version => 20130402002435) do
     t.string   "parent_cpf"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
-    t.integer  "health_insurance_id"
   end
 
   create_table "records", :force => true do |t|

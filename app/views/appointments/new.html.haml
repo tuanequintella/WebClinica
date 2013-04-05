@@ -13,12 +13,13 @@
     %legend
       =l(@appointment.scheduled_at)
       
-    =f.hidden_field :agenda
-    =f.input :record, :collection => Record.all, :include_blank=> "Novo paciente"
+    =f.hidden_field :scheduled_at
+    =f.association :agenda, :as => :hidden
+    =f.association :record, :collection => Record.all, :include_blank=> "Novo paciente"
     
     =simple_fields_for Pacient.new do |pac_f|
       =pac_f.input :name
-      =pac_f.input :health_insurance, :collection => @appointment.agenda.doctor.health_insurances, :include_blank => 'Selecione uma opção'
+      =pac_f.association :health_insurance, :collection => @appointment.agenda.doctor.health_insurances, :include_blank => 'Selecione uma opção'
       =pac_f.input :phone
     
   

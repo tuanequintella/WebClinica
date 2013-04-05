@@ -21,10 +21,18 @@ class AppointmentsController < ApplicationController
   end
 
   def create
-    @appointment = Appointment.new(params[:appointment])
-    #TODO: tratar os outros parametros que vem (record, pacient...)
+    if params[:appointment][:record_id].nil?
+      pacient = Pacient.new(params[:pacient])
+      pacient.record = Record.new(:status => Record::TEMP)
+      pacient.save(:validate => false)
+    else
+      record = Record.find(params[:appointment][:record_id])
+    end
+    
+    agenda = Agenda.find(params[:appointment][:agenda_id]) 
+    @appointment = Appointment.new(:agenda => agenda, :record => record, :scheduled_at => params[:appointment][:scheduled_at])
     if @appointment.save
-      redirect_to agenda_path(@appointment.agenda)
+      redirect_to agenda_path(:id => @appointment.agenda, :date => @appointment.scheduled_at)
     else
 		  render :new
     end

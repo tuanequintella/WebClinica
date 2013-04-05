@@ -28,7 +28,7 @@ class Agenda < ActiveRecord::Base
     d = [available_days.pluck(:work_start_time).map(&:hour).min]
     d << available_days.pluck(:work_end_time).map(&:hour).max
     week.each do |day|
-      d += appointments_for_day(day).map(&:date_time).map(&:hour)
+      d += appointments_for_day(day).map(&:scheduled_at).map(&:hour)
     end
 
     start_of_shift = Date.today.beginning_of_day + d.min.hours
@@ -61,12 +61,12 @@ class Agenda < ActiveRecord::Base
   end
 
   def appointment_at(datetime)
-    nil
+    self.appointments.where(:scheduled_at => datetime).first
   end
 
   def appointments_for_day(day)
     self.appointments.all.select do |a|
-      a.date_time.to_date == day
+      a.scheduled_at.to_date == day
     end
   end
 

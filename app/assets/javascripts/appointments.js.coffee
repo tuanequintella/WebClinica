@@ -19,7 +19,7 @@ window.setupDialog = () ->
     modal: true
 
 window.bindRecord = () ->
-  $("#appointment_record").on 'change', () ->
+  $("#appointment_record_id").on 'change', () ->
     if $(this).val() != ""
       $.ajax
         url: "/records/" + $(this).val()

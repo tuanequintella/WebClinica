@@ -1,3 +1,4 @@
+#encoding: utf-8
 class Record < ActiveRecord::Base
 
   attr_accessible :status, :description, :pacient, :last_appointment
@@ -9,7 +10,7 @@ class Record < ActiveRecord::Base
   NEW = "Nova ficha"
   REGULAR = "Regular"
   BEGINNER = "Primeiras vezes"
-  TEMP = "Temporaria"
+  TEMP = "Temporária"
   
   validates_presence_of :status
   

@@ -1,5 +1,5 @@
 class Appointment < ActiveRecord::Base
-  attr_accessible :record, :agenda, :scheduled_at
+  attr_accessible :record, :agenda, :scheduled_at, :agenda_id, :record_id
   
   belongs_to :record
   belongs_to :agenda

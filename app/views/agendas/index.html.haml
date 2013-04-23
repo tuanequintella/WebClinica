@@ -1,6 +1,8 @@
 :javascript
   $(function (){
     window.agendaApp = new AgendaApp("#{@date.to_s}");
+    $("#date").val("#{@date.to_date.to_s}")
+    $("select#doctor").val("#{@agenda.id}");
     $("select#doctor").trigger('change');  
   });
 

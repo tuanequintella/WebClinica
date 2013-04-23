@@ -41,25 +41,34 @@ div.free-spot
   box-sizing: border-box
   
 table
-  > td.unavailable
-    padding: 0px 0px !important
-    box-sizing: border-box
-
+  > tbody
+    > tr
+      > td.unavailable
+        padding: 0px 0px
+        box-sizing: border-box
+        div.unavailable
+          min-height: 27px
+          min-width: 100px
+          box-sizing: border-box
+          background: image-url('stripe.png') repeat
+      > td
+        div.free-spot
+          min-height: 20px
+          min-width: 100px
+          box-sizing: border-box
+        div.busy-spot
+          min-height: 20px
+          min-width: 100px
+          box-sizing: border-box
+          
 div.appointment
   height: 100%
   width: 100%
   background-color: white
   border: 1px solid gray
-
-div.unavailable
-  padding: 0px 0px
-  height: 100%
-  width: 100%
-  box-sizing: border-box
-  background-image: url('../images/stripe.png') !important
  
 th.today
-  background-color: rgba(0,15,240,0.3)
+  background-color: rgba(0,15,240,0.15)
 
 a#btn-configure
   margin-top: -7px

@@ -1,6 +1,7 @@
 :javascript
   $(function (){
-    window.agendaApp = new AgendaApp("#{Date.today.to_s}");
+    window.agendaApp = new AgendaApp("#{@date.to_s}");
+    $("select#doctor").trigger('change');  
   });
 
 %div.container-fluid

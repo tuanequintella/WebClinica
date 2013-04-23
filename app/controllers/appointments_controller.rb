@@ -32,7 +32,7 @@ class AppointmentsController < ApplicationController
     agenda = Agenda.find(params[:appointment][:agenda_id]) 
     @appointment = Appointment.new(:agenda => agenda, :record => record, :scheduled_at => params[:appointment][:scheduled_at])
     if @appointment.save
-      redirect_to agenda_path(:id => @appointment.agenda, :date => @appointment.scheduled_at)
+      redirect_to agendas_path(:id => @appointment.agenda, :date => @appointment.scheduled_at)
     else
 		  render :new
     end

@@ -4,6 +4,10 @@
         window.appointment = new NewAppointment("#{@agenda.id}", $(this).parent().data('date'));
         $( "#dialog-form" ).dialog( "open" );        
       });
+    $( "a.busy-spot-link" ).on('click', function() {
+        window.appointment = new NewAppointment("#{@agenda.id}", $(this).parent().data('date'));
+        $( "#dialog-form" ).dialog( "open" );        
+      });
   };
   
   
@@ -30,16 +34,18 @@
               - @week.each do |day|
                 -datetime = day.to_date + time.hour.hours + time.min.minutes
                 -if not @agenda.available_datetime?(datetime)
-                  %td
+                  %td.unavailable
                     %div.unavailable
                 -elsif @agenda.appointment_at(datetime).nil?
                   %td
                     %div.free-spot{'data-date' => datetime.to_s}
                       %a.free-spot-link{:href => '#'}
-                        Nova consulta
+                        =image_tag("add_blue.png", width: '10px', height: '10px', alt: 'Nova consulta', title: 'Nova consulta')
                 -else
                   %td
-                    %div.busy-spot
+                    %div.busy-spot{'data-date' => datetime.to_s}
+                      %a.busy-spot-link{:href => '#'}
+                        =@agenda.appointment_at(datetime).record.pacient.name
     -else
       Essa não é uma agenda ativa
 

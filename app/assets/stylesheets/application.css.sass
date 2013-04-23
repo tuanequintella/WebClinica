@@ -16,7 +16,7 @@
 body
   > div.container-fluid
     padding-top: 10px
-
+   
 div.calendar
   width: 200px
   height: 170px
@@ -35,11 +35,15 @@ div.editAgenda
   border: 1px solid gray
 
 div.free-spot
+  padding: 0px 0px
   height: 100%
   width: 100%
-  min-height: 27px
-  min-width: 100px
+  box-sizing: border-box
   
+table
+  > td.unavailable
+    padding: 0px 0px !important
+    box-sizing: border-box
 
 div.appointment
   height: 100%
@@ -48,12 +52,12 @@ div.appointment
   border: 1px solid gray
 
 div.unavailable
+  padding: 0px 0px
   height: 100%
   width: 100%
-  min-height: 27px
-  min-width: 100px
-  background-color: #CDCDCD !important
-
+  box-sizing: border-box
+  background-image: url('../images/stripe.png') !important
+ 
 th.today
   background-color: rgba(0,15,240,0.3)
 

@@ -3,8 +3,18 @@ class AgendasController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @agenda = Agenda.new
-    @agenda.doctor = Doctor.new
+    if params[:id]
+      @agenda = Agenda.find(params[:id])
+    else
+      @agenda = Agenda.new
+      @agenda.doctor = Doctor.new
+    end
+    
+    if params[:date]
+      @date = params[:date]
+    else
+      @date = Date.today
+    end
   end
 
   def show

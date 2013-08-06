@@ -1,0 +1,31 @@
+<div class="tab-content">
+    <div id="login" class="tab-pane active">
+        <%= simple_form_for User.new, url: session_path, method: :post, html: { class: "form-signin" } do |f| %>
+            <p class="muted text-center">
+                Bem vindo, entre com suas credenciais!
+            </p>
+            <%= f.input_field :username, placeholder: "Nome de usuário", class: "input-block-level" %>
+            <%= f.password_field :password, placeholder: "Senha", class: "input-block-level" %>
+            <%= f.submit "Entrar", class: "btn btn-large btn-primary btn-block" %>
+        <% end %>
+        </form>
+    </div>
+    <div id="forgot" class="tab-pane">
+        <%= form_tag password_resets_path, method: :post, class: 'form-signin' do %>
+            <p class="muted text-center">
+                Entre com o e-mail cadastrado
+            </p>
+            <%= email_field_tag :email, "", placeholder: "email@exemplo.com", required: "required", class: "input-block-level" %>
+            <br>
+            <br>
+            <%= submit_tag "Enviar", class: "btn btn-large btn-danger btn-block" %>
+        <% end %>
+    </div>
+</div>
+<div class="text-center">
+    <ul class="inline">
+        <li><a class="muted" href="#login" data-toggle="tab">Login</a></li>
+        <li><a class="muted" href="#forgot" data-toggle="tab">Esqueci minha senha</a></li>
+    </ul>
+</div>
+

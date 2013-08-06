@@ -27,15 +27,14 @@ window.bindRecord = () ->
         success: (data) ->
           $('#pacient_name').val(data['pacient']['name'])
           
-          $('#pacient_health_insurance').html("<option value>Selecione uma opção</option>")
+          $('#pacient_health_insurance_id').html("<option value>Selecione uma opção</option>")
           
           $(window.health_insurances).each (index) ->
             if this.name == "Sem convênio (particular)"
-              $('#pacient_health_insurance').append("<option value='#{this.id}'>#{this.name}</option>")  
+              $('#pacient_health_insurance_id').append("<option value='#{this.id}'>#{this.name}</option>")  
             else
               if this.id == data['pacient']['health_insurance_id']
-                $('#pacient_health_insurance').append("<option value='#{this.id}'>#{this.name}</option>")
-                #$('#pacient_health_insurance').val(data['pacient']['health_insurance']['name'])
+                $('#pacient_health_insurance_id').append("<option value='#{this.id}'>#{this.name}</option>")
           $('#pacient_phone').val(data['pacient']['phone'])
           $('#record_status').val(data['status'])
           if(data['last_appointment'] != undefined)
@@ -45,6 +44,9 @@ window.bindRecord = () ->
             limit_date.setDate(limit_date.getDate()-30)
             $('#record_last_appointment').val(app_date.getDate() + '/' + app_date.getMonth() + '/' + app_date.getFullYear())
             if(app_date > limit_date)
+              valid_date = app_date.setDate(app_date.getDate()+30) 
+              new_text = $('div#appointment-date-warning').text().replace('{appropriate_date}', (valid_date.getDate() + "/" + valid_date.getMonth() + "/" + valid_date.getFullYear()) )
+              $('div#appointment-date-warning').text(new_text)
               $('div#appointment-date-warning').show()
             else
               $('div#appointment-date-warning').hide()
@@ -54,9 +56,9 @@ window.bindRecord = () ->
             $('div#appointment-date-warning').hide()
             
     else
-      $('#pacient_health_insurance').html("<option value>Selecione uma opção</option>")
+      $('#pacient_health_insurance_id').html("<option value>Selecione uma opção</option>")
       $(window.health_insurances).each (index) ->
-        $('#pacient_health_insurance').append("<option value='#{this.id}'>#{this.name}</option>")
+        $('#pacient_health_insurance_id').append("<option value='#{this.id}'>#{this.name}</option>")
       $('#pacient_name').val("")
       $('#pacient_phone').val("")
       $('#record_status').val("Sem ficha")

@@ -204,3 +204,9 @@ pt-BR:
       short: ! '%d/%m, %H:%M h'
       hourly: ! '%R'
     pm: ''
+  activemodel:
+    errors:
+      <<: *errors
+  activerecord:
+    errors:
+      <<: *errors

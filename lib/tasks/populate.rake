@@ -11,7 +11,7 @@ namespace :populate do
   desc "Cria o administrador inicial"
   task :admin_user => :environment do
     puts 'Criando administrador inicial...'
-    user = Admin.new(:name => "Administrador do Sistema", :username=>"admin", :email=>"admin@email.com", :password => "123456", :password_confirmation => "123456", :active => true)
+    user = Admin.new(:name => "Administrador do Sistema", :username=>"admin", :email=>"q.tuane@gmail.com", :password => "123456", :password_confirmation => "123456", :active => true)
     user.save
     puts user.errors.full_messages
   end

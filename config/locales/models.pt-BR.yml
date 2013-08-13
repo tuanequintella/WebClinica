@@ -1,7 +1,4 @@
 pt-BR:
-  activemodel:
-    errors:
-      <<: *errors
   activerecord:
     models:
       doctor:
@@ -9,8 +6,6 @@ pt-BR:
         other: Médicos
       Secretary: Secretária
       Admin: Administrador
-    errors:
-      <<: *errors
     attributes:
       user:
         name: Nome

@@ -1,8 +1,0 @@
-%h3
-  Bem Vindo! Entre com suas credenciais:
-%br
-=simple_form_for(User.new, :url => session_path, method: :post) do |f|
-  =f.input :username, :required => false
-  =f.input :password, :required => false
-  =f.button :submit, "Entrar"
-  =link_to 'Esqueci minha senha', new_password_reset_path

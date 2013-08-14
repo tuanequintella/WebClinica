@@ -1,0 +1,83 @@
+pt-BR:
+  activerecord:
+    models:
+      doctor:
+        one: Médico
+        other: Médicos
+      Secretary: Secretária
+      Admin: Administrador
+    attributes:
+      user:
+        name: Nome
+        email: E-mail
+        username: Nome de usuário
+        password: Senha
+        password_confirmation: Confirme a senha
+        cpf: CPF
+        rg: RG
+        birthdate: Data de nascimento
+        crm: CRM
+        gradyear: Data de formatura
+        occupations: Especialidades
+        appointmentprice: Preço da consulta
+        health_insurances: Convênios que aceita
+        type:
+          doctor: Médico
+          secretary: Secretária
+          admin: Administrador
+      contact_info:
+        type:
+          Phone: Telefone
+          Email: E-mail
+          Address: Endereço
+          Webpage: Site
+      office:
+        name: Nome
+        email: E-mail
+        address: Endereço
+        phone: Telefone
+      pacient:
+        name: Nome completo
+        cpf: CPF
+        rg: RG
+        birthdate: Data de nascimento
+        age: Idade
+        health_insurance: Convênio
+        address: Endereço
+        phone: Telefone
+        email: E-mail
+        parent_name: Nome do responsável
+        parent_rg: RG do responsável
+        parent_cpf: CPF do responsável
+        record_id: Nº da ficha
+        record_status: Status da ficha
+      record:
+        last_appointment: Última consulta
+        appointments: Consultas
+        new: Nova ficha
+        regular: Regular
+        beginner: Primeiras vezes
+        inactive: Inativo
+        id: Número da ficha
+        status: Status da ficha
+        warning:  Paciente cadastrado! Nº da ficha %{id}. ALTERE A NUMERAÇÃO NA FICHA EM PAPEL!
+      available_day:
+        sunday: Domingo
+        monday: Segunda
+        tuesday: Terça
+        wednesday: Quarta
+        thursday: Quinta
+        friday: Sexta
+        saturday: Sábado
+        day: Dia da semana
+        work_start_time: Início do trabalho
+        work_end_time: Término do trabalho
+        interval_start_time: Início do intervalo
+        interval_end_time: Término do intervalo
+      agenda:
+        default_meeting_length: Duração da consulta
+      appointment:
+        agenda: Agenda
+        record: Ficha
+        scheduled_at: Data e hora
+

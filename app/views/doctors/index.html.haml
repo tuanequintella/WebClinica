@@ -1,6 +1,4 @@
-%h1
-  Gerenciamento de Médicos
-%br
+=content_for(:content_title) { Doctor.model_name.human(count: :many) }
 
 -if can? :manage, Doctor
   %p

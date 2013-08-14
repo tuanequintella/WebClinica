@@ -1,6 +1,6 @@
 #encoding: utf-8
 class User < ActiveRecord::Base
-  attr_accessible :email, :password, :password_confirmation, :active
+  attr_accessible :email, :password, :password_confirmation, :active, :name, :username
 
   authenticates_with_sorcery!
 

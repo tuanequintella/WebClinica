@@ -1,0 +1,11 @@
+pt-BR:
+  actions:
+    index: Lista
+    new: Criando
+    edit: Editando
+    links:
+      index: Listar
+      new: Criar
+      edit: Editar
+      deactivate: Desativar
+      delete: Remover

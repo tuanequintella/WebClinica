@@ -1,6 +1,4 @@
-%h1
-  Gerenciamento de Secretárias
-%br
+=content_for(:content_title) { Secretary.model_name.human(count: :many) }
 
 -if can? :manage, Secretary
   %p

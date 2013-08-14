@@ -6,6 +6,8 @@
     $("select#doctor").trigger('change');  
   });
 
+=content_for(:content_title) { Agenda.model_name.human(count: :many) }
+
 %div.container-fluid
   %div.row-fluid
     =select_tag :doctor, options_from_collection_for_select(Doctor.all, "agenda", "name"), :prompt => "Selecione o médico"

@@ -1,10 +1,3 @@
-=simple_form_for(@admin, :html => { :class => 'form-horizontal' }) do |f|
-  %fieldset
-    %legend
-      Editar administrador
-    =f.input :name
-    =f.input :email
-    =f.input :username, :disabled => true
-    %div.form-actions
-      =f.button :submit, "Salvar"
-      =link_to "Cancelar", admins_path, :class => :btn
+=content_for(:content_title) { t("actions.edit") + " " + Admin.model_name.human(count: :one).downcase }
+
+= render partial: 'form', admin: @admin

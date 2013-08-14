@@ -1,0 +1,11 @@
+=simple_form_for(admin, :html => { :class => 'form-horizontal' }) do |f|
+  %fieldset
+    =f.input :name
+    =f.input :email
+    -if admin.new_record?
+      =f.input :username
+    -else
+      =f.input :username, :disabled => true
+    %div.form-actions
+      =f.button :submit, "Salvar"
+      =link_to "Cancelar", admins_path, :class => :btn

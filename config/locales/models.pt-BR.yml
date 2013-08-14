@@ -4,8 +4,24 @@ pt-BR:
       doctor:
         one: Médico
         other: Médicos
-      Secretary: Secretária
-      Admin: Administrador
+      secretary:
+        one: Secretária
+        other: Secretárias
+      admin:
+        one: Administrador
+        other: Administradores
+      agenda:
+        one: Agenda
+        other: Agendas
+      appointment:
+        one: Consulta
+        other: Consultas
+      pacient:
+        one: Paciente
+        other: Pacientes
+      office:
+        one: Clínica
+        other: Clínicas
     attributes:
       user:
         name: Nome

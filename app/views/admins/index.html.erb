@@ -1,4 +1,4 @@
-<%= content_for(:content_title) { Admin.model_name.human(count: :many) } %>
+<%= icon_title_for(Admin.model_name.human(count: :many), "icon-user") %>
 <div class="row-fluid">
   <div class="span12">
       <div class="box dark">
@@ -8,7 +8,7 @@
               <!-- .toolbar -->
               <div class="toolbar">
                   <ul class="nav">
-                      <li><%= link_to 'Novo admin', new_admin_path %></li>
+                      <li><%= link_to 'Novo admin', new_admin_path, 'data-target' => "#content" %></li>
                       <li class="dropdown">
                           <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                               <i class="icon-th-large"></i>

@@ -1,0 +1,3 @@
+<%= icon_title_for(t("actions.new") + " " + Admin.model_name.human(count: :one).downcase, "icon-user") %>
+
+<%= render partial: 'form', locals: { admin: @admin } %>

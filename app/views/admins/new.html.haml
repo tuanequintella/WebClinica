@@ -1,3 +1,0 @@
-=content_for(:content_title) { t("actions.new") + " " + Admin.model_name.human(count: :one).downcase }
-
-= render partial: 'form', locals: { admin: @admin }

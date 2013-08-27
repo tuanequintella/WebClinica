@@ -1,0 +1,26 @@
+<div class="tab-content">
+    <div id="login" class="tab-pane active">
+        <%= simple_form_for @user, :as => :user, :url => password_reset_path(@user), html: { class: "form-signin" } do |f| %>
+            <p class="muted text-center">
+                Redefinição de senha do sistema
+            </p>
+            <%= hidden_field_tag :token, @token %>
+            <%= f.password_field :password, placeholder: "Nova senha", class: "input-block-level" %>
+            <%= f.password_field :password_confirmation, placeholder: "Confirme a senha", class: "input-block-level" %>
+            <%= f.submit "Definir", class: "btn btn-large btn-primary btn-block" %>
+        <% end %>
+        </form>
+    </div>
+</div>
+<div class="text-center">
+    <br />
+    <br />
+    <div id="footer">
+        <center>
+            <p>WebClinica por <a class="muted" href="mailto:q.tuane@gmail.com">Tuane Quintella</a>. 2013 © Metis Admin Template.</p>
+            <p>Este sistema deve ser utilizado no navegador <a class="muted" href="http://www.google.com/chrome" target="_blank">Google Chrome</a>.</p>
+        </center>
+    </div>
+</div>
+
+

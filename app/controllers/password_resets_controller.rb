@@ -3,7 +3,9 @@ class PasswordResetsController < ApplicationController
   layout 'outside'
   skip_before_filter :require_login
 
-  def new;  end
+  def new
+    redirect_to(new_session_path)
+  end
 
   def create
     @user = User.find_by_email(params[:email])

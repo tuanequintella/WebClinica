@@ -1,8 +1,0 @@
-%h3
-  Esqueceu sua senha?
-%br
-=form_tag password_resets_path, :method => :post, :class => 'form-inline' do
-  =email_field_tag :email, "", :placeholder => 'E-mail'
-  =submit_tag "Enviar"
-
-=link_to "Voltar", new_session_path

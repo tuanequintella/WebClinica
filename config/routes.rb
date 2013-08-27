@@ -4,7 +4,7 @@ WebClinica::Application.routes.draw do
 
   
   
-  resources :admins do
+  resources :admins, except: [:show] do
     get 'recreate' => 'admins#recreate'
   end
   resources :secretaries do
@@ -14,7 +14,7 @@ WebClinica::Application.routes.draw do
     get 'recreate' => 'doctors#recreate'
   end
   resources :password_resets
-  resources :offices#, only: [:edit, :update, :show]
+  resource :office, only: [:edit, :update, :show]
   resources :pacients do
     get 'recreate' => 'pacients#recreate'
     collection do

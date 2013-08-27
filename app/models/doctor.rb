@@ -1,4 +1,5 @@
 class Doctor < User
+  attr_accessible :cpf, :rg, :birthdate, :crm, :gradyear, :occupation_ids, :appointmentprice, :health_insurance_ids, :contact_infos_attributes, :agenda_attributes
   attr_accessor :contact_infos_attributes
   attr_accessor :agenda_attributes
 

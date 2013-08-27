@@ -1,0 +1,67 @@
+<%= icon_title_for(Doctor.model_name.human(count: :many), "icon-user-md") %>
+<div class="row-fluid">
+  <div class="span12">
+    <div class="box dark">
+      <header>
+        <div class="icons"><i class="icon-list-ul"></i></div>
+        <h5>Lista de Médicos</h5>
+        <!-- .toolbar -->
+        <div class="toolbar">
+          <ul class="nav">
+            <li><%= link_to 'Novo médico', new_doctor_path, 'data-target' => "#content" %></li>
+            <li>
+              <a class="accordion-toggle minimize-box" data-toggle="collapse" href="#div-1">
+                <i class="icon-chevron-up"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!-- /.toolbar -->
+      </header>
+        <div id="div-1" class="accordion-body collapse in body">
+          <table class="table table-striped table-bordered table-condensed">
+            <thead>
+              <tr>
+                <th> Nome </th>
+                <th> Nome de usuário </th>
+                <th> E-mail </th>
+                <th> Ações </th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @doctors.each do |doctor| %>
+                <tr>
+                  <td> <%= doctor.name %> </td>
+                  <td> <%= doctor.username %> </td>
+                  <td> <%= doctor.email %> </td>
+                  <td>
+                    <%= link_to edit_doctor_path(doctor), title: "Editar" do %>
+                      <i class="icon-pencil icon-large" style="padding-right: 5px"></i>
+                    <% end %>
+                    <% if doctor.active? %>
+                      <%= link_to doctor_path(doctor), title: "Desativar", :method => :delete, :confirm => 'Ao desativar um médico, ele não poderá acessar mais o sistema com seu usuário e sua agenda também será desativada. Tem certeza que deseja desativar?' do %>
+                        <i class="icon-trash icon-large" style="padding-right: 5px"></i>
+                      <% end %>
+                    <% else %>
+                      <%= link_to doctor_recreate_path(:doctor_id=>doctor), title: "Reativar", :confirm => 'Tem certeza que deseja reativar esse médico?' do %>
+                        <i class="icon-undo icon-large" style="padding-right: 5px"></i>
+                      <% end %>
+                    <% end %>
+                    <% if doctor.agenda.active? %>
+                      <%= link_to agenda_path(doctor.agenda), title: "Desativar agenda", :method => :delete, :confirm => 'Tem certeza que deseja desativar a agenda deste médico?' do %>
+                        <i class="icon-calendar-empty"></i>
+                      <% end %>
+                    <% else %>
+                      <%= link_to agenda_recreate_path(:agenda_id=>doctor.agenda.id), title: "Reativar agenda" do %>
+                        <i class="icon-calendar"></i>
+                      <% end %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+  </div>
+</div>

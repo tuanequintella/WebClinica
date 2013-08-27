@@ -1,0 +1,63 @@
+<%= icon_title_for("Editar meu perfil", "icon-user") %>
+<div class="row-fluid">
+  <div class="span12">
+    <div class="box dark">
+      <header>
+        <div class="icons"><i class="icon-edit"></i></div>
+        <h5><%= @user.name %></h5>
+        <!-- .toolbar -->
+        <div class="toolbar">
+          <ul class="nav">
+            <li>
+              <a class="accordion-toggle minimize-box" data-toggle="collapse" href="#div-1">
+                <i class="icon-chevron-up"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!-- /.toolbar -->
+      </header>
+      
+      <div id="div-1" class="accordion-body collapse in body">
+        <%= simple_nested_form_for @user, as: :user, :url => profile_path, :html => { :class => 'form-horizontal' } do |f| %>
+          <fieldset>
+            <%= f.input :name %>
+            <%= f.input :email %>
+            <%= f.input :username, :disabled => true %>
+            <div class="control-group">
+              <%= f.label :password, required: false, class: "control-label" %>
+              <div class="controls">
+                <%= link_to "Resetar senha", reset_password_profile_path, :confirm => 'Você receberá um e-mail com um link para alterar sua senha. Deseja continuar?', :class => 'btn btn-small' %>
+              </div>
+            </div>
+
+            <% unless @user.is_a? Admin %>  
+              <%= f.input :cpf %>
+              <%= f.input :rg %>
+              <%= f.input :birthdate, as: :string, :input_html => {:class => 'datepicker'} %>
+              <% if @user.is_a? Doctor %>
+                <%= f.input :crm %>
+                <%= f.input :gradyear, as: :string, :input_html => {:class => 'datepicker'}  %>
+                <%= f.association :occupations, :as => :check_boxes  %>
+                <%= f.input :appointmentprice, :as => :currency, :input_html => {:class => 'input-small'} %>
+                <%= f.association :health_insurances, :as => :check_boxes %>
+              <% end %>
+              <%= f.simple_fields_for :contact_infos do |cinfos_form| %>
+                <%= cinfos_form.input :type, :collection => ContactInfo.contact_types , :label => false, :default => false %>
+                <%= cinfos_form.input :value, :label => false %>
+                <%= cinfos_form.link_to_remove "Remover contato" %>
+              <% end %>
+              <%= f.link_to_add "Adicionar contato", :contact_infos %>
+            <% end %>
+
+            <div class="form-actions">
+              <%= f.button :submit, "Salvar" %>
+              <%= link_to "Cancelar", profile_path, :class => :btn %>
+            </div>
+
+          </fieldset>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

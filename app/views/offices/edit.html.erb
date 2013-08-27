@@ -1,0 +1,41 @@
+<%= icon_title_for(Office.model_name.human, "icon-home") %>
+<div class="row-fluid">
+  <div class="span12">
+    <div class="box dark">
+      <header>
+        <div class="icons"><i class="icon-edit"></i></div>
+        <h5><%= @office.name %></h5>
+        <!-- .toolbar -->
+        <div class="toolbar">
+          <ul class="nav">
+            <li>
+              <a class="accordion-toggle minimize-box" data-toggle="collapse" href="#div-1">
+                <i class="icon-chevron-up"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!-- /.toolbar -->
+      </header>
+      
+      <div id="div-1" class="accordion-body collapse in body">
+        <%= simple_nested_form_for @office, class: "form-horizontal" do |f| %>
+          <%= f.input :email %>
+          <%= f.input :address, as: :text, input_html: { rows: 3 } %>
+          <%= f.input :phone %>
+          <%= f.simple_fields_for :contact_infos do |cinfos_form| %>
+            <%= cinfos_form.input :type, :collection => ContactInfo.contact_types , :label => false, :default => false %>
+            <%= cinfos_form.input :value, :label => false %>
+            <%= cinfos_form.link_to_remove "Remover contato" %>
+            <%= f.link_to_add "Adicionar contato", :contact_infos %>
+          <% end %>
+
+          <div class="form-actions">
+            <%= f.button :submit, "Salvar" %>
+            <%= link_to "Cancelar", office_path, :class => :btn %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

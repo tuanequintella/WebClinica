@@ -3,7 +3,7 @@
   <div class="span12">
     <div class="box dark">
       <header>
-        <div class="icons"><i class="icon-edit"></i></div>
+        <div class="icons"><i class="icon-list-ul"></i></div>
         <h5>Lista de Administradores</h5>
         <!-- .toolbar -->
         <div class="toolbar">
@@ -35,15 +35,15 @@
                   <td> <%= admin.username %> </td>
                   <td> <%= admin.email %> </td>
                   <td>
-                    <%= link_to edit_admin_path(admin) do %>
+                    <%= link_to edit_admin_path(admin), title: "Editar" do %>
                       <i class="icon-pencil icon-large" style="padding-right: 5px"></i>
                     <% end %>
                     <% if admin.active? %>
-                      <%= link_to admin_path(admin), :method => :delete, :confirm => 'Tem certeza que deseja desativar um administrador do sistema?' do %>
+                      <%= link_to admin_path(admin), title: "Desativar", :method => :delete, :confirm => 'Tem certeza que deseja desativar um administrador do sistema?' do %>
                         <i class="icon-trash icon-large" style="padding-right: 5px"></i>
                       <% end %>
                     <% else %>
-                      <%= link_to admin_recreate_path(:admin_id=>admin), :confirm => 'Tem certeza que deseja reativar esse administrador do sistema?' do %>
+                      <%= link_to admin_recreate_path(:admin_id=>admin), title: "Reativar", :confirm => 'Tem certeza que deseja reativar esse administrador do sistema?' do %>
                         <i class="icon-undo icon-large" style="padding-right: 5px"></i>
                       <% end %>
                       

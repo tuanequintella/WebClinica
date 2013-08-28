@@ -1,0 +1,67 @@
+<%= icon_title_for(Secretary.model_name.human, "icon-user") %>
+<div class="row-fluid">
+  <div class="span12">
+    <div class="box dark">
+      <header>
+        <div class="icons"><i class="icon-info-sign"></i></div>
+        <h5><%= @secretary.name %></h5>
+        <!-- .toolbar -->
+        <div class="toolbar">
+          <ul class="nav">
+            <li><%= link_to 'Voltar', :back, 'data-target' => "#content" %></li>
+            <li><%= link_to 'Editar', edit_secretary_path(@secretary), 'data-target' => "#content" %></li>
+            <li>
+              <a class="accordion-toggle minimize-box" data-toggle="collapse" href="#div-1">
+                <i class="icon-chevron-up"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!-- /.toolbar -->
+      </header>
+      
+      <div id="div-1" class="accordion-body collapse in body">
+        <%= simple_form_for @secretary, class: "form-horizontal" do |f| %>
+          <div class="control-group">
+            <%= f.label :username, required: false, class: "control-label" %>
+            <div class="controls">
+              <div><%= @secretary.username %></div>
+            </div>
+          </div>
+          <div class="control-group">
+            <%= f.label :email, required: false, class: "control-label" %>
+            <div class="controls">
+              <div><%= @secretary.email %></div>
+            </div>
+          </div>
+          <div class="control-group">
+            <%= f.label :cpf, required: false, class: "control-label" %>
+            <div class="controls">
+              <div><%= @secretary.cpf %></div>
+            </div>
+          </div>
+          <div class="control-group">
+            <%= f.label :rg, required: false, class: "control-label" %>
+            <div class="controls">
+              <div><%= @secretary.rg %></div>
+            </div>
+          </div>
+          <div class="control-group">
+            <%= f.label :birthdate, required: false, class: "control-label" %>
+            <div class="controls">
+              <div><%= l @secretary.birthdate %></div>
+            </div>
+          </div>
+          <%- @secretary.contact_infos.each do |cinfo| %>
+            <div class="control-group">
+              <%= f.label I18n.t('activerecord.attributes.contact_info.type.' + cinfo.type), required: false, class: "control-label" %>
+              <div class="controls">
+                <div><%= cinfo.value %></div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

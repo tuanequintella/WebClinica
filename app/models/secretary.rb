@@ -1,4 +1,5 @@
 class Secretary < User
+  attr_accessible :cpf, :rg, :birthdate
   attr_accessor :contact_infos_attributes
 
   I18N_PATH = 'activerecord.attributes.user.type.'

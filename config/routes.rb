@@ -3,7 +3,6 @@ WebClinica::Application.routes.draw do
   get '/logout' => 'sessions#destroy', :as => :logout
 
   
-  
   resources :admins, except: [:show] do
     get 'recreate' => 'admins#recreate'
   end
@@ -26,6 +25,9 @@ WebClinica::Application.routes.draw do
     get 'recreate' => 'agendas#recreate'
   end
 
+  resources :health_insurances do
+    get 'recreate' => 'doctors#recreate'
+  end
 
   resources :records, :appointments
   resource :profile, only: [:edit, :update, :show] do

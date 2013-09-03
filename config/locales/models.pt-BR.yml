@@ -22,6 +22,9 @@ pt-BR:
       office:
         one: Clínica
         other: Clínicas
+      health_insurance:
+        one: Convênio
+        other: Convênios
     attributes:
       user:
         name: Nome

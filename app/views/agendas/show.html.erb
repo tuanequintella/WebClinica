@@ -1,0 +1,73 @@
+<script>
+  window.bindLinks = function () {
+    $( "a.free-spot-link" ).on('click', function() {
+        window.appointment = new NewAppointment("<%= @agenda.id %>", $(this).parent().data('date'));
+        $( "#dialog-form" ).dialog( "open" );        
+      });
+    $( "a.busy-spot-link" ).on('click', function() {
+        window.appointment = new NewAppointment("<%= @agenda.id %>", $(this).parent().data('date'));
+        $( "#dialog-form" ).dialog( "open" );        
+      });
+  };
+</script>
+  
+  
+<div id="dialog-form" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+
+<div class="span12">
+  <div class="agenda">
+    <% if @agenda.active? %>
+      <table class="table table-bordered table-condensed">
+        <thead>
+          <tr>
+            <th>
+              Horário
+            </th>
+            <% @week.each do |day| %>
+              <th class="#{day.today? ? 'today':''}">
+                <%= l day, :format => :agenda_day %>
+              </th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <% @agenda.time_array(@week).each do |time| %>
+            <tr>
+              <td>
+                <%= l time, :format => :hourly %>
+              </td>
+              <% @week.each do |day| %>
+                <% datetime = day.to_date + time.hour.hours + time.min.minutes %>
+                <% if not @agenda.available_datetime?(datetime) %>
+                  <td class="unavailable">
+                    <div class="unavailable">
+                    </div>
+                  </td>
+                <% elsif @agenda.appointment_at(datetime).nil? %>
+                  <td>
+                    <div class="free-spot" data-date="<%= datetime.to_s %>">
+                      <a class="free-spot-link" href="#">
+                        <%= image_tag("add_blue.png", width: '10px', height: '10px', alt: 'Nova consulta', title: 'Nova consulta') %>
+                      </a>
+                    </div>
+                  </td>
+                <% else %>
+                  <td>
+                    <div class="busy-spot" data-date="<%= datetime.to_s %>">
+                      <a class="busy-spot-link" href="#">
+                        <%= @agenda.appointment_at(datetime).record.pacient.name %>
+                      </a>
+                    </div>
+                  </td>
+                <% end %>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      Essa não é uma agenda ativa
+    <% end %>
+  </div>
+</div>
+

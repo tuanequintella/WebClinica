@@ -24,6 +24,5 @@ $ ->
       $("table tbody").html data
 $ ->
   $(".datepicker").datepicker()
-  $(".datepicker").datepicker("option", "dateFormat", "dd/mm/yy")
 
   

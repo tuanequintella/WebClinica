@@ -1,0 +1,24 @@
+<%= simple_nested_form_for(@doctor, :html => { :class => 'form-horizontal' }) do |f|
+  <%= f.simple_fields_for :agenda do |ag_form| %>
+    <fieldset>
+      <legend>
+        Editar agenda de <%= @doctor.name %>
+      </legend>
+      <%= ag_form.input :default_meeting_length, :as => :minutes, :input_html => {:class => 'input-small'} %>
+      <%= ag_form.simple_fields_for :available_days do |avd_form| %>
+        <%= avd_form.input :day, :collection => AvailableDay.days, :include_blank=>'Selecione um dia' %>
+        <%= avd_form.input :work_start_time, :as => :time, :input_html => {:class => 'input-small'} %>
+        <%= avd_form.input :work_end_time, :as => :time, :input_html => {:class => 'input-small'} %>
+        <%= avd_form.input :interval_start_time, :as => :time, :input_html => {:class => 'input-small'} %>
+        <%= avd_form.input :interval_end_time, :as => :time, :input_html => {:class => 'input-small'} %>
+        <%= avd_form.link_to_remove "Remover dia" %>
+      <% end %>
+      <%= ag_form.link_to_add "Adicionar dia de trabalho", :available_days %>
+    </fieldset>
+  <% end %>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Salvar" %>
+    <%= link_to "Cancelar", doctors_path, :class => :btn %>
+  </div>
+<% end %>

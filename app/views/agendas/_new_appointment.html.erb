@@ -1,0 +1,48 @@
+<script>
+  $( function() {
+    $('div#last_appointment_date').hide();
+    $('#record_status').val("Sem ficha");
+    $('span#scheduled_at').val(window.appointment_date);
+    $('input#scheduled_at').val(window.appointment_date);
+    window.health_insurances = JSON.parse("<%= agenda.doctor.health_insurances.to_json %>");
+    bindRecord();
+  });
+</script>
+
+<div id="appointment-form" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel"><span id="scheduled_at"></span></h3>
+  </div>
+  <div class="modal-body">
+    <%= simple_nested_form_for(Appointment.new, :html => { :class => 'form-horizontal' }) do |f| %>
+      <fieldset>        
+        <%= f.hidden_field :scheduled_at %>
+        <%= f.association :agenda, :as => :hidden, value: @agenda.id %>
+        <%= f.association :record, :collection => Record.all, :include_blank=> "Novo paciente" %>
+        
+        <%= simple_fields_for Pacient.new do |pac_f| %>
+          <%= pac_f.input :name %>
+          <%= pac_f.association :health_insurance, :collection => @agenda.doctor.health_insurances, :include_blank => 'Selecione uma opção' %>
+          <%= pac_f.input :phone %>
+        <% end %>
+
+        <%= simple_fields_for Record.new do |rec_f| %>
+          <%= rec_f.input :status, :disabled => true %>
+          <div id="last_appointment_date">
+            <%= rec_f.input :last_appointment, :disabled => true %>
+            <div id="appointment-date-warning">
+              <center>A última consulta ocorreu em menos de 30 dias.<br />
+              Para evitar retorno marque a partir de {appropriate_date}.
+              </center>
+            </div>
+          </div>
+        <% end %>
+      </fieldset>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+      <%= f.button :submit, 'Marcar consulta', class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

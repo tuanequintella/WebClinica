@@ -1,18 +1,15 @@
 <script>
   window.bindLinks = function () {
     $( "a.free-spot-link" ).on('click', function() {
-        window.appointment = new NewAppointment("<%= @agenda.id %>", $(this).parent().data('date'));
-        $( "#dialog-form" ).dialog( "open" );        
+        window.appointment_date = $(this).parent().data('date');
+        $( "#appointment-form" ).modal();        
       });
     $( "a.busy-spot-link" ).on('click', function() {
-        window.appointment = new NewAppointment("<%= @agenda.id %>", $(this).parent().data('date'));
-        $( "#dialog-form" ).dialog( "open" );        
+        window.appointment_date = $(this).parent().data('date');
+        $( "#appointment-form" ).modal();
       });
   };
 </script>
-  
-  
-<div id="dialog-form" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 
 <div class="span12">
   <div class="agenda">
@@ -24,7 +21,7 @@
               Horário
             </th>
             <% @week.each do |day| %>
-              <th class="#{day.today? ? 'today':''}">
+              <th class="<%= day.today? ? 'today':'' %>">
                 <%= l day, :format => :agenda_day %>
               </th>
             <% end %>
@@ -71,3 +68,4 @@
   </div>
 </div>
 
+<%= render partial: 'new_appointment', locals: {agenda: @agenda} %>

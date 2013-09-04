@@ -1,23 +1,3 @@
-class NewAppointment
-  constructor: (agenda_id, date)->
-    @date = date
-    $.ajax(
-      url: "/appointments/new",
-      data:
-        date: date
-        agenda_id: agenda_id
-    ).done (data) ->
-      $("div#dialog-form").html data
-      
-window.NewAppointment = NewAppointment
-
-window.setupDialog = () ->
-  $("#dialog-form" ).dialog
-    autoOpen: false,
-    height: 'auto',
-    width: 'auto',
-    modal: true
-
 window.bindRecord = () ->
   $("#appointment_record_id").on 'change', () ->
     if $(this).val() != ""

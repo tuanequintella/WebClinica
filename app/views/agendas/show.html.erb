@@ -30,17 +30,19 @@
                 <% elsif @agenda.appointment_at(datetime).nil? %>
                   <td>
                     <div class="free-spot" data-date="<%= datetime.to_s %>">
-                      <a class="free-spot-link" href="#">
-                        <%= image_tag("add_blue.png", width: '10px', height: '10px', alt: 'Nova consulta', title: 'Nova consulta') %>
-                      </a>
+                      <%= link_to '#', class: "free-spot-link", title: "Nova cosulta" do %>
+                        <i class="icon-plus"></i>
+                      <% end %>
                     </div>
                   </td>
                 <% else %>
                   <td>
-                    <div class="busy-spot" data-date="<%= datetime.to_s %>">
-                      <a class="busy-spot-link" href="#">
-                        <%= @agenda.appointment_at(datetime).record.pacient.name %>
-                      </a>
+                    <% appointment = @agenda.appointment_at(datetime) %>
+                    <div class="busy-spot" data-date="<%= datetime.to_s %>" data-appointment="<% appointment.id %>">
+                      <%= link_to appointment.record.pacient.name, '#', class: "busy-spot-link pull-left", title: "Detalhes" %>
+                      <%= link_to appointment_path(appointment), method: :delete, confirm: "Tem certeza que deseja desmarcar essa consulta?", class: "pull-right", title: "Remover" do %>
+                        <i class="icon-remove-sign red"></i>
+                      <% end %>
                     </div>
                   </td>
                 <% end %>

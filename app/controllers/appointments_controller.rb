@@ -50,27 +50,12 @@ class AppointmentsController < ApplicationController
   end
 
   def destroy
-    @agenda = Agenda.find(params[:id])
-    @agenda.deactivate!
+    @appointment = Appointment.find(params[:id])
+    agenda = @appointment.agenda
+    date = @appointment.scheduled_at
+    @appointment.destroy
 
-    if(@agenda.save)
-      flash[:success] = "Agenda desativada com sucesso"
-    else
-      flash[:error] = "Erro ao desativar agenda"
-    end
-    redirect_to edit_doctor_path(@agenda.doctor)
-  end
-
-  def recreate
-    @agenda = Agenda.find(params[:agenda_id])
-    @agenda.activate!
-
-    if(@agenda.save)
-      flash[:success] = "Agenda reativada com sucesso"
-    else
-      flash[:error] = "Erro ao reativar agenda"
-    end
-    redirect_to edit_doctor_path(@agenda.doctor)
+    redirect_to agendas_path(:id => agenda, :date => date)
   end
 
 end

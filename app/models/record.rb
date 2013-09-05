@@ -29,11 +29,7 @@ class Record < ActiveRecord::Base
   end
   
   def active?
-    unless self.status == INACTIVE
-      true
-    else
-      false
-    end
+    self.status != INACTIVE
   end
   
   def method_name

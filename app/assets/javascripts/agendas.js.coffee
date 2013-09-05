@@ -9,7 +9,6 @@ class Agenda
     ).done (data) ->
       $("div#agenda").html data
       bindLinks()
-      setupDialog()
 
   enableConfigure: ->
     $.ajax(

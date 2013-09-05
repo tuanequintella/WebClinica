@@ -3,7 +3,7 @@
     <%= f.simple_fields_for :record do |rec_form| %>
       <%= rec_form.input :status, :collection => Record.status, :include_blank => "Selecione um status" %> 
       <div class="controls" id="last_appointment">
-        <%= text_field_tag :last_appointment_date, "", :placeholder => "Data da última consulta", :class => 'datepicker' %>
+        <%= text_field_tag :last_appointment_date, @pacient.record.try(:last_appointment).try(:scheduled_at), :placeholder => "Data da última consulta", :class => 'datepicker' %>
       </div>
     <% end %>
     <br />
@@ -40,9 +40,7 @@
 
 
 <script>
-  $( function() {
-    $('div#last_appointment').hide();
-    
+  $( function() {  
     $("#pacient_record_attributes_status").on('change', function () {
       if($(this).val()=='#{Record::NEW}' || $(this).val()=="") {
         $('div#last_appointment').hide();
@@ -51,6 +49,8 @@
         $('div#last_appointment').show();
       }
     });
+
+    $("#pacient_record_attributes_status").trigger('change');
     
   });
 </script>

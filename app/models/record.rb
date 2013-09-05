@@ -17,7 +17,7 @@ class Record < ActiveRecord::Base
   I18N_PATH = 'activerecord.attributes.record.'
 
   def self.status
-    [[NEW, NEW], [REGULAR, REGULAR], [BEGINNER, BEGINNER], [INACTIVE, INACTIVE]]
+    [[NEW, NEW], [REGULAR, REGULAR], [BEGINNER, BEGINNER], [TEMP, TEMP], [INACTIVE, INACTIVE]]
   end
   
   def deactivate!

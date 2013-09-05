@@ -26,7 +26,7 @@ class Pacient < ActiveRecord::Base
   end
 
   def active?
-    self.record.status == Record.INACTIVE
+    self.record.status != Record::INACTIVE
   end
 
   def self.records_list

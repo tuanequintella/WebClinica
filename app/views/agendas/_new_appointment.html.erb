@@ -1,12 +1,12 @@
 <div id="appointment-form" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel"><span id="scheduled_at"></span></h3>
+    <h3 id="myModalLabel">Nova consulta</h3>
   </div>
   <div class="modal-body">
     <%= simple_nested_form_for(Appointment.new, :html => { :class => 'form-horizontal' }) do |f| %>
       <fieldset>        
-        <%= f.hidden_field :scheduled_at %>
+        <%= f.input :scheduled_at, as: :string, input_html: { readonly: true }%>
         <%= f.association :agenda, :as => :hidden, input_html: { value: @agenda.id } %>
         <%= f.association :record, :collection => Record.all, :include_blank=> "Novo paciente" %>
         

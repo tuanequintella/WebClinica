@@ -58,14 +58,15 @@
 <%= render partial: 'new_appointment' %>
 
 <script>
+  var appointment_date;
+
   window.bindLinks = function () {
-    "use strict";
     $("a.free-spot-link").on('click', function () {
-        window.appointment_date = $(this).parent().data('date');
+        appointment_date = $(this).parent().data('date');
         $("#appointment-form").modal();  
     });
     $("a.busy-spot-link").on('click', function () {
-        window.appointment_date = $(this).parent().data('date');
+        appointment_date = $(this).parent().data('date');
         $("#appointment-form").modal();
     });
   };
@@ -73,8 +74,7 @@
   $('#appointment-form').on('shown', function () {
     $('div#last_appointment_date').hide();
     $('#record_status').val("Sem ficha");
-    $('span#scheduled_at').val(window.appointment_date);
-    $('#appointment_scheduled_at').val(window.appointment_date);
+    $('#appointment_scheduled_at').val(appointment_date);
     window.health_insurances = JSON.parse("<%= @agenda.doctor.health_insurances.to_json %>");
     bindRecord();
   });

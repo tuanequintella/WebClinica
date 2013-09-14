@@ -1,0 +1,57 @@
+<%= icon_title_for(Appointment.model_name.human(count: :many) + " do dia", "icon-calendar") %>
+<div class="row-fluid">
+  <div class="span4">
+    <div class="box dark">
+      <header>
+        <div class="icons"><i class="icon-list-ul"></i></div>
+        <h5><%= l Date.today %></h5>
+        <!-- .toolbar -->
+        <div class="toolbar">
+          <ul class="nav">
+            <li>
+              <a class="accordion-toggle minimize-box" data-toggle="collapse" href="#div-1">
+                <i class="icon-chevron-up"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!-- /.toolbar -->
+      </header>
+      <div id="day-agenda" class="accordion-body collapse in body">  
+        <table class="table table-striped table-bordered table-condensed">
+          <tbody>
+            <% @appointments.each do |appointment| %>
+              <tr>
+                <td> (status) </td>
+                <td> <%= appointment.scheduled_at.strftime("%H:%M") %> </td>
+                <td> <%= link_to appointment.record.pacient.name, record_path(appointment.record) %> </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="span8">
+    <div class="box dark">
+      <header>
+        <div class="icons"><i class="icon-file"></i></div>
+        <h5>Prontuário</h5>
+        <!-- .toolbar -->
+        <div class="toolbar">
+          <ul class="nav">
+            <li>
+              <a class="accordion-toggle minimize-box" data-toggle="collapse" href="#div-1">
+                <i class="icon-chevron-up"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!-- /.toolbar -->
+      </header>
+      <div id="pacient-record" class="accordion-body collapse in body">  
+        Selecione um paciente
+      </div>
+    </div>
+  </div>
+</div>

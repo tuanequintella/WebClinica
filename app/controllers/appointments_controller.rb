@@ -2,14 +2,22 @@
 class AppointmentsController < ApplicationController
   load_and_authorize_resource
 
-  #def index
-  #  @agenda = Agenda.new
-  #  @agenda.doctor = Doctor.new
-  #end
+  def index
+    if current_user.is_a? Doctor
+      agenda = Agenda.where(doctor_id: current_user.id).first
+      @appointments = agenda.appointments.select{ |ap| ap.scheduled_at.to_date == Date.today }
+      render :doctor_index
+    elsif current_user.is_a?(Secretary) && params[:doctor_id]
+      doctor = Doctor.find(params[:doctor_id])
+      @appointments = doctor.agenda.appointments.select{ |ap| ap.scheduled_at.to_date == Date.today }
+      render :secretary_index
+    else
+      render :select_doctor
+    end
+  end
 
   def show
     @appointment = Appointment.find(params[:id])
-    #@week = @agenda.week(params[:date])
     render :show, :layout => !request.xhr?
   end
 

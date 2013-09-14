@@ -17,6 +17,8 @@ class Doctor < User
   accepts_nested_attributes_for :contact_infos, :allow_destroy => true
   accepts_nested_attributes_for :agenda
 
+  scope :active, where(active: true)
+
   def to_s
     I18n.t(I18N_PATH + "doctor")
   end

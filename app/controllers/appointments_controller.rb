@@ -7,12 +7,9 @@ class AppointmentsController < ApplicationController
       agenda = Agenda.where(doctor_id: current_user.id).first
       @appointments = agenda.appointments.select{ |ap| ap.scheduled_at.to_date == Date.today }
       render :doctor_index
-    elsif current_user.is_a?(Secretary) && params[:doctor_id]
-      doctor = Doctor.find(params[:doctor_id])
-      @appointments = doctor.agenda.appointments.select{ |ap| ap.scheduled_at.to_date == Date.today }
-      render :secretary_index
     else
-      render :select_doctor
+      @doctors = Doctor.active
+      render :secretary_index
     end
   end
 

@@ -23,6 +23,4 @@ $ ->
     ).done (data) ->
       $("table tbody").html data
 $ ->
-  $(".datepicker").datepicker()
-
-  
+  $('.datepicker').datepicker({language: 'pt-BR'})

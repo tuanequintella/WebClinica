@@ -22,5 +22,6 @@ $ ->
       data: form.serialize()
     ).done (data) ->
       $("table tbody").html data
+
 $ ->
-  $('.datepicker').datepicker({language: 'pt-BR'})
+  $('.datepicker').datepicker({language: 'pt-BR', endDate: new Date(), todayHighlight: true, autoclose: true })

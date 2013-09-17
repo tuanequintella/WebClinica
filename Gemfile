@@ -14,6 +14,7 @@ gem 'nested_form'
 gem 'cancan'
 gem 'pry-rails'
 gem 'jquery-rails'
+gem 'enumerize'
 
 # Gems used only for assets and not required
 # in production environments by default.

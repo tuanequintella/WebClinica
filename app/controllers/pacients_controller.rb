@@ -20,7 +20,7 @@ class PacientsController < ApplicationController
     @pacient = Pacient.new(params[:pacient])
     
     if @pacient.save
-      unless(@pacient.record.status == Record::NEW)
+      unless(@pacient.record.status.new?)
         ap = Appointment.new(:scheduled_at => params[:last_appointment_date], :record => @pacient.record)
         ap.save
         @pacient.record.last_appointment = ap

@@ -1,0 +1,15 @@
+en:
+  enumerize:
+    appointment:
+      status:
+        pending: "Pendente"
+        pacient_arrived: "Na sala de espera"
+        on_going: "Em consulta"
+        finished: "Finalizada"
+        pacient_absent: "Faltou"
+    record:
+      status:
+        inactive: "Inativo"
+        new: "Nova ficha"
+        regular: "Regular"
+        beginner: "Primeiras vezes"

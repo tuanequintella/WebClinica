@@ -1,7 +1,7 @@
 <%= simple_nested_form_for(@pacient, :html => { :class => 'form-horizontal' }) do |f| %>
   <fieldset>
     <%= f.simple_fields_for :record do |rec_form| %>
-      <%= rec_form.input :status, :collection => Record.status, :include_blank => "Selecione um status" %> 
+      <%= rec_form.input :status, :collection => Record.status.options, :include_blank => "Selecione um status" %> 
       <div class="controls" id="last_appointment">
         <%= text_field_tag :last_appointment_date, @pacient.record.try(:last_appointment).try(:scheduled_at), :placeholder => "Data da última consulta", :class => 'datepicker' %>
       </div>
@@ -42,7 +42,7 @@
 <script>
   $( function() {  
     $("#pacient_record_attributes_status").on('change', function () {
-      if($(this).val()=='#{Record::NEW}' || $(this).val()=="") {
+      if($(this).val()=='new' || $(this).val()=="") {
         $('div#last_appointment').hide();
       }
       else {

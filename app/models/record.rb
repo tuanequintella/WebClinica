@@ -1,35 +1,31 @@
 #encoding: utf-8
 class Record < ActiveRecord::Base
+  extend Enumerize
 
   attr_accessible :status, :description, :pacient, :last_appointment
   belongs_to :last_appointment, :foreign_key => "last_appointment_id", :class_name => "Appointment"
   belongs_to :pacient
   has_many :appointments
-  
-  INACTIVE = "Inativo"
-  NEW = "Nova ficha"
-  REGULAR = "Regular"
-  BEGINNER = "Primeiras vezes"
-  TEMP = "Temporária"
+  #has_many :record_entries, through: :appointments
+
+  enumerize :status, in: [:inactive, :new, :regular, :beginner], default: :new
   
   validates_presence_of :status
   
   I18N_PATH = 'activerecord.attributes.record.'
 
-  def self.status
-    [[NEW, NEW], [REGULAR, REGULAR], [BEGINNER, BEGINNER], [TEMP, TEMP], [INACTIVE, INACTIVE]]
-  end
-  
   def deactivate!
-    self.status = INACTIVE
+    status = :inactive
+    save
   end
   
   def activate!
-    self.status = REGULAR
+    status = :regular
+    save
   end
   
   def active?
-    self.status != INACTIVE
+    !(status.inactive?)
   end
   
   def method_name

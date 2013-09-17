@@ -26,7 +26,7 @@ class Pacient < ActiveRecord::Base
   end
 
   def active?
-    self.record.active?
+    record.active?
   end
 
   def self.records_list

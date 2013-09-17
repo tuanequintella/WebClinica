@@ -28,7 +28,7 @@ class AppointmentsController < ApplicationController
   def create
     if params[:appointment][:record_id].blank?
       pacient = Pacient.new(params[:pacient])
-      record = Record.create(:status => Record::TEMP)
+      record = Record.create(status: :new)
       pacient.record = record
       pacient.save(:validate => false)
     else

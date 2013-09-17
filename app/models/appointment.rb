@@ -1,8 +1,14 @@
 class Appointment < ActiveRecord::Base
-  attr_accessible :record, :agenda, :scheduled_at, :agenda_id, :record_id
+  extend Enumerize
+
+  attr_accessible :record, :agenda, :scheduled_at, :agenda_id, :record_id, :status
   
   belongs_to :record
   belongs_to :agenda
+
+  enumerize :status, in: [:pending, :pacient_arrived, :on_going, :finished, :pacient_absent], default: :pending
+
+  #has_one :record_entry
 
   I18N_PATH = 'activerecord.attributes.appointment.'
   

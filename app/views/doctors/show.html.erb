@@ -61,7 +61,7 @@
           <div class="control-group">
             <%= f.label :gradyear, required: false, class: "control-label" %>
             <div class="controls">
-              <div><%= @doctor.try(:gradyear).try(:year) %></div>
+              <div><%= (@doctor.gradyear ? l(@doctor.gradyear) : nil) %></div>
             </div>
           </div>
           <div class="control-group">

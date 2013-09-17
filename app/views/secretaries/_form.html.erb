@@ -9,7 +9,7 @@
     <% end %>
     <%= f.input :cpf %>
     <%= f.input :rg %>
-    <%= f.input :birthdate, as: :string, :input_html => {:class => 'datepicker'} %>
+    <%= f.input :birthdate, as: :string, :input_html => {:class => 'datepicker', 'data-date'=> secretary.birthdate, 'data-date-format'=>"dd/mm/yyyy"} %>
     <%= f.simple_fields_for :contact_infos do |cinfos_form| %>
       <%= cinfos_form.input :type, :collection => ContactInfo.contact_types , :label => false, :default => false %>
       <%= cinfos_form.input :value, :label => false %>
@@ -24,4 +24,13 @@
   </fieldset>
 <% end %>
       
-
+<script>
+  $(function() {
+    $('#secretary_birthdate').datepicker('remove');
+    $('#secretary_birthdate').datepicker({
+      startView: 'decade',
+      language: 'pt-BR',
+      endDate: new Date()
+    });
+  });
+</script>

@@ -28,7 +28,6 @@ class HealthInsurancesController < ApplicationController
 
   def update
     @health_insurance = HealthInsurance.find_by_id(params[:id])
-    params[:health_insurance].delete :username
     @health_insurance.update_attributes(params[:health_insurance])
     if @health_insurance.save
       flash[:success] = 'Atualizado com sucesso.'

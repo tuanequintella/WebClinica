@@ -28,10 +28,6 @@ class Record < ActiveRecord::Base
     !(status.inactive?)
   end
   
-  def method_name
-    
-  end
-  
   def to_s
     "%04d" % self.id
   end

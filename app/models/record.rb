@@ -32,6 +32,10 @@ class Record < ActiveRecord::Base
     "%04d" % self.id
   end
   
+  def id_and_pacient
+    ("%04d" % self.id) + " " + pacient.name
+  end
+
   def as_json (options = {})
     super(:include => [:last_appointment, :pacient])
   end

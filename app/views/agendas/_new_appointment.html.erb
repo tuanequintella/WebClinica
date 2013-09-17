@@ -8,8 +8,8 @@
       <fieldset>        
         <%= f.input :scheduled_at, as: :string, input_html: { readonly: true }%>
         <%= f.association :agenda, :as => :hidden, input_html: { value: @agenda.id } %>
-        <%= f.association :record, :collection => Record.all, :include_blank=> "Novo paciente" %>
-        
+        <%= f.association :record, :include_blank=> "Novo paciente", :label_method => :id_and_pacient %>
+   
         <%= simple_fields_for Pacient.new do |pac_f| %>
           <%= pac_f.input :name %>
           <%= pac_f.association :health_insurance, :collection => @agenda.doctor.health_insurances, :include_blank => 'Selecione uma opção' %>

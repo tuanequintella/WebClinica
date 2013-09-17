@@ -25,7 +25,14 @@ pt-BR:
       health_insurance:
         one: Convênio
         other: Convênios
+      occupation:
+        one: Especialidade
+        other: Especialidades
     attributes:
+      health_insurance:
+        name: Nome
+      occupation:
+        name: Nome
       user:
         name: Nome
         email: E-mail

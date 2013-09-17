@@ -26,10 +26,15 @@ WebClinica::Application.routes.draw do
   end
 
   resources :health_insurances do
-    get 'recreate' => 'doctors#recreate'
+    get 'recreate' => 'health_insurances#recreate'
+  end
+
+  resources :occupations do
+    get 'recreate' => 'occupations#recreate'
   end
 
   resources :records, :appointments
+
   resource :profile, only: [:edit, :update, :show] do
     member do
       get 'reset_password'

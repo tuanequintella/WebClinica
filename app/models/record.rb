@@ -15,17 +15,17 @@ class Record < ActiveRecord::Base
   I18N_PATH = 'activerecord.attributes.record.'
 
   def deactivate!
-    status = :inactive
-    save
+    self.status = :inactive
+    self.save
   end
   
   def activate!
-    status = :regular
-    save
+    self.status = :regular
+    self.save
   end
   
   def active?
-    !(status.inactive?)
+    !(self.status.inactive?)
   end
   
   def to_s

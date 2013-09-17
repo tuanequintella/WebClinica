@@ -20,7 +20,7 @@ class Appointment < ActiveRecord::Base
   end
 
   def increase_records_last_appointment
-    if changes[:scheduled_at].exists?
+    if changes[:scheduled_at]
       dates = record.appointments.map(&:scheduled_at)
       record.last_appointment = record.appointments.find{|a| a.scheduled_at == dates.max}
       record.save

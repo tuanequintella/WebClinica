@@ -19,6 +19,8 @@ class Ability
       can :manage, Pacient
       can :manage, Agenda
       can :manage, Appointment
+      can :manage, HealthInsurance
+      can :manage, Occupation
       can :read, Record
     end
 
@@ -27,6 +29,8 @@ class Ability
       can :read, ContactInfo
       can :read, Secretary
       can :read, Office
+      can :read, HealthInsurance
+      can :read, Occupation
       can :read, Agenda, :doctor_id => user.id
       can :read, Appointment, :agenda_id => user.agenda.id
       can :manage, Record

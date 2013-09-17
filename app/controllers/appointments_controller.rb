@@ -58,6 +58,10 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.find(params[:id])
     agenda = @appointment.agenda
     date = @appointment.scheduled_at
+    #if it was the first appointment, no need to mantain the pacient's record 
+    if @appointment.record.status.new?
+      @appointment.record.deactivate!
+    end
     @appointment.destroy
 
     redirect_to agendas_path(:id => agenda, :date => date)

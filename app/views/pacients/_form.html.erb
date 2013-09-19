@@ -3,7 +3,7 @@
     <%= f.simple_fields_for :record do |rec_form| %>
       <%= rec_form.input :status, :include_blank => "Selecione um status" %> 
       <div class="controls" id="last_appointment">
-        <%= text_field_tag :last_appointment_date, (pacient.record.last_appointment ? l(pacient.record.last_appointment.scheduled_at) : nil), :placeholder => "Data da última consulta", :class => 'datepicker', 'data-date'=> pacient.record.last_appointment.try(:scheduled_at), 'data-date-format'=>"dd/mm/yyyy" %>
+        <%= text_field_tag :last_appointment_date, (pacient.record.last_appointment ? l(pacient.record.last_appointment.scheduled_at.to_date) : nil), :placeholder => "Data da última consulta", :class => 'datepicker', 'data-date'=> pacient.record.last_appointment.try(:scheduled_at), 'data-date-format'=>"dd/mm/yyyy" %>
       </div>
     <% end %>
     <br />
@@ -32,7 +32,7 @@
     <%= f.link_to_add "Adicionar contato", :contact_infos %>
 
     <div class="form-actions">
-      <%= f.button :submit, "Cadastrar" %>
+      <%= f.button :submit, "Salvar" %>
       <%= link_to "Cancelar", pacients_path, :class => :btn %>
     </div>
   </fieldset>

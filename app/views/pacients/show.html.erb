@@ -9,7 +9,9 @@
         <div class="toolbar">
           <ul class="nav">
             <li><%= link_to 'Voltar', :back, 'data-target' => "#content" %></li>
-            <li><%= link_to 'Editar', edit_pacient_path(@pacient), 'data-target' => "#content" %></li>
+            <% if can? :manage, Pacient %>
+              <li><%= link_to 'Editar', edit_pacient_path(@pacient), 'data-target' => "#content" %></li>
+            <% end %>
             <li>
               <a class="accordion-toggle minimize-box" data-toggle="collapse" href="#div-1">
                 <i class="icon-chevron-up"></i>

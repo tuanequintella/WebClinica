@@ -8,7 +8,9 @@
         <!-- .toolbar -->
         <div class="toolbar">
           <ul class="nav">
-            <li><%= link_to 'Novo admin', new_admin_path, 'data-target' => "#content" %></li>
+            <% if can? :manage, Admin %>
+              <li><%= link_to 'Novo admin', new_admin_path, 'data-target' => "#content" %></li>
+            <% end %>
             <li>
               <a class="accordion-toggle minimize-box" data-toggle="collapse" href="#div-1">
                 <i class="icon-chevron-up"></i>
@@ -25,7 +27,9 @@
                 <th> Nome </th>
                 <th> Nome de usuário </th>
                 <th> E-mail </th>
-                <th> Ações </th>
+                <% if can? :manage, Admin %>
+                  <th> Ações </th>
+                <% end %>
               </tr>
             </thead>
             <tbody>
@@ -34,21 +38,23 @@
                   <td> <%= admin.name %> </td>
                   <td> <%= admin.username %> </td>
                   <td> <%= admin.email %> </td>
-                  <td>
-                    <%= link_to edit_admin_path(admin), title: "Editar" do %>
-                      <i class="icon-pencil icon-large" style="padding-right: 5px"></i>
-                    <% end %>
-                    <% if admin.active? %>
-                      <%= link_to admin_path(admin), title: "Desativar", :method => :delete, :confirm => 'Tem certeza que deseja desativar um administrador do sistema?' do %>
-                        <i class="icon-trash icon-large" style="padding-right: 5px"></i>
+                  <% if can? :manage, Admin %>
+                    <td>
+                      <%= link_to edit_admin_path(admin), title: "Editar" do %>
+                        <i class="icon-pencil icon-large" style="padding-right: 5px"></i>
                       <% end %>
-                    <% else %>
-                      <%= link_to admin_recreate_path(:admin_id=>admin), title: "Reativar", :confirm => 'Tem certeza que deseja reativar esse administrador do sistema?' do %>
-                        <i class="icon-undo icon-large" style="padding-right: 5px"></i>
+                      <% if admin.active? %>
+                        <%= link_to admin_path(admin), title: "Desativar", :method => :delete, :confirm => 'Tem certeza que deseja desativar um administrador do sistema?' do %>
+                          <i class="icon-trash icon-large" style="padding-right: 5px"></i>
+                        <% end %>
+                      <% else %>
+                        <%= link_to admin_recreate_path(:admin_id=>admin), title: "Reativar", :confirm => 'Tem certeza que deseja reativar esse administrador do sistema?' do %>
+                          <i class="icon-undo icon-large" style="padding-right: 5px"></i>
+                        <% end %>
+                        
                       <% end %>
-                      
-                    <% end %>
-                  </td>
+                    </td>
+                  <% end %>
                 </tr>
               <% end %>
             </tbody>

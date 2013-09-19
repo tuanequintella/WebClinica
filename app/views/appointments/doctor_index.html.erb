@@ -32,26 +32,28 @@
       </div>
     </div>
   </div>
-  <div class="span8">
-    <div class="box dark">
-      <header>
-        <div class="icons"><i class="icon-file"></i></div>
-        <h5>Prontuário</h5>
-        <!-- .toolbar -->
-        <div class="toolbar">
-          <ul class="nav">
-            <li>
-              <a class="accordion-toggle minimize-box" data-toggle="collapse" href="#div-1">
-                <i class="icon-chevron-up"></i>
-              </a>
-            </li>
-          </ul>
+  <% if can? :manage, Record %>
+    <div class="span8">
+      <div class="box dark">
+        <header>
+          <div class="icons"><i class="icon-file"></i></div>
+          <h5>Prontuário</h5>
+          <!-- .toolbar -->
+          <div class="toolbar">
+            <ul class="nav">
+              <li>
+                <a class="accordion-toggle minimize-box" data-toggle="collapse" href="#div-1">
+                  <i class="icon-chevron-up"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <!-- /.toolbar -->
+        </header>
+        <div id="pacient-record" class="accordion-body collapse in body">  
+          Selecione um paciente
         </div>
-        <!-- /.toolbar -->
-      </header>
-      <div id="pacient-record" class="accordion-body collapse in body">  
-        Selecione um paciente
       </div>
     </div>
-  </div>
+  <% end %>
 </div>

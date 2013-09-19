@@ -8,7 +8,9 @@
         <!-- .toolbar -->
         <div class="toolbar">
           <ul class="nav">
-            <li><%= link_to 'Novo paciente', new_pacient_path, 'data-target' => "#content" %></li>
+            <% if can? :manage, Pacient %>
+              <li><%= link_to 'Novo paciente', new_pacient_path, 'data-target' => "#content" %></li>
+            <% end %>
             <li>
               <a class="accordion-toggle minimize-box" data-toggle="collapse" href="#div-1">
                 <i class="icon-chevron-up"></i>
@@ -27,7 +29,9 @@
             <tr>
               <th> Nome </th>
               <th> E-mail </th>
-              <th> Ações </th>
+              <% if can? :manage, Pacient %>
+                <th> Ações </th>
+              <% end %>
             </tr>
           </thead>
           <tbody>

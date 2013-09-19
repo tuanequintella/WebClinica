@@ -8,7 +8,9 @@
         <!-- .toolbar -->
         <div class="toolbar">
           <ul class="nav">
-            <li><%= link_to 'Novo convênio', new_health_insurance_path, 'data-target' => "#content" %></li>
+            <% if can? :manage, HealthInsurance %>
+              <li><%= link_to 'Novo convênio', new_health_insurance_path, 'data-target' => "#content" %></li>
+            <% end %>
             <li>
               <a class="accordion-toggle minimize-box" data-toggle="collapse" href="#div-1">
                 <i class="icon-chevron-up"></i>
@@ -23,28 +25,32 @@
             <thead>
               <tr>
                 <th> Nome </th>
-                <th> Ações </th>
+                <% if can? :manage, HealthInsurance %>
+                  <th> Ações </th>
+                <% end %>
               </tr>
             </thead>
             <tbody>
               <% @health_insurances.each do |health_insurance| %>
                 <tr>
                   <td> <%= health_insurance.name %> </td>
-                  <td>
-                    <%= link_to edit_health_insurance_path(health_insurance), title: "Editar" do %>
-                      <i class="icon-pencil icon-large" style="padding-right: 5px"></i>
-                    <% end %>
-                    <% if health_insurance.active? %>
-                      <%= link_to health_insurance_path(health_insurance), title: "Desativar", :method => :delete, :confirm => 'Tem certeza que deseja desativar um convênio do sistema?' do %>
-                        <i class="icon-trash icon-large" style="padding-right: 5px"></i>
+                  <% if can? :manage, HealthInsurance %>
+                    <td>
+                      <%= link_to edit_health_insurance_path(health_insurance), title: "Editar" do %>
+                        <i class="icon-pencil icon-large" style="padding-right: 5px"></i>
                       <% end %>
-                    <% else %>
-                      <%= link_to health_insurance_recreate_path(:health_insurance_id=>health_insurance), title: "Reativar", :confirm => 'Tem certeza que deseja reativar esse convênio no sistema?' do %>
-                        <i class="icon-undo icon-large" style="padding-right: 5px"></i>
+                      <% if health_insurance.active? %>
+                        <%= link_to health_insurance_path(health_insurance), title: "Desativar", :method => :delete, :confirm => 'Tem certeza que deseja desativar um convênio do sistema?' do %>
+                          <i class="icon-trash icon-large" style="padding-right: 5px"></i>
+                        <% end %>
+                      <% else %>
+                        <%= link_to health_insurance_recreate_path(:health_insurance_id=>health_insurance), title: "Reativar", :confirm => 'Tem certeza que deseja reativar esse convênio no sistema?' do %>
+                          <i class="icon-undo icon-large" style="padding-right: 5px"></i>
+                        <% end %>
+                        
                       <% end %>
-                      
-                    <% end %>
-                  </td>
+                    </td>
+                  <% end %>
                 </tr>
               <% end %>
             </tbody>

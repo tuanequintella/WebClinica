@@ -8,7 +8,9 @@
         <!-- .toolbar -->
         <div class="toolbar">
           <ul class="nav">
-            <li><%= link_to 'Nova especialidade', new_occupation_path, 'data-target' => "#content" %></li>
+            <% if can? :manage, Occupation %>
+              <li><%= link_to 'Nova especialidade', new_occupation_path, 'data-target' => "#content" %></li>
+            <% end %>
             <li>
               <a class="accordion-toggle minimize-box" data-toggle="collapse" href="#div-1">
                 <i class="icon-chevron-up"></i>
@@ -23,28 +25,31 @@
             <thead>
               <tr>
                 <th> Nome </th>
-                <th> Ações </th>
+                <% if can? :manage, Occupation %>
+                  <th> Ações </th>
+                <% end %>
               </tr>
             </thead>
             <tbody>
               <% @occupations.each do |occupation| %>
                 <tr>
                   <td> <%= occupation.name %> </td>
-                  <td>
-                    <%= link_to edit_occupation_path(occupation), title: "Editar" do %>
-                      <i class="icon-pencil icon-large" style="padding-right: 5px"></i>
-                    <% end %>
-                    <% if occupation.active? %>
-                      <%= link_to occupation_path(occupation), title: "Desativar", :method => :delete, :confirm => 'Tem certeza que deseja desativar uma especialidade do sistema?' do %>
-                        <i class="icon-trash icon-large" style="padding-right: 5px"></i>
+                  <% if can? :manage, Occupation %>
+                    <td>
+                      <%= link_to edit_occupation_path(occupation), title: "Editar" do %>
+                        <i class="icon-pencil icon-large" style="padding-right: 5px"></i>
                       <% end %>
-                    <% else %>
-                      <%= link_to occupation_recreate_path(:occupation_id=>occupation), title: "Reativar", :confirm => 'Tem certeza que deseja reativar essa especialidade no sistema?' do %>
-                        <i class="icon-undo icon-large" style="padding-right: 5px"></i>
+                      <% if occupation.active? %>
+                        <%= link_to occupation_path(occupation), title: "Desativar", :method => :delete, :confirm => 'Tem certeza que deseja desativar uma especialidade do sistema?' do %>
+                          <i class="icon-trash icon-large" style="padding-right: 5px"></i>
+                        <% end %>
+                      <% else %>
+                        <%= link_to occupation_recreate_path(:occupation_id=>occupation), title: "Reativar", :confirm => 'Tem certeza que deseja reativar essa especialidade no sistema?' do %>
+                          <i class="icon-undo icon-large" style="padding-right: 5px"></i>
+                        <% end %>
                       <% end %>
-                      
-                    <% end %>
-                  </td>
+                    </td>
+                  <% end %>
                 </tr>
               <% end %>
             </tbody>

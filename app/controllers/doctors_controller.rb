@@ -54,7 +54,12 @@ class DoctorsController < ApplicationController
     else
       flash[:error] = 'Erro ao tentar desativar'
     end
-    redirect_to doctors_path
+    
+    if @doctor == current_user
+      redirect_to logout_path
+    else
+      redirect_to doctors_path
+    end
   end
   
   def recreate

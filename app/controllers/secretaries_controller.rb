@@ -52,7 +52,12 @@ class SecretariesController < ApplicationController
     else
       flash[:error] = 'Erro ao tentar desativar'
     end
-    redirect_to secretaries_path
+
+    if @secretary == current_user
+      redirect_to logout_path
+    else
+      redirect_to secretaries_path
+    end
   end
   
   def recreate

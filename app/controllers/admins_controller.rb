@@ -53,7 +53,11 @@ class AdminsController < ApplicationController
         flash[:error] = 'Erro ao tentar desativar'
       end
       
-      redirect_to admins_path
+      if @admin == current_user
+        redirect_to logout_path
+      else
+        redirect_to admins_path
+      end
     end
   end
   

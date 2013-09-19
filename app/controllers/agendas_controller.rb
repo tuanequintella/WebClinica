@@ -1,6 +1,6 @@
 #encoding: utf-8
 class AgendasController < ApplicationController
-  load_and_authorize_resource
+  
 
   def index
     if params[:id]

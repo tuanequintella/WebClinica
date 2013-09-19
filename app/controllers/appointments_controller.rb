@@ -50,6 +50,13 @@ class AppointmentsController < ApplicationController
     render :edit, :layout => !request.xhr?
   end
 
+  def update_status
+    @appointment = Appointment.find(params[:id])
+    @appointment.update_attributes(status: params[:status])
+    
+    redirect_to appointments_path
+  end
+
   def update
     #bla
   end

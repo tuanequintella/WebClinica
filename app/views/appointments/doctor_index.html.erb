@@ -22,7 +22,7 @@
           <tbody>
             <% @appointments.each do |appointment| %>
               <tr>
-                <td> <%= appointment.status.text %> </td>
+                <td title="<%= appointment.status.text %>"> <%= icon_for_status(appointment.status) %></td>
                 <td> <%= appointment.scheduled_at.strftime("%H:%M") %> </td>
                 <td> <%= link_to appointment.record.pacient.name, record_path(appointment.record) %> </td>
               </tr>

@@ -25,3 +25,4 @@ $ ->
 
 $ ->
   $('.datepicker').datepicker({language: 'pt-BR', endDate: new Date(), todayHighlight: true, autoclose: true })
+  $('.dropdown-toggle').dropdown()

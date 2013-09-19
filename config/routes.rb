@@ -33,7 +33,13 @@ WebClinica::Application.routes.draw do
     get 'recreate' => 'occupations#recreate'
   end
 
-  resources :records, :appointments
+  resources :records
+
+  resources :appointments do
+    collection do
+      get 'update_status' => 'appointments#update_status'
+    end
+  end
 
   resource :profile, only: [:edit, :update, :show] do
     member do

@@ -25,4 +25,18 @@ $ ->
 
 $ ->
   $('.datepicker').datepicker({language: 'pt-BR', endDate: new Date(), todayHighlight: true, autoclose: true })
+  $('.timepicker').timepicker({minuteStep: 5, showMeridian: false})
   $('.dropdown-toggle').dropdown()
+  $('.select2').select2()
+
+$(document).on 'nested:fieldAdded', (event) ->
+  fields = event.field
+  dateFields = fields.find('.datepicker')
+  timeFields = fields.find('.timepicker')
+  dropFields = fields.find('.dropdown-toggle')
+  selectFields = fields.find('.select2')
+
+  dateFields.datepicker({language: 'pt-BR', endDate: new Date(), todayHighlight: true, autoclose: true })
+  timeFields.timepicker({minuteStep: 5, showMeridian: false})
+  dropFields.dropdown()
+  selectFields.select2()

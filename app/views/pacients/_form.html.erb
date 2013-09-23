@@ -24,12 +24,7 @@
     <%= f.input :phone %>
     <%= f.input :email %>
 
-    <%= f.simple_fields_for :contact_infos do |cinfos_form| %>
-      <%= cinfos_form.input :type, :collection => ContactInfo.contact_types , :label => false, :default => false %>
-      <%= cinfos_form.input :value, :label => false %>
-      <%= cinfos_form.link_to_remove "Remover contato" %>
-    <% end %>
-    <%= f.link_to_add "Adicionar contato", :contact_infos %>
+    <%= render partial: '/contact_infos/form', locals: {f: f} %>
 
     <div class="form-actions">
       <%= f.button :submit, "Salvar" %>

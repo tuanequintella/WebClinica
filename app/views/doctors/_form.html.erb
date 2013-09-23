@@ -14,33 +14,28 @@
     <%= f.input :crm %>
     <%= f.input :gradyear, as: :string, :input_html => {:class => 'datepicker', 'data-date'=> doctor.gradyear, 'data-date-format'=>"dd/mm/yyyy"}  %>
     <%= f.association :occupations, :as => :check_boxes  %>
-    <%= f.input :appointmentprice, :as => :currency, :input_html => {:class => 'input-small'} %>
+    <div class="control-group">
+      <%= f.label :appointmentprice %>
+      <div class="controls">
+        <div class="input-prepend">
+          <span class="add-on">R$</span> <%= f.number_field :appointmentprice, min: "1", max: "999", step: "0.01", :class => 'input-small' %>
+        </div>
+      </div>
+    </div>
     <%= f.association :health_insurances, :as => :check_boxes %>
-    <%= f.simple_fields_for :contact_infos do |cinfos_form| %>
-      <%= cinfos_form.input :type, :collection => ContactInfo.contact_types , :label => false, :default => false %>
-      <%= cinfos_form.input :value, :label => false %>
-      <%= cinfos_form.link_to_remove "Remover contato" %>
-    <% end %>
-    <%= f.link_to_add "Adicionar contato", :contact_infos %>
+    <%= render partial: '/contact_infos/form', locals: {f: f} %>
 
     <!-- INFOS DA AGENDA -->
-    <% if doctor.new_record? %>
+    <% if doctor.new_record? || doctor.agenda.appointments.blank? %>
       <br />
       <%= f.simple_fields_for :agenda do |ag_form| %>
         <fieldset>
           <legend>
-            Criar agenda do médico
+            Configurar agenda do médico
           </legend>
-          <%= ag_form.input :default_meeting_length, :as => :minutes, :input_html => {:class => 'input-small'} %>
-          <%= ag_form.simple_fields_for :available_days do |avd_form| %>
-            <%= avd_form.input :day, :collection => AvailableDay.days, :include_blank=>'Selecione um dia' %>
-            <%= avd_form.input :work_start_time, :as => :time, :input_html => {:class => 'input-small'} %>
-            <%= avd_form.input :work_end_time, :as => :time, :input_html => {:class => 'input-small'} %>
-            <%= avd_form.input :interval_start_time, :as => :time, :input_html => {:class => 'input-small'} %>
-            <%= avd_form.input :interval_end_time, :as => :time, :input_html => {:class => 'input-small'} %>
-            <%= avd_form.link_to_remove "Remover dia" %>
-          <% end %>
-          <%= ag_form.link_to_add "Adicionar dia de trabalho", :available_days %>
+
+          <%= render partial: '/agendas/form', locals: {ag_form: ag_form} %>
+          
         </fieldset>
       <% end %>
     <% end %>
@@ -55,11 +50,15 @@
 
 <script>
   $(function() {
+    var now = new Date();
+    var yearsAgo = new Date();
+    yearsAgo.setFullYear(now.getFullYear() - 18);
+
     $('#doctor_birthdate').datepicker('remove');
     $('#doctor_birthdate').datepicker({
       startView: 'decade',
       language: 'pt-BR',
-      endDate: new Date()
+      endDate: yearsAgo
     });
 
     $('#doctor_gradyear').datepicker('remove');

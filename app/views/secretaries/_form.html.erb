@@ -10,12 +10,9 @@
     <%= f.input :cpf %>
     <%= f.input :rg %>
     <%= f.input :birthdate, as: :string, :input_html => {:class => 'datepicker', 'data-date'=> secretary.birthdate, 'data-date-format'=>"dd/mm/yyyy"} %>
-    <%= f.simple_fields_for :contact_infos do |cinfos_form| %>
-      <%= cinfos_form.input :type, :collection => ContactInfo.contact_types , :label => false, :default => false %>
-      <%= cinfos_form.input :value, :label => false %>
-      <%= cinfos_form.link_to_remove "Remover contato" %>
-    <% end %>
-    <%= f.link_to_add "Adicionar contato", :contact_infos %>
+    
+    <%= render partial: '/contact_infos/form', locals: {f: f} %>
+
     <div class="form-actions">
       <%= f.button :submit, "Salvar" %>
       <%= link_to "Cancelar", secretaries_path, :class => :btn %>
@@ -25,12 +22,16 @@
 <% end %>
       
 <script>
+  var now = new Date();
+  var yearsAgo = new Date();
+  yearsAgo.setFullYear(now.getFullYear() - 10);
+
   $(function() {
     $('#secretary_birthdate').datepicker('remove');
     $('#secretary_birthdate').datepicker({
       startView: 'decade',
       language: 'pt-BR',
-      endDate: new Date()
+      endDate: yearsAgo
     });
   });
 </script>

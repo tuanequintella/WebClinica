@@ -96,10 +96,10 @@ pt-BR:
         friday: Sexta
         saturday: Sábado
         day: Dia da semana
-        work_start_time: Início do trabalho
-        work_end_time: Término do trabalho
-        interval_start_time: Início do intervalo
-        interval_end_time: Término do intervalo
+        work_start_time: Entrada
+        work_end_time: Saída
+        interval_start_time: Intervalo
+        interval_end_time: Fim do intervalo
       agenda:
         default_meeting_length: Duração da consulta
       appointment:

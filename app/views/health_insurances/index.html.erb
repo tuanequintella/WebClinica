@@ -34,8 +34,8 @@
               <% @health_insurances.each do |health_insurance| %>
                 <tr>
                   <td> <%= health_insurance.name %> </td>
-                  <% if can? :manage, HealthInsurance %>
-                    <td>
+                  <td>
+                    <% if can? :manage, health_insurance %>
                       <%= link_to edit_health_insurance_path(health_insurance), title: "Editar" do %>
                         <i class="icon-pencil icon-large" style="padding-right: 5px"></i>
                       <% end %>
@@ -47,10 +47,9 @@
                         <%= link_to health_insurance_recreate_path(:health_insurance_id=>health_insurance), title: "Reativar", :confirm => 'Tem certeza que deseja reativar esse convênio no sistema?' do %>
                           <i class="icon-undo icon-large" style="padding-right: 5px"></i>
                         <% end %>
-                        
                       <% end %>
-                    </td>
-                  <% end %>
+                    <% end %>
+                  </td>
                 </tr>
               <% end %>
             </tbody>

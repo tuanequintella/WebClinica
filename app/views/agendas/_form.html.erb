@@ -1,0 +1,53 @@
+<div class="control-group">
+  <%= ag_form.label :default_meeting_length %>
+  <div class="controls">
+    <div class="input-append">
+      <%= ag_form.number_field :default_meeting_length, min: "5", max: "180", step: "5", class: "input-small" %>
+      <span class="add-on">minutos</span>
+    </div>
+  </div>
+</div>
+
+<%= ag_form.simple_fields_for :available_days do |avd_form| %>
+  <div class="row-fluid">
+    <div class="span12" style="border: 1px silver dashed; width: 665px; margin-bottom: 10px">
+      <div class="row-fluid" style="padding-top: 15px">
+        <div class="span8" style="width: 625px">
+          <div class="control-group">
+            <%= avd_form.label :day, style: "width: 125px" %>
+            <div class="controls">
+              <%= avd_form.input_field :day, :collection => AvailableDay.days, :include_blank=>'Selecione um dia' %>
+            </div>
+          </div>
+        </div>
+        <div class="span3" style="width: 20px; margin-left: 0px">
+          <%= avd_form.link_to_remove class: "pull-right" do %>
+            <i class="icon-remove icon-large red" title="Remover dia"></i>
+          <% end %>
+        </div>
+      </div>
+      <div class="row-fluid" style="padding-left: 30px; padding-bottom: 15px">
+        <div class="span3" style="width: 140px">
+          <%= avd_form.label :work_start_time, style: "text-align: left" %>
+          <%= avd_form.input_field :work_start_time, :as => :string, :class => 'timepicker input-small' %>
+        </div>
+        <div class="span3" style="width: 140px">
+          <%= avd_form.label :interval_start_time, style: "text-align: left" %>
+          <%= avd_form.input_field :interval_start_time, :as => :string, :class => 'timepicker input-small' %>
+        </div>
+        <div class="span3" style="width: 140px">
+          <%= avd_form.label :interval_end_time, style: "text-align: left" %>
+          <%= avd_form.input_field :interval_end_time, :as => :string, :class => 'timepicker input-small' %>
+        </div>
+        <div class="span3" style="width: 140px">
+          <%= avd_form.label :work_end_time, style: "text-align: left" %>
+          <%= avd_form.input_field :work_end_time, :as => :string, :class => 'timepicker input-small' %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<%= ag_form.link_to_add :available_days, class: "btn" do %>
+  <i class="icon-plus"></i> Adicionar dia de trabalho
+<% end %>

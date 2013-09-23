@@ -25,14 +25,14 @@ class Agenda < ActiveRecord::Base
   end
 
   def time_array(week)
-    d = [available_days.pluck(:work_start_time).map(&:hour).min]
-    d << available_days.pluck(:work_end_time).map(&:hour).max
+    d = [available_days.map(&:work_start_time).min]
+    d << available_days.map(&:work_end_time).max
     week.each do |day|
-      d += appointments_for_day(day).map(&:scheduled_at).map(&:hour)
+      d += appointments_for_day(day).map(&:scheduled_at).map(&:to_time)
     end
 
-    start_of_shift = Date.today.beginning_of_day + d.min.hours
-    end_of_shift = Date.today.beginning_of_day + (d.max + 1).hours
+    start_of_shift = Date.today.beginning_of_day + d.min.hour.hours + d.min.min.minutes
+    end_of_shift = Date.today.beginning_of_day + d.max.hour.hours + d.max.min.minutes + (2 * default_meeting_length).minutes
 
     time_array = []
 
@@ -41,6 +41,7 @@ class Agenda < ActiveRecord::Base
       time_array.push time
       time+=(default_meeting_length.minutes)
     end
+
     time_array
   end
 
@@ -68,12 +69,6 @@ class Agenda < ActiveRecord::Base
     self.appointments.all.select do |a|
       a.scheduled_at.to_date == day
     end
-  end
-
-  def self.some_days
-    date = Date.today
-
-    (date.beginning_of_month...date.end_of_month).to_a
   end
 
   def to_s

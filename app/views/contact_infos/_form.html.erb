@@ -1,0 +1,21 @@
+<div style="padding-left: 20px">
+  <%= f.simple_fields_for :contact_infos do |cinfos_form| %>
+    <div class="row-fluid" style="padding-bottom: 15px">
+      <div class="span2" style="width: 180px">
+        <%= cinfos_form.input_field :type, :collection => ContactInfo.contact_types, :include_blank => false, class: "input-medium" %>
+      </div>
+      <div class="span4" style="margin-left: 0px; width: 225px">
+        <%= cinfos_form.input_field :value, class: "input-large pull-left" %>
+      </div>
+      <div class="span1" style="margin-left: 20px">
+        <%= cinfos_form.link_to_remove do %>
+          <i class="icon-remove icon-large red" title="Remover contato"></i>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <%= f.link_to_add :contact_infos, class: "btn" do %>
+    <i class="icon-plus"></i> Adicionar contato
+  <% end %>
+</div>

@@ -24,8 +24,9 @@ window.bindRecord = () ->
             limit_date.setDate(limit_date.getDate()-30)
             $('#record_last_appointment').val(app_date.getDate() + '/' + app_date.getMonth() + '/' + app_date.getFullYear())
             if(app_date > limit_date)
-              valid_date = app_date.setDate(app_date.getDate()+30) 
-              new_text = $('div#appointment-date-warning').text().replace('{appropriate_date}', (valid_date.getDate() + "/" + valid_date.getMonth() + "/" + valid_date.getFullYear()) )
+              valid_date = new Date();
+              valid_date.setDate(app_date.getDate()+30) 
+              new_text = $('div#appointment-date-warning').text().replace(/(\d{1,2}\/\d{1,2}\/\d{4})/, (valid_date.getDate() + "/" + valid_date.getMonth() + "/" + valid_date.getFullYear()) )
               $('div#appointment-date-warning').text(new_text)
               $('div#appointment-date-warning').show()
             else

@@ -17,12 +17,12 @@
         <% end %>
 
         <%= simple_fields_for Record.new do |rec_f| %>
-          <%= rec_f.input :status, :disabled => true %>
+          <%= rec_f.input :status, collection: Record.status.options, :include_blank => "Sem ficha", :disabled => true %>
           <div id="last_appointment_date">
             <%= rec_f.input :last_appointment, :disabled => true %>
             <div id="appointment-date-warning">
               <center>A última consulta ocorreu em menos de 30 dias.<br />
-              Para evitar retorno marque a partir de {appropriate_date}.
+              Para evitar retorno marque a partir de 01/01/2000.
               </center>
             </div>
           </div>

@@ -28,10 +28,11 @@ class Agenda < ActiveRecord::Base
     d = [available_days.map(&:work_start_time).min]
     d << available_days.map(&:work_end_time).max
     week.each do |day|
-      d += appointments_for_day(day).map(&:scheduled_at).map(&:to_time)
+     # d += appointments_for_day(day).map(&:scheduled_at).map(&:to_time)
+     #TODO: pegar só o horário da consulta, e não data e hora, senão a consulta sempre será o max_value do array
     end
 
-    start_of_shift = Date.today.beginning_of_day + d.min.hour.hours + d.min.min.minutes
+    start_of_shift = Date.today.beginning_of_day + d.min.hour.hours + d.min.min.minutes - (default_meeting_length).minutes
     end_of_shift = Date.today.beginning_of_day + d.max.hour.hours + d.max.min.minutes + (2 * default_meeting_length).minutes
 
     time_array = []

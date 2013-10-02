@@ -6,7 +6,7 @@
       </legend>
       <%= ag_form.input :default_meeting_length, :as => :minutes, :input_html => {:class => 'input-small'} %>
       <%= ag_form.simple_fields_for :available_days do |avd_form| %>
-        <%= avd_form.input :day, :collection => AvailableDay.days, :include_blank=>'Selecione um dia' %>
+        <%= avd_form.input :day, :collection => AvailableDay.day.options, :include_blank=>'Selecione um dia' %>
         <%= avd_form.input :work_start_time, :as => :time, :input_html => {:class => 'input-small'} %>
         <%= avd_form.input :work_end_time, :as => :time, :input_html => {:class => 'input-small'} %>
         <%= avd_form.input :interval_start_time, :as => :time, :input_html => {:class => 'input-small'} %>

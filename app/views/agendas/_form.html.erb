@@ -16,7 +16,7 @@
           <div class="control-group">
             <%= avd_form.label :day, style: "width: 125px" %>
             <div class="controls">
-              <%= avd_form.input_field :day, :collection => AvailableDay.days, :include_blank=>'Selecione um dia' %>
+              <%= avd_form.input_field :day, :collection => AvailableDay.day.options, :include_blank=>'Selecione um dia' %>
             </div>
           </div>
         </div>

@@ -13,3 +13,12 @@ pt-BR:
         new: "Nova ficha"
         regular: "Regular"
         beginner: "Primeiras vezes"
+    available_day:
+      day:
+        sunday: "Domingo"
+        monday: "Segunda-feira"
+        tuesday: "Terça-feira"
+        wednesday: "Quarta-feira"
+        thursday: "Quinta-feira"
+        friday: "Sexta-feira"
+        saturday: "Sábado"

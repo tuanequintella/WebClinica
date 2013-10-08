@@ -47,7 +47,7 @@
                       <td class="unavailable">
                         <div class="unavailable" data-date="<%= datetime.to_s %>">
                           <% if can? :create, Appointment %>
-                            <%= link_to '#', class: "free-spot-link", title: "Cosulta fora do horário" do %>
+                            <%= link_to '#', class: "free-spot-link", title: "Consulta fora do horário" do %>
                               <!-- come up with a link that doesn't kill the visual -->
                             <% end %>
                           <% end %>
@@ -93,35 +93,38 @@
   </div>
 </div>
 
-<%= render partial: 'new_appointment' %>
+<div id="appointment-window" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+</div>
 
 <script>
-  var appointment_date = null;
-  var appointment_json = null;
+$(function (){
+    var appointment_date = null;
+    var appointment_id = null;
 
-  window.bindLinks = function () {
     $("a.free-spot-link").on('click', function () {
-        appointment_json = null;
         appointment_date = $(this).parent().data('date');
-        $("#appointment-form").modal();  
+        $.ajax({
+          url: "/appointments/new?date=" + appointment_date + "&agenda_id=<%= @agenda.id %>",
+          dataType: 'html'
+        }).success(function(data) {
+          $("#appointment-window").html(data);
+        });
+        $("#appointment-window").modal();  
     });
 
     $("a.busy-spot-link").on('click', function () {
         appointment_id = $(this).parent().data('appointment');
-        appointment_date = $(this).parent().data('date');
 
         $.ajax({
-          url: "/appointments/" + appointment_id,
-          dataType: 'json'
+          url: "/appointments/edit/" + appointment_id,
+          dataType: 'html'
         }).success(function(data) {
-          appointment_json = data;
+          $("#appointment-window").html(data);
         });
-        
-        $("#appointment-form").modal();
+        $("#appointment-window").modal(); 
     });
-  }
 
-  $('#appointment-form').on('shown', function () {
+  $('#appointment-window').on('shown', function () {
     $('div#last_appointment_date').hide();
     $('#record_status').val("new");
     $('#appointment_scheduled_at').val(appointment_date);
@@ -132,10 +135,15 @@
     //TODO: arrumar esse parse do JSON
     bindRecord();
 
-    if(appointment_json != null) {
+    if(appointment_id != null) {
       //$('#appointment_scheduled_at').val(appointment_json["scheduled_at"]);
       $('#appointment_record_id').val(appointment_json["record_id"]);
     }
     $('#appointment_record_id').trigger('change');
   });
+
+  $('#appointment-window').on('hidden', function () {
+    appointment_id = null;
+  });
+});
 </script>

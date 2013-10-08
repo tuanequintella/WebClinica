@@ -21,6 +21,8 @@ class AppointmentsController < ApplicationController
 
   def new
     @appointment = Appointment.new
+    @appointment.record = Record.new
+    @appointment.record.pacient = Pacient.new
     @appointment.scheduled_at = params[:date]
     @appointment.agenda = Agenda.find(params[:agenda_id])
     render :new, :layout => !request.xhr?

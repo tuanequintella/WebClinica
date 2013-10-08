@@ -79,11 +79,9 @@ pt-BR:
         record_status: Status da ficha
       record:
         last_appointment: Última consulta
+        pacient_name: Nome
+        pacient_phone: Telefone
         appointments: Consultas
-        new: Nova ficha
-        regular: Regular
-        beginner: Primeiras vezes
-        inactive: Inativo
         id: Número da ficha
         status: Status da ficha
         warning:  Paciente cadastrado! Nº da ficha %{id}. ALTERE A NUMERAÇÃO NA FICHA EM PAPEL!
@@ -106,4 +104,8 @@ pt-BR:
         agenda: Agenda
         record: Ficha
         scheduled_at: Data e hora
+        health_insurance: Convênio
+        record_pacient_name: Nome
+        record_pacient_phone: Telefone
+        record_status: Status da ficha
 

@@ -8,7 +8,6 @@ class Agenda
         date: date
     ).done (data) ->
       $("div#agenda").html data
-      bindLinks()
 
   enableConfigure: ->
     $.ajax(

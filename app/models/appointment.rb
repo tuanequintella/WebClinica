@@ -1,10 +1,11 @@
 class Appointment < ActiveRecord::Base
   extend Enumerize
 
-  attr_accessible :record, :agenda, :scheduled_at, :agenda_id, :record_id, :status
+  attr_accessible :record, :agenda, :scheduled_at, :agenda_id, :record_id, :health_insurance_id, :status
   
   belongs_to :record
   belongs_to :agenda
+  belongs_to :health_insurance
 
   enumerize :status, in: [:pending, :pacient_arrived, :on_going, :finished, :pacient_absent], default: :pending
 

@@ -6,15 +6,16 @@ window.bindRecord = () ->
         dataType: 'json'
         success: (data) ->
           $('#pacient_name').val(data['pacient']['name'])
+          $('#pacient_name').attr('readonly', 'readonly')
           
-          $('#pacient_health_insurance_id').html("<option value>Selecione uma opção</option>")
+          $('#health_insurance_id').html("<option value>Selecione uma opção</option>")
           
           $(window.health_insurances).each (index) ->
             if this.name == "Sem convênio (particular)"
-              $('#pacient_health_insurance_id').append("<option value='#{this.id}'>#{this.name}</option>")  
+              $('#health_insurance_id').append("<option value='#{this.id}'>#{this.name}</option>")  
             else
               if this.id == data['pacient']['health_insurance_id']
-                $('#pacient_health_insurance_id').append("<option value='#{this.id}'>#{this.name}</option>")
+                $('#health_insurance_id').append("<option value='#{this.id}'>#{this.name}</option>")
           $('#pacient_phone').val(data['pacient']['phone'])
           $('#record_status').val(data['status'])
           if(data['last_appointment'] != undefined)
@@ -37,10 +38,11 @@ window.bindRecord = () ->
             $('div#appointment-date-warning').hide()
             
     else
-      $('#pacient_health_insurance_id').html("<option value>Selecione uma opção</option>")
+      $('#health_insurance_id').html("<option value>Selecione uma opção</option>")
       $(window.health_insurances).each (index) ->
-        $('#pacient_health_insurance_id').append("<option value='#{this.id}'>#{this.name}</option>")
+        $('#health_insurance_id').append("<option value='#{this.id}'>#{this.name}</option>")
       $('#pacient_name').val("")
+      $('#pacient_name').removeAttr("readonly")
       $('#pacient_phone').val("")
       $('#record_status').val("Sem ficha")
       $('#record_last_appointment').val("")

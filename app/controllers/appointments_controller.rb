@@ -1,7 +1,8 @@
 #encoding: utf-8
 class AppointmentsController < ApplicationController
   load_and_authorize_resource
-
+  respond_to :html, :json
+  
   def index
     if current_user.is_a? Doctor
       agenda = Agenda.where(doctor_id: current_user.id).first
@@ -14,8 +15,8 @@ class AppointmentsController < ApplicationController
   end
 
   def show
-    @appointment = Appointment.find(params[:id])
-    render :show, :layout => !request.xhr?
+    @appointment = Appointment.find_by_id(params[:id])
+    respond_with @appointment
   end
 
   def new

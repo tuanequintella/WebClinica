@@ -12,7 +12,7 @@
    
         <%= simple_fields_for Pacient.new do |pac_f| %>
           <%= pac_f.input :name %>
-          <%= pac_f.association :health_insurance, :collection => @agenda.doctor.health_insurances, :include_blank => 'Selecione uma opção' %>
+          <%= f.association :health_insurance, :collection => @agenda.doctor.health_insurances, :include_blank => 'Selecione uma opção' %>
           <%= pac_f.input :phone %>
         <% end %>
 

@@ -59,7 +59,7 @@
                   <% if @agenda.available_datetime?(datetime) %>
                     <td>
                       <% appointment = @agenda.appointment_at(datetime) %>
-                      <div class="busy-spot" data-date="<%= datetime.to_s %>" data-appointment="<%= appointment.id %>">
+                      <div class="busy-spot" data-date="<%= datetime.to_s %>" data-record="<%= appointment.record.id %>">
                         <%= link_to appointment.record.pacient.name, '#', class: "busy-spot-link pull-left", title: "Detalhes" %>
                         <% if datetime >= Date.today && can?(:delete, Appointment) %>
                           <%= link_to appointment_path(appointment), method: :delete, confirm: "Tem certeza que deseja desmarcar essa consulta?", class: "pull-right", title: "Remover" do %>
@@ -71,7 +71,7 @@
                   <% else %>
                     <td class="unavailable">
                       <% appointment = @agenda.appointment_at(datetime) %>
-                      <div class="unavailable busy-spot" data-date="<%= datetime.to_s %>" data-appointment="<%= appointment.id %>">
+                      <div class="unavailable busy-spot" data-date="<%= datetime.to_s %>" data-record="<%= appointment.record.id %>">
                         <%= link_to appointment.record.pacient.name, '#', class: "busy-spot-link pull-left", title: "Detalhes" %>
                         <% if datetime >= Date.today && can?(:delete, Appointment) %>
                           <%= link_to appointment_path(appointment), method: :delete, confirm: "Tem certeza que deseja desmarcar essa consulta?", class: "pull-right", title: "Remover" do %>
@@ -94,56 +94,52 @@
 </div>
 
 <div id="appointment-window" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Consulta</h3>
+  </div>
+  <div class="modal-body">
+    <%= simple_nested_form_for(Appointment.new, :html => { :class => 'form-horizontal' }) do |f| %>
+      <fieldset>        
+        <%= f.input :scheduled_at, as: :string, input_html: { readonly: true }%>
+        <%= f.association :agenda, :as => :hidden, input_html: { value: @agenda.id } %>
+        <%= f.association :record, :include_blank=> "Novo paciente", :label_method => :id_and_pacient %>
+
+        <%= f.fields_for :record do |rec_f| %>
+          <%= rec_f.fields_for :pacient do |pac_f| %>
+            <%= pac_f.input :name %>
+            <%= f.association :health_insurance, :collection => @agenda.doctor.health_insurances, :include_blank => 'Selecione uma opção' %>
+            <%= pac_f.input :phone %>
+          <% end %>
+
+          <%= rec_f.input :status, collection: Record.status.options, :include_blank => false, :disabled => true, selected: :new %>
+
+          <div id="last_appointment_date" style="display: none">
+            <div class="control-group">
+              <label for="record_last_appointment_date" class="control-label">
+                Última consulta
+              </label>
+              <div class="controls">
+                <%= text_field :record, :last_appointment_date, disabled: true %>
+              </div>
+            </div>
+            <div id="appointment-date-warning" style="display: none">
+            </div>
+          </div>
+        <% end %>
+      </fieldset>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+    <%= f.button :submit, 'Salvar consulta', class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+
 </div>
 
 <script>
-$(function (){
-    var appointment_date = null;
-    var appointment_id = null;
-
-    $("a.free-spot-link").on('click', function () {
-        appointment_date = $(this).parent().data('date');
-        $.ajax({
-          url: "/appointments/new?date=" + appointment_date + "&agenda_id=<%= @agenda.id %>",
-          dataType: 'html'
-        }).success(function(data) {
-          $("#appointment-window").html(data);
-        });
-        $("#appointment-window").modal();  
-    });
-
-    $("a.busy-spot-link").on('click', function () {
-        appointment_id = $(this).parent().data('appointment');
-
-        $.ajax({
-          url: "/appointments/edit/" + appointment_id,
-          dataType: 'html'
-        }).success(function(data) {
-          $("#appointment-window").html(data);
-        });
-        $("#appointment-window").modal(); 
-    });
-
-  $('#appointment-window').on('shown', function () {
-    $('div#last_appointment_date').hide();
-    $('#record_status').val("new");
-    $('#appointment_scheduled_at').val(appointment_date);
-    $('#appointment_record_id').val("");
-
-    //window.health_insurances = JSON.parse("<%= @agenda.doctor.health_insurances.to_json %>");
-    window.health_insurances = JSON.parse("[{\"active\":true,\"created_at\":\"2013-09-14T19:41:33-03:00\",\"id\":1,\"name\":\"Sem conv\\u00eanio (particular)\",\"updated_at\":\"2013-09-14T19:41:33-03:00\"},{\"active\":true,\"created_at\":\"2013-09-14T19:41:33-03:00\",\"id\":2,\"name\":\"Assim\\u00e9dica\",\"updated_at\":\"2013-09-14T19:41:33-03:00\"},{\"active\":true,\"created_at\":\"2013-09-14T19:41:33-03:00\",\"id\":4,\"name\":\"Unimed\",\"updated_at\":\"2013-09-14T19:41:33-03:00\"}]");
-    //TODO: arrumar esse parse do JSON
-    bindRecord();
-
-    if(appointment_id != null) {
-      //$('#appointment_scheduled_at').val(appointment_json["scheduled_at"]);
-      $('#appointment_record_id').val(appointment_json["record_id"]);
-    }
-    $('#appointment_record_id').trigger('change');
-  });
-
-  $('#appointment-window').on('hidden', function () {
-    appointment_id = null;
-  });
+$(function() {
+  window.appointmentsBehavior();
 });
 </script>

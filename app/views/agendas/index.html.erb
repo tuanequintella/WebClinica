@@ -1,3 +1,5 @@
+<%= javascript_include_tag :agendas %>
+<%= javascript_include_tag :appointments %>
 <script>
   $(function (){
     window.agendaApp = new AgendaApp("<%= @date.to_date %>");

@@ -7,31 +7,31 @@ class Appointment < ActiveRecord::Base
   belongs_to :agenda
   belongs_to :health_insurance
 
-  enumerize :status, in: [:pending, :pacient_arrived, :on_going, :finished, :pacient_absent], default: :pending
+  enumerize :status, in: [:pending, :pacient_arrived, :on_going, :finished, :pacient_absent], default: :pending, scope: true
 
   #has_one :record_entry
 
+  before_save :update_record_status
+
   I18N_PATH = 'activerecord.attributes.appointment.'
   
-  after_save :increase_records_last_appointment
-  before_destroy :decrease_records_last_appointment
-
-  def to_s
-    self.scheduled_at
-  end
-
-  def increase_records_last_appointment
-    if changes[:scheduled_at]
-      dates = record.appointments.map(&:scheduled_at)
-      record.last_appointment = record.appointments.find{|a| a.scheduled_at == dates.max}
+  def update_record_status
+    if status_changed? && status.finished? && record.status.new?
+      record.status = :beginner
       record.save
     end
   end
 
-  def decrease_records_last_appointment
-    remaining_apps = record.appointments.reject{ |e| e == self }.sort_by{ |ap| ap.scheduled_at }
-    record.last_appointment = remaining_apps.last
-    record.save
+  def localized_date
+    I18n.l(scheduled_at.to_date)
+  end
+
+  def to_s
+    I18n.l(self.scheduled_at)
+  end
+
+  def as_json (options = {})
+    super(options.merge!(methods: [:localized_date]))
   end
 
 end

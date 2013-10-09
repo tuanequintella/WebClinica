@@ -2,8 +2,7 @@
 class Record < ActiveRecord::Base
   extend Enumerize
 
-  attr_accessible :status, :description, :pacient, :last_appointment
-  belongs_to :last_appointment, :foreign_key => "last_appointment_id", :class_name => "Appointment"
+  attr_accessible :status, :description, :pacient
   belongs_to :pacient
   has_many :appointments
   #has_many :record_entries, through: :appointments
@@ -13,6 +12,10 @@ class Record < ActiveRecord::Base
   validates_presence_of :status
   
   I18N_PATH = 'activerecord.attributes.record.'
+
+  def last_appointment
+    appointments.with_status(:finished).order("scheduled_at DESC").first
+  end
 
   def deactivate!
     self.status = :inactive
@@ -37,7 +40,11 @@ class Record < ActiveRecord::Base
   end
 
   def as_json (options = {})
-    super(:include => [:last_appointment, :pacient])
+    super(options.merge!(:include => [:pacient], methods: [:last_appointment, :next_valid_appointment_date]))
+  end
+
+  def next_valid_appointment_date
+    last_appointment.scheduled_at + 30.days if last_appointment
   end
 
 end

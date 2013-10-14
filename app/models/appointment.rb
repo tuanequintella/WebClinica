@@ -16,9 +16,14 @@ class Appointment < ActiveRecord::Base
   I18N_PATH = 'activerecord.attributes.appointment.'
   
   def update_record_status
-    if status_changed? && status.finished? && record.status.new?
-      record.status = :beginner
-      record.save
+    if status_changed? && status.finished?
+      if record.status.new?
+        record.status = :beginner
+        record.save
+      elsif record.status.inactive?
+        record.status = :regular
+        record.save
+      end
     end
   end
 

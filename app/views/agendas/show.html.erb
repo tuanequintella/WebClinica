@@ -23,7 +23,7 @@
               <% @week.each do |day| %>
                 <% datetime = day.to_date + time.hour.hours + time.min.minutes %>
                 <% if @agenda.appointment_at(datetime).nil? %>
-                  <% if datetime < Date.today %>
+                  <% if datetime < Time.now %>
                     <% if @agenda.available_datetime?(datetime) %>
                       <td> </td>
                     <% else %>
@@ -61,7 +61,7 @@
                       <% appointment = @agenda.appointment_at(datetime) %>
                       <div class="busy-spot" data-date="<%= datetime.to_s %>" data-appointment="<%= appointment.id %>">
                         <%= link_to appointment.record.pacient.name, '#', class: "busy-spot-link pull-left", title: "Detalhes" %>
-                        <% if datetime >= Date.today && can?(:delete, Appointment) %>
+                        <% if datetime >= Time.now && can?(:delete, Appointment) %>
                           <%= link_to appointment_path(appointment), method: :delete, confirm: "Tem certeza que deseja desmarcar essa consulta?", class: "pull-right", title: "Remover" do %>
                             <i class="icon-remove-sign red"></i>
                           <% end %>
@@ -73,7 +73,7 @@
                       <% appointment = @agenda.appointment_at(datetime) %>
                       <div class="unavailable busy-spot" data-date="<%= datetime.to_s %>" data-appointment="<%= appointment.id %>">
                         <%= link_to appointment.record.pacient.name, '#', class: "busy-spot-link pull-left", title: "Detalhes" %>
-                        <% if datetime >= Date.today && can?(:delete, Appointment) %>
+                        <% if datetime >= Time.now && can?(:delete, Appointment) %>
                           <%= link_to appointment_path(appointment), method: :delete, confirm: "Tem certeza que deseja desmarcar essa consulta?", class: "pull-right", title: "Remover" do %>
                             <i class="icon-remove-sign red"></i>
                           <% end %>

@@ -50,6 +50,23 @@ window.appointmentsBehavior = function (){
     } 
   });
 
+  $("form#new_appointment").on('submit', function(){
+    $.ajax({
+      data: $(this).serialize(),
+      url: $(this).attr('action'),
+      type: $(this).attr('method'),
+      dataType: 'json'
+    }).success(function(json) {
+
+      if(json.errors == true){
+        alert('Preencha os campos obrigatórios');
+      } else {
+        window.location.replace(json.url);
+      }
+    });
+    return false;
+  });
+
   $("#appointment-window").on('hidden', function() {
     $("#appointment_record_id").removeAttr('disabled');
     $("#appointment_record_pacient_name").removeAttr('disabled');
@@ -87,9 +104,13 @@ window.appointmentsBehavior = function (){
   });
 
   $("a.busy-spot-link").on('click', function (e) {
+    app_id = $(e.currentTarget).parent().data("appointment");
+    $("form#new_appointment").attr('action', 'appointments/' + app_id);
+    $("form#new_appointment").attr('method', 'put');
+
     setDate( $(e.currentTarget).parent().data("date") );
     $.ajax({
-      url: "/appointments/" + $(e.currentTarget).parent().data("appointment"),
+      url: "/appointments/" + app_id,
       dataType: 'json'
     }).success(function(appointment) {
         $("#appointment_record_id").val(appointment.record_id);

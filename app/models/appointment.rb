@@ -7,6 +7,7 @@ class Appointment < ActiveRecord::Base
   belongs_to :agenda
   belongs_to :health_insurance
 
+  validates_presence_of :record_id, :health_insurance_id, :agenda, :scheduled_at, :status
   enumerize :status, in: [:pending, :pacient_arrived, :on_going, :finished, :pacient_absent], default: :pending, scope: true
 
   #has_one :record_entry

@@ -30,7 +30,9 @@ class AgendasController < ApplicationController
   end
 
   def update
-    #bla
+    @agenda = Agenda.find_by_id(params[:id])
+    @agenda.update_attributes(params[:agenda])
+    redirect_to agendas_path(id: @agenda)
   end
 
   def destroy

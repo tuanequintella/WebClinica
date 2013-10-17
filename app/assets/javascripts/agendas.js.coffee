@@ -1,3 +1,5 @@
+
+
 class Agenda
   constructor: (@id)->
 
@@ -38,5 +40,11 @@ class AgendaApp
         @selectDate.hide()
         @currentAgenda = null
         $("div#agenda").html ""
+    $("a#btn-configure").on 'click', (e)->
+      $.ajax(
+          url: "/agendas/" + $("select#doctor option:selected").val() + "/edit"
+        ).done (data)->
+          $("div#agenda").html(data)
+          $('.timepicker').timepicker({minuteStep: 5, showMeridian: false})
 
 window.AgendaApp = AgendaApp

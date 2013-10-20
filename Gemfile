@@ -17,6 +17,10 @@ gem 'jquery-rails'
 gem 'enumerize'
 gem 'validates_timeliness'
 
+group :development, :test do
+  gem 'mailcatcher'
+end
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

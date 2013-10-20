@@ -16,6 +16,19 @@ WebClinica::Application.configure do
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
 
+  # Using MailCatcher to send and receive e-mails
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = { address: 'localhost',
+                                         port: 1025 }
+  # config.action_mailer.smtp_settings = {
+  #   :address              => "smtp.gmail.com",
+  #   :port                 => 587,
+  #   :domain               => 'gmail.com'
+  #   :user_name            => 'my_username@gmail.com',
+  #   :password             => 'my_password',
+  #   :authentication       => 'plain',
+  #   :enable_starttls_auto => true  }
+
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 
@@ -33,5 +46,5 @@ WebClinica::Application.configure do
   config.assets.compress = false
 
   # Expands the lines which load the assets
-  config.assets.debug = true
+  config.assets.debug = false
 end

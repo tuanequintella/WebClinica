@@ -100,6 +100,8 @@ window.appointmentsBehavior = function (){
 
   $("a.free-spot-link").on('click', function (e) {
     setDate( $(e.currentTarget).parent().data("date") );
+    $("form#new_appointment").attr('action', 'appointments/');
+    $("form#new_appointment").attr('method', 'post');
     $("#appointment-window").modal();
   });
 

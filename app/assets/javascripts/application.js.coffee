@@ -37,6 +37,6 @@ $(document).on 'nested:fieldAdded', (event) ->
   selectFields = fields.find('.select2')
 
   dateFields.datepicker({language: 'pt-BR', endDate: new Date(), todayHighlight: true, autoclose: true })
-  timeFields.timepicker({minuteStep: 5, showMeridian: false})
+  timeFields.timepicker({minuteStep: 5, showMeridian: false, defaultTime: '12:00'})
   dropFields.dropdown()
   selectFields.select2()

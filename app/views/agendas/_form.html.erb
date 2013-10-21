@@ -29,19 +29,19 @@
       <div class="row-fluid" style="padding-left: 30px; padding-bottom: 15px">
         <div class="span3" style="width: 140px">
           <%= avd_form.label :work_start_time, style: "text-align: left" %>
-          <%= avd_form.input_field :work_start_time, :as => :string, :class => 'timepicker input-small' %>
+          <%= avd_form.input_field :work_start_time, :as => :string, :value => time_format(avd_form.object.work_start_time), :class => 'timepicker input-small' %>
         </div>
         <div class="span3" style="width: 140px">
           <%= avd_form.label :interval_start_time, style: "text-align: left" %>
-          <%= avd_form.input_field :interval_start_time, :as => :string, :class => 'timepicker input-small' %>
+          <%= avd_form.input_field :interval_start_time, :as => :string, :value => time_format(avd_form.object.interval_start_time), :class => 'timepicker input-small' %>
         </div>
         <div class="span3" style="width: 140px">
           <%= avd_form.label :interval_end_time, style: "text-align: left" %>
-          <%= avd_form.input_field :interval_end_time, :as => :string, :class => 'timepicker input-small' %>
+          <%= avd_form.input_field :interval_end_time, :as => :string, :value => time_format(avd_form.object.interval_end_time), :class => 'timepicker input-small' %>
         </div>
         <div class="span3" style="width: 140px">
           <%= avd_form.label :work_end_time, style: "text-align: left" %>
-          <%= avd_form.input_field :work_end_time, :as => :string, :class => 'timepicker input-small' %>
+          <%= avd_form.input_field :work_end_time, :as => :string, :value => time_format(avd_form.object.work_end_time), :class => 'timepicker input-small' %>
         </div>
       </div>
     </div>

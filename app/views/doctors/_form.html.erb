@@ -26,7 +26,7 @@
     <%= render partial: '/contact_infos/form', locals: {f: f} %>
 
     <!-- INFOS DA AGENDA -->
-    <% if doctor.new_record? || doctor.agenda.appointments.blank? %>
+    <% if doctor.new_record? %>
       <br />
       <%= f.simple_fields_for :agenda do |ag_form| %>
         <fieldset>

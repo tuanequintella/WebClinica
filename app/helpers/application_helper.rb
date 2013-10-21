@@ -7,5 +7,9 @@ module ApplicationHelper
   def icon_title_for(title, icon)
     content_for(:content_title) { content_tag(:i, "", class: icon) + " " + title }
   end
+
+  def time_format(datetime)
+  	datetime.strftime('%H:%M') unless datetime.blank?
+  end
 end
 

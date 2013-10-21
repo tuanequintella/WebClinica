@@ -45,6 +45,6 @@ class AgendaApp
           url: "/agendas/" + $("select#doctor option:selected").val() + "/edit"
         ).done (data)->
           $("div#agenda").html(data)
-          $('.timepicker').timepicker({minuteStep: 5, showMeridian: false})
+          $('.timepicker').timepicker({minuteStep: 5, showMeridian: false, defaultTime: false})
 
 window.AgendaApp = AgendaApp

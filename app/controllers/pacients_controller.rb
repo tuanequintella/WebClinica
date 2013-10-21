@@ -21,9 +21,8 @@ class PacientsController < ApplicationController
     
     if @pacient.save
       unless(@pacient.record.status.new?)
-        ap = Appointment.new(:scheduled_at => params[:last_appointment_date], :record => @pacient.record)
-        ap.save
-        @pacient.record.last_appointment = ap
+        ap = Appointment.new(:status => :finished, :scheduled_at => params[:last_appointment_date], :record => @pacient.record)
+        ap.save(validate: false)
         @pacient.record.save
         flash[:READTHIS] = I18n.t('activerecord.attributes.record.warning', :id => "%04d" % @pacient.record.id)
       end
@@ -43,7 +42,6 @@ class PacientsController < ApplicationController
 
   def update
     @pacient = Pacient.find_by_id(params[:id])
-    params[:pacient].delete :username
     @pacient.update_attributes(params[:pacient])
     if @pacient.save
       flash[:success] = 'Atualizado com sucesso.'

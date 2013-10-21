@@ -1,5 +1,3 @@
-
-
 class Agenda
   constructor: (@id)->
 
@@ -10,12 +8,6 @@ class Agenda
         date: date
     ).done (data) ->
       $("div#agenda").html data
-
-  enableConfigure: ->
-    $.ajax(
-      url: "/agendas/#{@id}"
-    ).done ->
-      $("div#editAgenda").html
 
 
 class AgendaApp
@@ -28,8 +20,6 @@ class AgendaApp
         @currentAgenda = new Agenda($("select#doctor option:selected").val())
         @currentAgenda.getHtml(@today)
 
-        @btnConfigure.click =>
-          @currentAgenda.enableConfigure()
 
         @btnConfigure.attr("disabled",false)
         @selectDate.show()

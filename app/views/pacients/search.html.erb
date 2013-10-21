@@ -1,0 +1,22 @@
+<% @pacients.each do |pacient| %>
+  <tr>
+    <td> <%= link_to pacient.name, pacient_path(pacient) %> </td>
+    <td> <%= pacient.email %></td>
+    <% if can? :manage, Pacient %>
+      <td>
+        <%= link_to edit_pacient_path(pacient), title: "Editar" do %>
+          <i class="icon-pencil icon-large" style="padding-right: 5px"></i>
+        <% end %>
+        <% if pacient.active? %>
+          <%= link_to pacient_path(pacient), title: "Desativar", :method => :delete, :confirm => 'Tem certeza que deseja desativar este paciente do sistema?' do %>
+            <i class="icon-trash icon-large" style="padding-right: 5px"></i>
+          <% end %>
+        <% else %>
+          <%= link_to pacient_recreate_path(:pacient_id=>pacient), title: "Reativar", :confirm => 'Tem certeza que deseja reativar esse paciente do sistema?' do %>
+            <i class="icon-undo icon-large" style="padding-right: 5px"></i>
+          <% end %>
+        <% end %>
+      </td>
+    <% end %>
+  </tr>
+<% end %>

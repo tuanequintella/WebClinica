@@ -11,5 +11,9 @@ module ApplicationHelper
   def time_format(datetime)
   	datetime.strftime('%H:%M') unless datetime.blank?
   end
+
+  def date_format(datetime)
+    I18n.l(datetime.to_date) unless datetime.blank?
+  end
 end
 

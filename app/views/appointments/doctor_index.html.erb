@@ -1,3 +1,4 @@
+<%= javascript_include_tag :records %>
 <%= icon_title_for(Appointment.model_name.human(count: :many) + " do dia", "icon-calendar") %>
 <div class="row-fluid">
   <div class="span4">
@@ -24,7 +25,7 @@
               <tr>
                 <td title="<%= appointment.status.text %>"> <%= icon_for_status(appointment.status) %></td>
                 <td> <%= appointment.scheduled_at.strftime("%H:%M") %> </td>
-                <td> <%= link_to appointment.record.pacient.name, record_path(appointment.record) %> </td>
+                <td> <%= link_to appointment.record.pacient.name, '#', class: 'record-link', 'data-record' => appointment.record_id %> </td>
               </tr>
             <% end %>
           </tbody>
@@ -33,7 +34,7 @@
     </div>
   </div>
   <% if can? :manage, Record %>
-    <div class="span8">
+    <div class="span8" id="pacient-record">
       <div class="box dark">
         <header>
           <div class="icons"><i class="icon-file"></i></div>
@@ -50,7 +51,7 @@
           </div>
           <!-- /.toolbar -->
         </header>
-        <div id="pacient-record" class="accordion-body collapse in body">  
+        <div id="record-content" class="accordion-body collapse in body">  
           Selecione um paciente
         </div>
       </div>

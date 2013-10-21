@@ -33,7 +33,11 @@ WebClinica::Application.routes.draw do
     get 'recreate' => 'occupations#recreate'
   end
 
-  resources :records
+  resources :records do
+    collection do
+      get 'search'
+    end
+  end
 
   resources :appointments do
     collection do

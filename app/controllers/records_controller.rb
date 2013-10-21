@@ -7,18 +7,9 @@ class RecordsController < ApplicationController
     @records = Record.all
   end
 
-  def new
-    @record = Record.new
-  end
-
-  def create
-    @record = Record.new(params[:record])
-    if @record.save
-      flash[:success] = 'Cadastrado com sucesso.'
-      redirect_to records_path
-    else
-		  render :new
-    end
+  def search
+    @records = Pacient.includes(:record).search(params[:pacient][:name]).map(&:record)
+    render :search, :layout => false
   end
 
   def show
@@ -28,6 +19,7 @@ class RecordsController < ApplicationController
 
   def edit
     @record = Record.find_by_id(params[:id])
+    render :edit, :layout => !request.xhr?
   end
 
   def update
@@ -42,16 +34,5 @@ class RecordsController < ApplicationController
     end
   end
 
-  def destroy
-    @record = Record.find_by_id(params[:id])
-    @record.status = Record.INACTIVE
-    
-    if @record.save
-      flash[:success] = 'Desativado com sucesso'
-    else
-      flash[:error] = 'Erro ao tentar desativar'
-    end
-    redirect_to records_path
-  end
 end
 

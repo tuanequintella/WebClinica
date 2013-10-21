@@ -1,42 +1,66 @@
-<%- model_class = Record -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+<%= icon_title_for(Record.model_name.human(count: :many), "icon-paste") %>
+<div class="row-fluid">
+  <div class="span12">
+    <div class="box dark">
+      <header>
+        <div class="icons"><i class="icon-list-ul"></i></div>
+        <h5>Lista de Prontuários</h5>
+        <!-- .toolbar -->
+        <div class="toolbar">
+          <ul class="nav">
+            <li>
+              <a class="accordion-toggle minimize-box" data-toggle="collapse" href="#div-1">
+                <i class="icon-chevron-up"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!-- /.toolbar -->
+      </header>
+      <div id="div-1" class="accordion-body collapse in body">  
+        <%= form_for(Pacient.new, :url => search_records_path, :html => { :class => 'search form-inline' }) do |f| %>
+          <%= f.text_field :name, :placeholder => "Buscar por nome" %>
+        <% end %>
+        <table class="table table-striped table-bordered table-condensed">
+          <thead>
+            <tr>
+              <th> Número </th>
+              <th> Nome </th>
+              <th> Última consulta </th>
+              <th> Status </th>
+              <% if can? :manage, Record %>
+                <th> Ações </th>
+              <% end %>
+            </tr>
+          </thead>
+          <tbody>
+            <% @records.each do |record| %>
+              <tr>
+                <td> <%= link_to record.to_s, record_path(record) %> </td>
+                <td> <%= record.pacient.name %></td>
+                <td> <%= date_format(record.last_appointment.try(:scheduled_at)) %> </td>
+                <td> <%= record.status.text %></td>
+                <% if can? :manage, Record %>
+                  <td>
+                    <%= link_to edit_record_path(record), title: "Editar" do %>
+                      <i class="icon-pencil icon-large" style="padding-right: 5px"></i>
+                    <% end %>
+                    <% if record.pacient.active? %>
+                      <%= link_to pacient_path(record.pacient), title: "Desativar paciente", :method => :delete, :confirm => 'Tem certeza que deseja desativar este paciente do sistema?' do %>
+                        <i class="icon-trash icon-large" style="padding-right: 5px"></i>
+                      <% end %>
+                    <% else %>
+                      <%= link_to pacient_recreate_path(:pacient_id=>record.pacient_id), title: "Reativar", :confirm => 'Tem certeza que deseja reativar esse paciente do sistema?' do %>
+                        <i class="icon-undo icon-large" style="padding-right: 5px"></i>
+                      <% end %>
+                    <% end %>
+                  </td>
+                <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:record_id) %></th>
-      <th><%= model_class.human_attribute_name(:record_status) %></th>
-      <th><%= model_class.human_attribute_name(:description) %></th>
-      <th><%= model_class.human_attribute_name(:pacient_id) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @records.each do |record| %>
-      <tr>
-        <td><%= link_to record.id, record_path(record) %></td>
-        <td><%= record.record_id %></td>
-        <td><%= record.record_status %></td>
-        <td><%= record.description %></td>
-        <td><%= record.pacient_id %></td>
-        <td><%=l record.created_at %></td>
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_record_path(record), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      record_path(record),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-mini btn-danger' %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_record_path,
-            :class => 'btn btn-primary' %>

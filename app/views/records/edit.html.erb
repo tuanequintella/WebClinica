@@ -1,6 +1,38 @@
-<%- model_class = Record -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => t('helpers.titles.edit', :model => model_class.model_name.human,
-                                   :default => "Edit #{model_class.model_name.human}") %></h1>
+<div class="box dark">
+  <header>
+    <div class="icons"><i class="icon-file"></i></div>
+    <h5><%= @record.to_s + " - " + @record.pacient.name %></h5>
+    <!-- .toolbar -->
+    <div class="toolbar">
+      <ul class="nav">
+        <li>
+          <a class="accordion-toggle minimize-box" data-toggle="collapse" href="#div-1">
+            <i class="icon-chevron-up"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!-- /.toolbar -->
+  </header>
+  
+  <div id="div-1" class="accordion-body collapse in body">
+    <%= simple_nested_form_for(@record, :html => { :class => 'form-horizontal' }) do |f| %>
+      <fieldset>
+        <%= f.input :status, collection: Record.status.options, :input_html => {:class => 'input-medium'} %>
+
+        <% @record.appointments.with_status(:finished).last(5).each do |prev_app| %>
+          Consulta de <%= l(prev_app.scheduled_at) %><br />
+          (desc da consulta aqui)
+        <% end %>
+        
+        <br />
+        (form da consulta corrente aqui)
+        
+        <div class="form-actions">
+          <%= f.button :submit, "Salvar" %>
+          <%= link_to "Cancelar", appointments_path, :class => :btn %>
+        </div>
+      </fieldset>
+    <% end %>
+  </div>
 </div>
-<%= render :partial => 'form' %>

@@ -16,7 +16,7 @@
   </header>
   
   <div id="div-1" class="accordion-body collapse in body">
-    <%= simple_nested_form_for(@record, :html => { :class => 'form-horizontal' }) do |f| %>
+    <%= simple_form_for(@record, :html => { :class => 'form-horizontal' }) do |f| %>
       <fieldset>
         <%= f.input :status, collection: Record.status.options, :input_html => {:class => 'input-medium'} %>
 
@@ -26,7 +26,7 @@
         <% end %>
         
         <br />
-        (form da consulta corrente aqui)
+        <%= f.input :description, as: :text, input_html: {columns: 10, rows: 4} %>
         
         <div class="form-actions">
           <%= f.button :submit, "Salvar" %>

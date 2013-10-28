@@ -28,6 +28,9 @@ pt-BR:
       occupation:
         one: Especialidade
         other: Especialidades
+      record:
+        one: Prontuário
+        other: Prontuários
     attributes:
       health_insurance:
         name: Nome

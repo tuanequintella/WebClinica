@@ -21,6 +21,7 @@
       </header>
       
       <div id="div-1" class="accordion-body collapse in body">
+        <%= render partial: 'shared/alerts.html.erb' %> 
         <%= simple_form_for @user, class: "form-horizontal" do |f| %>
           <div class="control-group">
             <%= f.label :username, required: false, class: "control-label" %>

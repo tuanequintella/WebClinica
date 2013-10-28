@@ -1,9 +1,11 @@
 <div class="tab-content">
+    
     <div id="login" class="tab-pane active">
         <%= simple_form_for User.new, url: session_path, method: :post, html: { class: "form-signin" } do |f| %>
             <p class="muted text-center">
                 Bem vindo, entre com suas credenciais!
             </p>
+            <%= render partial: 'shared/alerts.html.erb' %> 
             <%= f.input_field :username, placeholder: "Nome de usuário", class: "input-block-level" %>
             <%= f.password_field :password, placeholder: "Senha", class: "input-block-level" %>
             <%= f.submit "Entrar", class: "btn btn-large btn-primary btn-block" %>

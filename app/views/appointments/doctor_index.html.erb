@@ -1,6 +1,7 @@
 <%= javascript_include_tag :records %>
 <%= icon_title_for(Appointment.model_name.human(count: :many) + " do dia", "icon-calendar") %>
 <div class="row-fluid">
+  <%= render partial: 'shared/alerts.html.erb' %> 
   <div class="span4">
     <div class="box dark">
       <header>

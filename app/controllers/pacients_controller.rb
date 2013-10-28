@@ -24,7 +24,7 @@ class PacientsController < ApplicationController
         ap = Appointment.new(:status => :finished, :scheduled_at => params[:last_appointment_date], :record => @pacient.record)
         ap.save(validate: false)
         @pacient.record.save
-        flash[:READTHIS] = I18n.t('activerecord.attributes.record.warning', :id => "%04d" % @pacient.record.id)
+        flash[:warning] = I18n.t('activerecord.attributes.record.warning', :id => "%04d" % @pacient.record.id)
       end
       redirect_to pacients_path
     else

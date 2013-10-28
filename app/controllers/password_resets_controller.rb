@@ -10,7 +10,8 @@ class PasswordResetsController < ApplicationController
   def create
     @user = User.find_by_email(params[:email])
     @user.deliver_reset_password_instructions! if @user
-    redirect_to(new_session_path, :notice => "Instruções foram mandadas no seu e-mail.")
+    flash[:warning] = "Instruções foram mandadas no seu e-mail."
+    redirect_to new_session_path
   end
 
 
@@ -30,7 +31,8 @@ class PasswordResetsController < ApplicationController
 
     if @user.change_password!(params[:user][:password])
       auto_login(@user)
-      redirect_to(root_path, :notice => "Senha alterada com sucesso.")
+      flash[:success] = "Senha alterada com sucesso."
+      redirect_to root_path
     else
       render :action => "edit"
     end

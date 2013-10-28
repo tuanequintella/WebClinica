@@ -19,6 +19,7 @@ gem 'validates_timeliness'
 
 group :development, :test do
   gem 'mailcatcher'
+  gem 'quiet_assets'
 end
 
 # Gems used only for assets and not required

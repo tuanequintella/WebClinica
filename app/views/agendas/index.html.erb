@@ -37,7 +37,7 @@
         <!-- /.toolbar -->
       </header>
         <div id="div-1" class="accordion-body collapse in body">
-          <%= render partial: 'shared/alerts.html.erb' %> 
+          <%= render partial: 'shared/alerts' %> 
           <div class="container-fluid">
             <div class="row-fluid">
               <%= select_tag :doctor, options_from_collection_for_select(Doctor.all, "agenda", "name"), :prompt => "Selecione o médico" %>

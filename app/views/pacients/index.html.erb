@@ -21,7 +21,7 @@
         <!-- /.toolbar -->
       </header>
       <div id="div-1" class="accordion-body collapse in body">  
-        <%= render partial: 'shared/alerts.html.erb' %> 
+        <%= render partial: 'shared/alerts' %> 
         <%= form_for(Pacient.new, :url => search_pacients_path, :html => { :class => 'search form-inline' }) do |f| %>
           <%= f.text_field :name, :placeholder => "Buscar por nome" %>
         <% end %>

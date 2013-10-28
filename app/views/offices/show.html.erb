@@ -23,7 +23,7 @@
       </header>
       
       <div id="div-1" class="accordion-body collapse in body">
-        <%= render partial: 'shared/alerts.html.erb' %> 
+        <%= render partial: 'shared/alerts' %> 
         <%= simple_form_for @office, class: "form-horizontal" do |f| %>
           <div class="control-group">
             <%= f.label :email, required: false, class: "control-label" %>

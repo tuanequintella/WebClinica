@@ -5,7 +5,7 @@
             <p class="muted text-center">
                 Bem vindo, entre com suas credenciais!
             </p>
-            <%= render partial: 'shared/alerts.html.erb' %> 
+            <%= render partial: 'shared/alerts' %> 
             <%= f.input_field :username, placeholder: "Nome de usuário", class: "input-block-level" %>
             <%= f.password_field :password, placeholder: "Senha", class: "input-block-level" %>
             <%= f.submit "Entrar", class: "btn btn-large btn-primary btn-block" %>

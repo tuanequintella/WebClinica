@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131002131240) do
+ActiveRecord::Schema.define(:version => 20131028182903) do
 
   create_table "agendas", :force => true do |t|
     t.integer  "doctor_id"
@@ -129,6 +129,10 @@ ActiveRecord::Schema.define(:version => 20131002131240) do
     t.string   "crm"
     t.date     "gradyear"
     t.float    "appointmentprice"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   add_index "users", ["remember_me_token"], :name => "index_users_on_remember_me_token"

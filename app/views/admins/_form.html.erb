@@ -1,5 +1,16 @@
 <%= simple_form_for(admin, :html => { :class => 'form-horizontal' }) do |f| %>
   <fieldset>
+    <div class="control-group">
+      <div class="controls">
+        <%= image_tag admin.avatar.url(:medium), class: "media-object img-polaroid user-img" %>
+      </div>
+    </div>
+    <%= f.input :avatar %>
+    <!--<div class="control-group">
+      <div class="controls">
+        <%= check_box_tag :delete_avatar, label: "Remover avatar" %>
+      </div>
+    </div>-->
     <%= f.input :name %>
     <%= f.input :email %>
     <% if admin.new_record? %>

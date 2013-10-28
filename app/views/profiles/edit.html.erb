@@ -21,6 +21,12 @@
       <div id="div-1" class="accordion-body collapse in body">
         <%= simple_nested_form_for @user, as: :user, :url => profile_path, :html => { :class => 'form-horizontal' } do |f| %>
           <fieldset>
+            <div class="control-group">
+              <div class="controls">
+                <%= image_tag @user.avatar.url(:medium), class: "media-object img-polaroid user-img" %>
+              </div>
+            </div>
+            <%= f.input :avatar %>
             <%= f.input :name %>
             <%= f.input :email %>
             <%= f.input :username, :disabled => true %>

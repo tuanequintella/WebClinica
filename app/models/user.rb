@@ -1,7 +1,7 @@
 #encoding: utf-8
 class User < ActiveRecord::Base
-  attr_accessible :email, :password, :password_confirmation, :active, :name, :username
-
+  attr_accessible :email, :password, :password_confirmation, :active, :name, :username, :avatar
+  attr_accessor :delete_avatar
   authenticates_with_sorcery!
 
   validates_presence_of :name, :username, :email
@@ -11,6 +11,10 @@ class User < ActiveRecord::Base
   validates :password, :presence => true, :length => {:minimum => 6}, :on => :update, :if => :password
   validates :password_confirmation, :presence => true, :on => :update, :if => :password
   validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
+
+  has_attached_file :avatar, :styles => { :medium => "150x150>", :thumb => "64x76#" }, :default_url => "/assets/img/user.png"
+
+  validates_attachment :avatar, :size => { :in => 0..3.megabytes }
 
   class CpfValidator < ActiveModel::EachValidator
     def validate_each(record, attribute, value)

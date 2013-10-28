@@ -1,5 +1,11 @@
 <%= simple_nested_form_for(secretary, :html => { :class => 'form-horizontal' }) do |f| %>
   <fieldset>
+    <div class="control-group">
+      <div class="controls">
+        <%= image_tag secretary.avatar.url(:medium), class: "media-object img-polaroid user-img" %>
+      </div>
+    </div>
+    <%= f.input :avatar %>
     <%= f.input :name %>
     <%= f.input :email %>
     <% if secretary.new_record? %>

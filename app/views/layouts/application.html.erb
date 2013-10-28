@@ -81,16 +81,13 @@
                 <!-- .user-media -->
                 <div class="media user-media hidden-phone">
                     <%= link_to profile_path, class: "user-link" do %>
-                        <img src="/assets/img/user.gif" alt="" class="media-object img-polaroid user-img">
+                        <%= image_tag current_user.avatar.url(:thumb), class: "media-object img-polaroid user-img" %>
                     <% end %>
 
                     <div class="media-body hidden-tablet">
-                        <h5 class="media-heading"><%= current_user.name.split(" ").first %></h5>
+                        <h5 class="media-heading"><%= link_to current_user.name.split(" ").first, profile_path %></h5>
                         <ul class="unstyled user-info">
-                            <li><a href=""><%= current_user.type.constantize.model_name.human %></a></li>
-                            <li>Último acesso: <br/>
-                                <small><i class="icon-calendar"></i> 16 Mar 16:32</small>
-                            </li>
+                            <li><%= current_user.type.constantize.model_name.human %></li>
                         </ul>
                     </div>
                 </div>

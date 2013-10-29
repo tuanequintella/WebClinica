@@ -32,11 +32,25 @@ pt-BR:
         one: Prontuário
         other: Prontuários
     attributes:
+      record:
+        status: Status
+        description: Anotações
+        record_entries: Consultas
+        appointments: Consultas
+      record_entry:
+        problems: Problemas / Sintomas
+        diagnosis: Diagnóstico
+        prescription: Prescrição / Recomendações
+        appointment_attachments: Anexos
+      appointment_attachment:
+        file: Arquivo
+        notes: Observações
       health_insurance:
         name: Nome
       occupation:
         name: Nome
       user:
+        avatar: Avatar
         name: Nome
         email: E-mail
         username: Nome de usuário

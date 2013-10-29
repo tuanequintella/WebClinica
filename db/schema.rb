@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131028182903) do
+ActiveRecord::Schema.define(:version => 20131029114142) do
 
   create_table "agendas", :force => true do |t|
     t.integer  "doctor_id"
@@ -19,6 +19,17 @@ ActiveRecord::Schema.define(:version => 20131028182903) do
     t.boolean  "active"
     t.datetime "created_at",             :null => false
     t.datetime "updated_at",             :null => false
+  end
+
+  create_table "appointment_attachments", :force => true do |t|
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+    t.text     "notes"
+    t.integer  "record_entry_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "appointments", :force => true do |t|
@@ -96,6 +107,15 @@ ActiveRecord::Schema.define(:version => 20131028182903) do
     t.string   "parent_cpf"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+  end
+
+  create_table "record_entries", :force => true do |t|
+    t.text     "problems"
+    t.text     "diagnosis"
+    t.text     "prescription"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "appointment_id"
   end
 
   create_table "records", :force => true do |t|

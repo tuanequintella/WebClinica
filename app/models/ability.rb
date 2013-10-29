@@ -23,6 +23,8 @@ class Ability
       cannot :manage, HealthInsurance, :name => "Sem convênio (particular)"
       can :manage, Occupation
       can :read, Record
+      can :read, RecordEntry
+      can :read, AppointmentAttachment
     end
 
     if user.is_a? Doctor
@@ -35,6 +37,8 @@ class Ability
       can :read, Agenda, :doctor_id => user.id
       can :read, Appointment, :agenda_id => user.agenda.id
       can :manage, Record
+      can :manage, RecordEntry
+      can :manage, AppointmentAttachment
       can :manage, Pacient
       can :update, Doctor, :id => user.id
       can :manage, ContactInfo, :reachable_id => user.id

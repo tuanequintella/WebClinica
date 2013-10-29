@@ -1,3 +1,4 @@
+#encoding: utf-8
 class Appointment < ActiveRecord::Base
   extend Enumerize
 
@@ -10,7 +11,7 @@ class Appointment < ActiveRecord::Base
   validates_presence_of :record_id, :health_insurance_id, :agenda, :scheduled_at, :status
   enumerize :status, in: [:pending, :pacient_arrived, :on_going, :finished, :pacient_absent], default: :pending, scope: true
 
-  #has_one :record_entry
+  has_one :record_entry
 
   before_save :update_record_status
 

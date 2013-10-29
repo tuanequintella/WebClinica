@@ -15,21 +15,39 @@
     <!-- /.toolbar -->
   </header>
   
-  <div id="div-1" class="accordion-body collapse in body">
-    <%= simple_form_for(@record, :html => { :class => 'form-horizontal' }) do |f| %>
+  <div id="div-1" class="accordion-body collapse in body" style="padding-left: 20px; padding-right: 15px;">
+    <div class="control-group">
+      <b>Status da ficha:</b>
+      <div class="controls">
+        <%= @record.status.text %>
+      </div>
+    </div>
+    <div class="control-group">
+      <b>Histórico de consultas:</b>
+    </div>
+    <div class="span10">
+      <table class="table table-striped table-bordered table-condensed">
+        <thead>
+          <th>Data</th>
+          <th>Resumo</th>
+        </thead>
+        <tbody>
+          <% @record.appointments.with_status(:finished).last(5).each do |prev_app| %>
+            <tr>
+              <td><%= l(prev_app.scheduled_at.to_date) %></td>
+              <td>(resumo da consulta aqui)</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <%= simple_form_for(RecordEntry.new, :html => { :class => 'form-horizontal' }) do |entry_form| %>
       <fieldset>
-        <%= f.input :status, collection: Record.status.options, :input_html => {:class => 'input-medium'} %>
-
-        <% @record.appointments.with_status(:finished).last(5).each do |prev_app| %>
-          Consulta de <%= l(prev_app.scheduled_at) %><br />
-          (desc da consulta aqui)
-        <% end %>
-        
-        <br />
-        <%= f.input :description, as: :text, input_html: {columns: 10, rows: 4} %>
-        
+        <%= entry_form.input :problems, as: :text, input_html: {style: "width: 600px", rows: 3} %>
+        <%= entry_form.input :diagnosis, as: :text, input_html: {style: "width: 600px", rows: 3} %>
+        <%= entry_form.input :prescription, as: :text, input_html: {style: "width: 600px", rows: 3} %>
         <div class="form-actions">
-          <%= f.button :submit, "Salvar" %>
+          <%= entry_form.button :submit, "Salvar" %>
           <%= link_to "Cancelar", appointments_path, :class => :btn %>
         </div>
       </fieldset>

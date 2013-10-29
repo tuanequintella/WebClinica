@@ -1,0 +1,106 @@
+<div class="box dark">
+  <header>
+    <div class="icons"><i class="icon-file"></i></div>
+    <h5><%= @record.to_s + " - " + @record.pacient.name %></h5>
+    <!-- .toolbar -->
+    <div class="toolbar">
+      <ul class="nav">
+        <li>
+          <a class="accordion-toggle minimize-box" data-toggle="collapse" href="#div-1">
+            <i class="icon-chevron-up"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!-- /.toolbar -->
+  </header>
+  
+  <div id="div-1" class="accordion-body collapse in body" style="padding-left: 20px; padding-right: 10px;">
+    <div class="control-group">
+      <b>Status da ficha:</b>
+      <div class="controls">
+        <%= @record.status.text %>
+      </div>
+    </div>
+    <div class="control-group">
+      <b>Histórico de consultas:</b>
+    </div>
+    <div class="span11">
+      <table class="table table-striped table-bordered table-condensed">
+        <thead>
+          <th style="width: 17%">Data</th>
+          <th>Diagnóstico</th>
+          <th style="width: 7%">Mais</th>
+        </thead>
+        <tbody>
+          <% @record.appointments.with_status(:finished).reject{ |app| app == @appointment }.last(3).each do |prev_app| %>
+            <tr>
+              <td><%= l(prev_app.scheduled_at.to_date) %></td>
+              <td><%= prev_app.record_entry.try(:diagnosis) %></td>
+              <td>
+                <% if prev_app.record_entry %>
+                  <%= link_to '#', title: 'Ver detallhes', class: 'history-link', 'data-entry' => prev_app.record_entry.id do %>
+                    link
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <%= simple_nested_form_for(@record_entry, :html => { :class => 'form-horizontal' }) do |f| %>
+      <fieldset>
+        <%= f.hidden_field :appointment_id, value: @appointment.id %>
+        <% if @record_entry.new_record? %>
+          <%= f.input :problems, as: :text, input_html: {style: "width: 80%", rows: 3} %>
+          <%= f.input :diagnosis, as: :text, input_html: {style: "width: 80%", rows: 3} %>
+          <%= f.input :prescription, as: :text, input_html: {style: "width: 80%", rows: 3} %>
+        <% else %>
+          <%= f.input :problems, as: :text, input_html: {value: @record_entry.problems, disabled: true, style: "width: 80%", rows: 3} %>
+          <%= f.input :diagnosis, as: :text, input_html: {value: @record_entry.diagnosis, disabled: true, style: "width: 80%", rows: 3} %>
+          <%= f.input :prescription, as: :text, input_html: {value: @record_entry.prescription, disabled: true, style: "width: 80%", rows: 3} %>
+        <% end %>
+        
+        
+          <%= f.simple_fields_for(:appointment_attachments, :html => { :class => 'form-horizontal' }) do |atch_form| %>
+            <div class="row-fluid" style="padding-bottom: 15px">
+              <div class="span7">
+                <div class="control-group">
+                  <%= atch_form.label :file, class: "control-label" do %>
+                    Arquivo <%= image_tag("attachment.png", width: '20px', height: '20px') %>
+                  <% end %>
+                  <div class="controls">
+                    <% if atch_form.object.new_record? %>
+                      <%= atch_form.input_field :file %>
+                    <% else %>
+                      <%= link_to atch_form.object.file_file_name, '#' %>
+                    <% end %> 
+                  </div>
+                </div>
+              </div>
+              <div class="span4" style="margin: 0px">
+                <%= atch_form.input_field :notes, as: :string, placeholder: "Observações", style: "width: 95%" %>
+              </div>
+              <div class="span1 pull-left">
+                <%= atch_form.link_to_remove do %>
+                  <i class="icon-remove icon-large red" title="Remover anexo"></i>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        
+        
+        <%= f.link_to_add :appointment_attachments, class: "btn" do %>
+          <i class="icon-plus"></i> Adicionar anexo
+        <% end %>
+
+        <div class="form-actions">
+          <%= f.button :submit, "Salvar" %>
+          <%= link_to "Cancelar", appointments_path, :class => :btn %>
+        </div>
+        
+      </fieldset>
+    <% end %>
+  </div>
+</div>

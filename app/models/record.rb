@@ -3,12 +3,14 @@ class Record < ActiveRecord::Base
   extend Enumerize
 
   attr_accessible :status, :description, :pacient
+  attr_accessor :record_entries_attributes
+
   belongs_to :pacient
   has_many :appointments
-  #has_many :record_entries, through: :appointments
+  has_many :record_entries, through: :appointments
 
   enumerize :status, in: [:inactive, :new, :regular, :beginner], default: :new
-  
+  accepts_nested_attributes_for :record_entries, :allow_destroy => false
   validates_presence_of :status
   
   I18N_PATH = 'activerecord.attributes.record.'

@@ -23,6 +23,8 @@ class PacientsController < ApplicationController
       unless(@pacient.record.status.new?)
         ap = Appointment.new(:status => :finished, :scheduled_at => params[:last_appointment_date], :record => @pacient.record)
         ap.save(validate: false)
+        re = RecordEntry.new(appointment_id: ap.id, :diagnosis => "(Registrado antes da implantação do sistema)")
+        re.save(validate: false)
         @pacient.record.save
         flash[:warning] = I18n.t('activerecord.attributes.record.warning', :id => "%04d" % @pacient.record.id)
       end

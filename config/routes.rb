@@ -25,6 +25,8 @@ WebClinica::Application.routes.draw do
     get 'recreate' => 'agendas#recreate'
   end
 
+  resources :record_entries
+
   resources :health_insurances do
     get 'recreate' => 'health_insurances#recreate'
   end

@@ -26,7 +26,8 @@ class Appointment < ActiveRecord::Base
         record.status = :regular
         record.save
       elsif record.status.beginner?
-        if record.appointments.with_status(:finish).size >= 3
+        apps = record.appointments.select{ |ap| ap.status.finished? }
+        if apps.size >= 3
           record.status = :regular
           record.save
         end

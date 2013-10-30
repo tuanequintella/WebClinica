@@ -32,6 +32,7 @@ GEM
     bcrypt-ruby (3.0.1)
     builder (3.0.4)
     cancan (1.6.10)
+    chronic (0.10.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.3)
@@ -186,6 +187,9 @@ GEM
       multi_json (~> 1.0, >= 1.0.2)
     validates_timeliness (3.0.14)
       timeliness (~> 0.3.6)
+    whenever (0.8.4)
+      activesupport (>= 2.3.4)
+      chronic (>= 0.6.3)
 
 PLATFORMS
   ruby
@@ -211,3 +215,4 @@ DEPENDENCIES
   twitter-bootstrap-rails
   uglifier
   validates_timeliness
+  whenever

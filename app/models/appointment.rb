@@ -25,6 +25,11 @@ class Appointment < ActiveRecord::Base
       elsif record.status.inactive?
         record.status = :regular
         record.save
+      elsif record.status.beginner?
+        if record.appointments.with_status(:finish).size >= 3
+          record.status = :regular
+          record.save
+        end
       end
     end
   end

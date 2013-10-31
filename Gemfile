@@ -16,7 +16,8 @@ gem 'pry-rails'
 gem 'jquery-rails'
 gem 'enumerize'
 gem 'validates_timeliness'
-gem "paperclip"
+gem 'paperclip'
+gem 'whenever'
 
 group :development, :test do
   gem 'mailcatcher'

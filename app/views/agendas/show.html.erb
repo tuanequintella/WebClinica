@@ -27,8 +27,8 @@
                     <% if @agenda.available_datetime?(datetime) %>
                       <td> </td>
                     <% else %>
-                      <td class="unavailable">
-                        <div class="unavailable">
+                      <td>
+                        <div>
                         </div>
                       </td>
                     <% end %>
@@ -69,17 +69,26 @@
                       </div>
                     </td>
                   <% else %>
-                    <td class="unavailable">
-                      <% appointment = @agenda.appointment_at(datetime) %>
-                      <div class="unavailable busy-spot" data-date="<%= datetime.to_s %>" data-appointment="<%= appointment.id %>">
-                        <%= link_to appointment.record.pacient.name, '#', class: "busy-spot-link pull-left", title: "Detalhes" %>
-                        <% if datetime >= Time.now && can?(:delete, Appointment) %>
-                          <%= link_to appointment_path(appointment), method: :delete, confirm: "Tem certeza que deseja desmarcar essa consulta?", class: "pull-right", title: "Remover" do %>
-                            <i class="icon-remove-sign red"></i>
+                    <% if datetime >= Time.now %>
+                      <td class="unavailable">
+                        <% appointment = @agenda.appointment_at(datetime) %>
+                        <div class="unavailable busy-spot" data-date="<%= datetime.to_s %>" data-appointment="<%= appointment.id %>">
+                          <%= link_to appointment.record.pacient.name, '#', class: "busy-spot-link pull-left", title: "Detalhes" %>
+                          <% if can?(:delete, Appointment) %>
+                            <%= link_to appointment_path(appointment), method: :delete, confirm: "Tem certeza que deseja desmarcar essa consulta?", class: "pull-right", title: "Remover" do %>
+                              <i class="icon-remove-sign red"></i>
+                            <% end %>
                           <% end %>
-                        <% end %>
-                      </div>
-                    </td>
+                        </div>
+                      </td>
+                    <% else %>
+                      <td>
+                        <% appointment = @agenda.appointment_at(datetime) %>
+                        <div class="busy-spot" data-date="<%= datetime.to_s %>" data-appointment="<%= appointment.id %>">
+                          <%= link_to appointment.record.pacient.name, '#', class: "busy-spot-link pull-left", title: "Detalhes" %>
+                        </div>
+                      </td>
+                    <% end %>
                   <% end %>
                 <% end %>
               <% end %>

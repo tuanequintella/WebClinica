@@ -38,6 +38,7 @@ class Pacient < ActiveRecord::Base
   end
 
   def age
+    return {:years => 0, :months => 0} if birthdate.nil?
     years = Date.today.year - birthdate.year
     months = Date.today.month - birthdate.month
     if Date.today.month < birthdate.month || (Date.today.month == birthdate.month && birthdate.day >= Date.today.day)

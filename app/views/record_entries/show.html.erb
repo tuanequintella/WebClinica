@@ -1,0 +1,13 @@
+<%= simple_nested_form_for(@record_entry, :html => { :class => 'form-horizontal' }) do |f| %>
+  <fieldset>
+    <%= f.input :problems, as: :text, input_html: {value: @record_entry.problems, disabled: true, style: "width: 80%", rows: 3} %>
+    <%= f.input :diagnosis, as: :text, input_html: {value: @record_entry.diagnosis, disabled: true, style: "width: 80%", rows: 3} %>
+    <%= f.input :prescription, as: :text, input_html: {value: @record_entry.prescription, disabled: true, style: "width: 80%", rows: 3} %>
+    
+    <%= f.simple_fields_for(:appointment_attachments, :html => { :class => 'form-horizontal' }) do |atch_form| %>
+      <div class="span4">
+        <%= image_tag atch_form.object.image_url(:thumb), class: "media-object img-polaroid user-img" %>
+      </div>
+    <% end %>    
+  </fieldset>
+<% end %>

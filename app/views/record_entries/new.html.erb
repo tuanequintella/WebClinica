@@ -1,3 +1,4 @@
+<%= javascript_include_tag :record_entries %>
 <div class="box dark">
   <header>
     <div class="icons"><i class="icon-file"></i></div>
@@ -102,5 +103,17 @@
         
       </fieldset>
     <% end %>
+  </div>
+</div>
+
+<div id="entry-window" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3 id="myModalLabel">Detalhes da consulta</h3>
+  </div>
+  <div class="modal-body" id="entry-body">
+  </div>
+  <div class="modal-footer">
+    <a href="#" data-dismiss="modal" class="btn">Fechar</a>
   </div>
 </div>

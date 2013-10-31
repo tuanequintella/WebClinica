@@ -6,5 +6,5 @@ class RecordEntry < ActiveRecord::Base
   
   belongs_to :appointment
   has_many :appointment_attachments
-  accepts_nested_attributes_for :appointment_attachments
+  accepts_nested_attributes_for :appointment_attachments, allow_destroy: true
 end

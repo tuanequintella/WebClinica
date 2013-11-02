@@ -6,7 +6,16 @@
     
     <%= f.simple_fields_for(:appointment_attachments, :html => { :class => 'form-horizontal' }) do |atch_form| %>
       <div class="span4">
-        <%= image_tag atch_form.object.image_url(:thumb), class: "media-object img-polaroid user-img" %>
+        <figure>
+          <%= image_tag atch_form.object.image_url(:thumb), class: "media-object img-polaroid user-img", title: atch_form.object.file_file_name %>
+          <figcaption>
+            <% if atch_form.object.file_file_name.size > 10 %>
+              <%= atch_form.object.file_file_name.first(10) + "..." %>
+            <% else %>
+              <%= atch_form.object.file_file_name %>
+            <% end %>
+          </figcaption>
+        </figure>
       </div>
     <% end %>    
   </fieldset>

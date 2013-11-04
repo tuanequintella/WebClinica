@@ -75,7 +75,11 @@
                     <% if atch_form.object.new_record? %>
                       <%= atch_form.input_field :file %>
                     <% else %>
-                      <%= link_to atch_form.object.file_file_name, '#' %>
+                      <% if atch_form.object.file_file_name.size > 20 %>
+                        <%= link_to atch_form.object.file_file_name.first(20) + "...", '#', title: atch_form.object.file_file_name %>
+                      <% else %>
+                        <%= link_to atch_form.object.file_file_name, '#', title: atch_form.object.file_file_name %>
+                      <% end %>
                     <% end %> 
                   </div>
                 </div>

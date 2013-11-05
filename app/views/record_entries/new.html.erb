@@ -59,10 +59,12 @@
           <%= f.input :problems, as: :text, input_html: {style: "width: 80%", rows: 3} %>
           <%= f.input :diagnosis, as: :text, input_html: {style: "width: 80%", rows: 3} %>
           <%= f.input :prescription, as: :text, input_html: {style: "width: 80%", rows: 3} %>
+          <%= f.association :cid, value_method: :id, label_method: :to_s %>
         <% else %>
           <%= f.input :problems, as: :text, input_html: {value: @record_entry.problems, disabled: true, style: "width: 80%", rows: 3} %>
           <%= f.input :diagnosis, as: :text, input_html: {value: @record_entry.diagnosis, disabled: true, style: "width: 80%", rows: 3} %>
           <%= f.input :prescription, as: :text, input_html: {value: @record_entry.prescription, disabled: true, style: "width: 80%", rows: 3} %>
+          <%= f.input :cid, as: :string, input_html: {value: @record_entry.cid.try(:to_s), disabled: true} %>
         <% end %>
         
         
@@ -113,7 +115,7 @@
   </div>
 </div>
 
-<div id="entry-window" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="entry-window" style="width: 700px; max-height: 600px;" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     <h3 id="myModalLabel">Detalhes da consulta</h3>

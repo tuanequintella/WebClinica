@@ -37,11 +37,15 @@ pt-BR:
         description: Anotações
         record_entries: Consultas
         appointments: Consultas
+      cid:
+        code: Código
+        name: Nome
       record_entry:
         problems: Problemas / Sintomas
         diagnosis: Diagnóstico
         prescription: Prescrição / Recomendações
         appointment_attachments: Anexos
+        cid: CID
       appointment_attachment:
         file: Arquivo
         notes: Observações

@@ -3,6 +3,7 @@
     <%= f.input :problems, as: :text, input_html: {value: @record_entry.problems, disabled: true, style: "width: 80%", rows: 3} %>
     <%= f.input :diagnosis, as: :text, input_html: {value: @record_entry.diagnosis, disabled: true, style: "width: 80%", rows: 3} %>
     <%= f.input :prescription, as: :text, input_html: {value: @record_entry.prescription, disabled: true, style: "width: 80%", rows: 3} %>
+    <%= f.input :cid, as: :string, required: false, input_html: {value: @record_entry.cid.try(:to_s), disabled: true} %>
     
     <%= f.simple_fields_for(:appointment_attachments, :html => { :class => 'form-horizontal' }) do |atch_form| %>
       <div class="span4">

@@ -36,24 +36,24 @@
         </div>
         <!-- /.toolbar -->
       </header>
-        <div id="div-1" class="accordion-body collapse in body">
-          <%= render partial: 'shared/alerts' %> 
-          <div class="container-fluid">
-            <div class="row-fluid">
-              <%= select_tag :doctor, options_from_collection_for_select(Doctor.all, "agenda", "name"), :prompt => "Selecione o médico" %>
-              <%= text_field_tag :date, l(@date.to_date), :placeholder => "Selecione a data", :class => "datepicker", 'data-date'=> @date.to_date, 'data-date-format'=>"dd/mm/yyyy" %>
-              <% if can? :manage, Agenda %>
-                <%= link_to "Configurar", "#", :class => 'btn', :disabled => true, :id => "btn-configure" %>
-              <% end %>
-            </div>
-            <div class="row-fluid">
-              <div id="agenda" style="height: 730px">
-                <div id="editAgenda">
-                </div>
-              </div>
+      <div id="div-1" class="accordion-body collapse in body">
+        <%= render partial: 'shared/alerts' %> 
+        <div class="container-fluid">
+          <div class="row-fluid">
+            <%= select_tag :doctor, options_from_collection_for_select(Doctor.all, "agenda", "name"), :prompt => "Selecione o médico" %>
+            <%= text_field_tag :date, l(@date.to_date), :placeholder => "Selecione a data", :class => "datepicker", 'data-date'=> @date.to_date, 'data-date-format'=>"dd/mm/yyyy" %>
+            <% if can? :manage, Agenda %>
+              <%= link_to "Configurar", "#", :class => 'btn', :disabled => true, :id => "btn-configure" %>
+            <% end %>
+          </div>
+          <div class="row-fluid">
+            
+            <div class="span12" id="agenda" style="height: 800px">
+              
             </div>
           </div>
         </div>
+      </div>
     </div>
   </div>
 </div>

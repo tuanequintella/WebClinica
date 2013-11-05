@@ -3,8 +3,8 @@
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3 id="myModalLabel">Consulta</h3>
   </div>
-  <div class="modal-body">
-    <%= simple_nested_form_for(Appointment.new, :html => { :class => 'form-horizontal' }) do |f| %>
+  <%= simple_nested_form_for(Appointment.new, :html => { :class => 'form-horizontal', style: "margin-bottom: 0px" }) do |f| %>
+    <div class="modal-body">
       <fieldset>        
         <%= f.input :scheduled_at, as: :string, input_html: { readonly: true }%>
         <%= f.association :agenda, :as => :hidden, input_html: { value: @agenda.id } %>
@@ -33,9 +33,10 @@
           </div>
         <% end %>
       </fieldset>
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-    <%= f.button :submit, 'Salvar consulta', class: "btn btn-primary" %>
-  </div>
-<% end %>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+      <%= f.button :submit, 'Salvar consulta', class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

@@ -1,67 +1,79 @@
-<div class="span12">
-  <div class="agenda">
-    <% if @agenda.active?  && can?(:read, @agenda) %>
-      <table class="table table-bordered table-condensed">
-        <thead>
-          <tr>
-            <th>
-              Horário
+<div class="agenda">
+  <% if @agenda.active?  && can?(:read, @agenda) %>
+    <table class="table table-bordered table-condensed">
+      <thead>
+        <tr>
+          <th>
+            Horário
+          </th>
+          <% @week.each do |day| %>
+            <th class="<%= day.today? ? 'today':'' %>">
+              <%= l day, :format => :agenda_day %>
             </th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @agenda.time_array(@week).each do |time| %>
+          <tr>
+            <td>
+              <%= l time, :format => :hourly %>
+            </td>
             <% @week.each do |day| %>
-              <th class="<%= day.today? ? 'today':'' %>">
-                <%= l day, :format => :agenda_day %>
-              </th>
-            <% end %>
-          </tr>
-        </thead>
-        <tbody>
-          <% @agenda.time_array(@week).each do |time| %>
-            <tr>
-              <td>
-                <%= l time, :format => :hourly %>
-              </td>
-              <% @week.each do |day| %>
-                <% datetime = day.to_date + time.hour.hours + time.min.minutes %>
-                <% if @agenda.appointment_at(datetime).nil? %>
-                  <% if datetime < Time.now %>
-                    <% if @agenda.available_datetime?(datetime) %>
-                      <td> </td>
-                    <% else %>
-                      <td>
-                        <div>
-                        </div>
-                      </td>
-                    <% end %>
+              <% datetime = day.to_date + time.hour.hours + time.min.minutes %>
+              <% if @agenda.appointment_at(datetime).nil? %>
+                <% if datetime < Time.now %>
+                  <% if @agenda.available_datetime?(datetime) %>
+                    <td> </td>
                   <% else %>
-                    <% if @agenda.available_datetime?(datetime) %>
-                      <td>
-                        <div class="free-spot" data-date="<%= datetime.to_s %>">
-                          <% if can? :create, Appointment %>
-                            <%= link_to '#', class: "free-spot-link", title: "Nova cosulta" do %>
-                              <i class="icon-plus"></i>
-                            <% end %>
-                          <% end %>
-                        </div>
-                      </td>
-                    <% else %>
-                      <td class="unavailable">
-                        <div class="unavailable" data-date="<%= datetime.to_s %>">
-                          <% if can? :create, Appointment %>
-                            <%= link_to '#', class: "free-spot-link", title: "Consulta fora do horário" do %>
-                              <!-- come up with a link that doesn't kill the visual -->
-                            <% end %>
-                          <% end %>
-                        </div>
-                      </td>
-                    <% end %>
+                    <td>
+                      <div>
+                      </div>
+                    </td>
                   <% end %>
                 <% else %>
                   <% if @agenda.available_datetime?(datetime) %>
                     <td>
+                      <div class="free-spot" data-date="<%= datetime.to_s %>">
+                        <% if can? :create, Appointment %>
+                          <%= link_to '#', class: "free-spot-link", title: "Nova cosulta" do %>
+                            <i class="icon-plus"></i>
+                          <% end %>
+                        <% end %>
+                      </div>
+                    </td>
+                  <% else %>
+                    <td class="unavailable">
+                      <div class="unavailable" data-date="<%= datetime.to_s %>">
+                        <% if can? :create, Appointment %>
+                          <%= link_to '#', class: "free-spot-link", title: "Consulta fora do horário" do %>
+                            <!-- come up with a link that doesn't kill the visual -->
+                          <% end %>
+                        <% end %>
+                      </div>
+                    </td>
+                  <% end %>
+                <% end %>
+              <% else %>
+                <% if @agenda.available_datetime?(datetime) %>
+                  <td>
+                    <% appointment = @agenda.appointment_at(datetime) %>
+                    <div class="busy-spot" data-date="<%= datetime.to_s %>" data-appointment="<%= appointment.id %>">
+                      <%= link_to appointment.record.pacient.name, '#', class: "busy-spot-link pull-left", title: "Detalhes" %>
+                      <% if datetime >= Time.now && can?(:delete, Appointment) %>
+                        <%= link_to appointment_path(appointment), method: :delete, confirm: "Tem certeza que deseja desmarcar essa consulta?", class: "pull-right", title: "Remover" do %>
+                          <i class="icon-remove-sign red"></i>
+                        <% end %>
+                      <% end %>
+                    </div>
+                  </td>
+                <% else %>
+                  <% if datetime >= Time.now %>
+                    <td class="unavailable">
                       <% appointment = @agenda.appointment_at(datetime) %>
-                      <div class="busy-spot" data-date="<%= datetime.to_s %>" data-appointment="<%= appointment.id %>">
+                      <div class="unavailable busy-spot" data-date="<%= datetime.to_s %>" data-appointment="<%= appointment.id %>">
                         <%= link_to appointment.record.pacient.name, '#', class: "busy-spot-link pull-left", title: "Detalhes" %>
-                        <% if datetime >= Time.now && can?(:delete, Appointment) %>
+                        <% if can?(:delete, Appointment) %>
                           <%= link_to appointment_path(appointment), method: :delete, confirm: "Tem certeza que deseja desmarcar essa consulta?", class: "pull-right", title: "Remover" do %>
                             <i class="icon-remove-sign red"></i>
                           <% end %>
@@ -69,43 +81,26 @@
                       </div>
                     </td>
                   <% else %>
-                    <% if datetime >= Time.now %>
-                      <td class="unavailable">
-                        <% appointment = @agenda.appointment_at(datetime) %>
-                        <div class="unavailable busy-spot" data-date="<%= datetime.to_s %>" data-appointment="<%= appointment.id %>">
-                          <%= link_to appointment.record.pacient.name, '#', class: "busy-spot-link pull-left", title: "Detalhes" %>
-                          <% if can?(:delete, Appointment) %>
-                            <%= link_to appointment_path(appointment), method: :delete, confirm: "Tem certeza que deseja desmarcar essa consulta?", class: "pull-right", title: "Remover" do %>
-                              <i class="icon-remove-sign red"></i>
-                            <% end %>
-                          <% end %>
-                        </div>
-                      </td>
-                    <% else %>
-                      <td>
-                        <% appointment = @agenda.appointment_at(datetime) %>
-                        <div class="busy-spot" data-date="<%= datetime.to_s %>" data-appointment="<%= appointment.id %>">
-                          <%= link_to appointment.record.pacient.name, '#', class: "busy-spot-link pull-left", title: "Detalhes" %>
-                        </div>
-                      </td>
-                    <% end %>
+                    <td>
+                      <% appointment = @agenda.appointment_at(datetime) %>
+                      <div class="busy-spot" data-date="<%= datetime.to_s %>" data-appointment="<%= appointment.id %>">
+                        <%= link_to appointment.record.pacient.name, '#', class: "busy-spot-link pull-left", title: "Detalhes" %>
+                      </div>
+                    </td>
                   <% end %>
                 <% end %>
               <% end %>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <% else %>
-      Essa não é uma agenda ativa ou você não tem permissão para vê-la.
-    <% end %>
-  </div>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    Essa não é uma agenda ativa ou você não tem permissão para vê-la.
+  <% end %>
 </div>
 
 <%= render partial: 'appointment_form' %>
-
-
-</div>
 
 <script>
 $(function() {

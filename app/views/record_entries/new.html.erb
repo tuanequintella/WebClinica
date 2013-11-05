@@ -17,6 +17,7 @@
   </header>
   
   <div id="div-1" class="accordion-body collapse in body" style="padding-left: 20px; padding-right: 10px;">
+    <%= render partial: 'shared/alerts' %> 
     <div class="control-group">
       <b>Status da ficha:</b>
       <div class="controls">
@@ -53,6 +54,7 @@
     <%= simple_nested_form_for(@record_entry, :html => { :class => 'form-horizontal' }) do |f| %>
       <fieldset>
         <%= f.hidden_field :appointment_id, value: @appointment.id %>
+        <%= f.hidden_field :from_record, value: false %>
         <% if @record_entry.new_record? %>
           <%= f.input :problems, as: :text, input_html: {style: "width: 80%", rows: 3} %>
           <%= f.input :diagnosis, as: :text, input_html: {style: "width: 80%", rows: 3} %>
@@ -65,6 +67,7 @@
         
         
           <%= f.simple_fields_for(:appointment_attachments, :html => { :class => 'form-horizontal' }) do |atch_form| %>
+            <% attachment = atch_form.object %>
             <div class="row-fluid" style="padding-bottom: 15px">
               <div class="span7">
                 <div class="control-group">
@@ -72,13 +75,13 @@
                     Arquivo <%= image_tag("attachment.png", width: '20px', height: '20px') %>
                   <% end %>
                   <div class="controls">
-                    <% if atch_form.object.new_record? %>
+                    <% if attachment.new_record? %>
                       <%= atch_form.input_field :file %>
                     <% else %>
-                      <% if atch_form.object.file_file_name.size > 20 %>
-                        <%= link_to atch_form.object.file_file_name.first(20) + "...", '#', title: atch_form.object.file_file_name %>
+                      <% if attachment.file_file_name.size > 20 %>
+                        <%= link_to attachment.file_file_name.first(20) + "...", attachment.file.url, title: attachment.file_file_name, target: "_blank" %>
                       <% else %>
-                        <%= link_to atch_form.object.file_file_name, '#', title: atch_form.object.file_file_name %>
+                        <%= link_to attachment.file_file_name, attachment.file.url, title: attachment.file_file_name, target: "_blank" %>
                       <% end %>
                     <% end %> 
                   </div>

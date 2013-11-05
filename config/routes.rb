@@ -38,6 +38,7 @@ WebClinica::Application.routes.draw do
   resources :records do
     collection do
       get 'search'
+      get 'update_appointment_status' => 'records#update_appointment_status'
     end
   end
 

@@ -1,0 +1,51 @@
+<%= simple_nested_form_for(@record_entry, :html => { :class => 'form-horizontal', id: "edit_record_entry" }) do |f| %>
+  <div class="modal-body" style="max-height: 510px;">
+    <fieldset>
+      <%= f.input :problems, as: :text, input_html: {value: @record_entry.problems, disabled: true, style: "width: 80%", rows: 3} %>
+      <%= f.input :diagnosis, as: :text, input_html: {value: @record_entry.diagnosis, disabled: true, style: "width: 80%", rows: 3} %>
+      <%= f.input :prescription, as: :text, input_html: {value: @record_entry.prescription, disabled: true, style: "width: 80%", rows: 3} %>
+      <%= f.hidden_field :from_record, value: true %>
+
+      <%= f.simple_fields_for(:appointment_attachments, :html => { :class => 'form-horizontal' }) do |atch_form| %>
+        <% attachment = atch_form.object %>
+        <div class="row-fluid" style="padding-bottom: 15px">
+          <div class="span7">
+            <div class="control-group">
+              <%= atch_form.label :file, class: "control-label" do %>
+                Arquivo <%= image_tag("attachment.png", width: '20px', height: '20px') %>
+              <% end %>
+              <div class="controls">
+                <% if attachment.new_record? %>
+                  <%= atch_form.input_field :file %>
+                <% else %>
+                  <% if attachment.file_file_name.size > 20 %>
+                    <%= link_to attachment.file_file_name.first(20) + "...", attachment.file.url, title: attachment.file_file_name, target: "_blank" %>
+                  <% else %>
+                    <%= link_to attachment.file_file_name, attachment.file.url, title: attachment.file_file_name, target: "_blank" %>
+                  <% end %>
+                <% end %> 
+              </div>
+            </div>
+          </div>
+          <div class="span4" style="margin: 0px">
+            <%= atch_form.input_field :notes, as: :string, placeholder: "Observações", style: "width: 95%" %>
+          </div>
+          <div class="span1 pull-left">
+            <%= atch_form.link_to_remove do %>
+              <i class="icon-remove icon-large red" title="Remover anexo"></i>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <%= f.link_to_add :appointment_attachments, class: "btn" do %>
+        <i class="icon-plus"></i> Adicionar anexo
+      <% end %>    
+    </fieldset>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+    <%= f.button :submit, 'Salvar consulta', class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+              

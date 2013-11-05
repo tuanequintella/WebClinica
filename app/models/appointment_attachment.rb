@@ -3,7 +3,7 @@ class AppointmentAttachment < ActiveRecord::Base
 
   has_attached_file :file, :styles => { :medium => "300x300>", :thumb => {geometry: "100x100#", format: "png"} }, :default_url => "/assets/images/attachment.png"
 
-  validates_attachment :file, :size => { :in => 0..5.megabytes }
+  validates_attachment :file, presence: true, :size => { :in => 0..5.megabytes }
 
   before_post_process :resize_images
 

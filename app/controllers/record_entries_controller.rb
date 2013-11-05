@@ -18,6 +18,11 @@ class RecordEntriesController < ApplicationController
     render :new, :layout => !request.xhr?
   end
 
+  def edit
+    @record_entry = RecordEntry.find(params[:id])
+    render :edit, :layout => !request.xhr? 
+  end
+
   def create
     @record_entry = RecordEntry.new(params[:record_entry])
     @appointment = @record_entry.appointment
@@ -34,14 +39,26 @@ class RecordEntriesController < ApplicationController
     @record_entry = RecordEntry.find(params[:id])
     @appointment = @record_entry.appointment
     @record = @appointment.record
-    
+
+    from_record = params[:record_entry][:from_record]
+    params[:record_entry].delete :from_record
+
     @record_entry.update_attributes(params[:record_entry])
 
-    if @record_entry.save
-      flash[:success] = 'Consulta salva com sucesso.'
-      redirect_to appointments_path
+    if from_record == "true"
+      if @record_entry.save
+        flash[:success] = 'Consulta salva com sucesso.'
+      else
+        flash[:error] = 'Erro ao salvar a consulta.'
+      end
+      redirect_to edit_record_path(@record)
     else
-      render :new
+      if @record_entry.save
+        flash[:success] = 'Consulta salva com sucesso.'
+        redirect_to appointments_path
+      else
+        render :new
+      end
     end
   end
 end

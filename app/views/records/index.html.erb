@@ -37,7 +37,7 @@
           <tbody>
             <% @records.each do |record| %>
               <tr>
-                <td> <%= link_to record.to_s, record_path(record) %> </td>
+                <td> <%= record.to_s %> </td>
                 <td> <%= record.pacient.name %></td>
                 <td> <%= date_format(record.last_appointment.try(:scheduled_at)) %> </td>
                 <td> <%= record.status.text %></td>

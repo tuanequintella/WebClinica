@@ -72,6 +72,7 @@ window.appointmentsBehavior = function (){
     $("#appointment_record_pacient_name").removeAttr('disabled');
     $("#appointment_record_pacient_phone").removeAttr('disabled');
     $("#appointment_health_insurance_id").removeAttr('disabled');
+    $(".btn-primary").show();
     $("#appointment_record_id").val("");
     $("#appointment_record_id").trigger("change");
   });
@@ -91,6 +92,7 @@ window.appointmentsBehavior = function (){
       $("#appointment_record_pacient_phone").attr('disabled','disabled');
       $("#appointment_health_insurance_id").attr('disabled','disabled');
       $("#last_appointment_date").hide();
+      $(".btn-primary").hide();
     }
   });
 

@@ -35,6 +35,10 @@ class Appointment < ActiveRecord::Base
     end
   end
 
+  def self.past_status_values
+    ["finished","pacient_absent"]
+  end
+
   def localized_date
     I18n.l(scheduled_at.to_date)
   end

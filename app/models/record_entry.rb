@@ -1,7 +1,7 @@
 #encoding: utf-8
 class RecordEntry < ActiveRecord::Base
-  attr_accessor :appointment_attachments_attributes
-  attr_accessible :diagnosis, :prescription, :problems, :appointment_id, :appointment_attachments_attributes
+  attr_accessor :appointment_attachments_attributes, :from_record
+  attr_accessible :diagnosis, :prescription, :problems, :appointment_id, :appointment_attachments_attributes, :from_record
   
   
   belongs_to :appointment

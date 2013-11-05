@@ -28,10 +28,18 @@ class RecordsController < ApplicationController
     @record.update_attributes(params[:record])
     if @record.save
       flash[:success] = 'Atualizado com sucesso.'
-      redirect_to records_path
+      redirect_to edit_record_path(@record)
     else
       render :edit
     end
+  end
+
+  def update_appointment_status
+    @record = Record.find(params[:record_id])
+    @appointment = Appointment.find(params[:appointment_id])
+    @appointment.update_attributes(status: params[:status])
+    
+    redirect_to edit_record_path(@record)
   end
 
 end

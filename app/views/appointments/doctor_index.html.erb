@@ -1,7 +1,7 @@
 <%= javascript_include_tag :records %>
 <%= icon_title_for(Appointment.model_name.human(count: :many) + " do dia", "icon-calendar") %>
 <div class="row-fluid">
-  <%= render partial: 'shared/alerts' %> 
+  
   <div class="span4">
     <div class="box dark">
       <header>
@@ -52,7 +52,8 @@
           </div>
           <!-- /.toolbar -->
         </header>
-        <div id="record-content" class="accordion-body collapse in body">  
+        <div id="record-content" class="accordion-body collapse in body">
+          <%= render partial: 'shared/alerts' %>  
           Selecione um paciente
         </div>
       </div>

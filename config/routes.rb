@@ -2,7 +2,13 @@ WebClinica::Application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
   get '/logout' => 'sessions#destroy', :as => :logout
 
-  
+  resources :cids, except: [:new, :edit, :create, :update, :show, :destroy] do
+    collection do
+      get 'import' => 'cids#import'
+      post 'load' => 'cids#load'
+    end
+  end
+
   resources :admins, except: [:show] do
     get 'recreate' => 'admins#recreate'
   end

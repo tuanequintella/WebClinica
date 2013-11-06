@@ -18,6 +18,7 @@ gem 'enumerize'
 gem 'validates_timeliness'
 gem 'paperclip'
 gem 'whenever'
+gem 'nokogiri'
 
 group :development, :test do
   gem 'mailcatcher'

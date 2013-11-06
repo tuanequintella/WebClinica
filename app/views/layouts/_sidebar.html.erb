@@ -55,6 +55,9 @@
                 <% if can? :read, Occupation %>
                     <li><%= link_to occupations_path do %><i class="icon-stethoscope"></i> Especialidades<% end %></li>
                 <% end %>
+                <% if can? :manage, Cid %>
+                    <li><%= link_to import_cids_path do %><i class="icon-file"></i> Importar CIDs<% end %></li>
+                <% end %>
             </ul>
         </li>
     <% end %>

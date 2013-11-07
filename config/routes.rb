@@ -46,6 +46,9 @@ WebClinica::Application.routes.draw do
       get 'search'
       get 'update_appointment_status' => 'records#update_appointment_status'
     end
+    member do
+      get 'export' => 'records#export'
+    end
   end
 
   resources :appointments do

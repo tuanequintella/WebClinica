@@ -9,15 +9,17 @@ class CidsController < ApplicationController
   def import; end
 
   def load
+    before = Cid.count
     file = params[:cids][:import_file].tempfile
-    has_errors = Cid.import(file)
-    
-    if has_errors
+    success = Cid.import(file)
+    new_count = Cid.count - before
+
+    if success
+      flash[:success] = "Importação sem falhas! " + Cid.count.to_s + " registros na base. " + new_count.to_s + " registros novos."
+      redirect_to import_cids_path
+    else
       flash[:error] = "Arquivo XML inválido!"
       render :import
-    else 
-      flash[:success] = "Arquivo importado com sucesso."
-      redirect_to import_cids_path
     end
   end
 end

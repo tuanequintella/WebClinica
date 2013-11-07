@@ -18,26 +18,20 @@ class Cid < ActiveRecord::Base
   def self.import(file)
     begin
       doc = Nokogiri::XML(file)
-      
+
       doc.css('categoria').each do |category_node|
-        cid = Cid.where(
-          code: category_node['codcat'],
-          name: category_node.children.css('nome').inner_text
-        ).first_or_create
+        cid = Cid.where(code: category_node['codcat']).first_or_create(name: category_node.children.css('nome').inner_text)
         unless cid.save
-          raise Exception
+          raise cid.errors.full_messages
         end
 
         subcategories = category_node.children.css('subcategoria')
 
         subcategories.each do |subcategory_node|
-          cid = Cid.where(
-            code: subcategory_node['codsubcat'],
-            name: subcategory_node.children.css('nome').inner_text
-          ).first_or_create
+          cid = Cid.where(code: subcategory_node['codsubcat']).first_or_create(name: subcategory_node.children.css('nome').inner_text)
 
           unless cid.save
-            raise Exception
+            raise cid.errors.full_messages
           end        
         end
       end

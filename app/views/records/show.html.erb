@@ -1,1 +1,68 @@
-<%- model_class = Record -%>
+<html>
+<head>
+  <meta name="pdfkit-orientation" content="Portrait"/>
+</head>
+<body>
+  <h2><%= Record.model_name.human + " " + @record.to_s + " - " + @record.pacient.name %></h2>
+  
+  <h3>Dados cadastrais</h3>
+  <table>
+    <thead>
+      <th style="width: 25%"></th>
+      <th style="width: 25%"></th>
+      <th style="width: 25%"></th>
+      <th style="width: 25%"></th>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Status da ficha</b></td>
+        <td><%= @record.status.text %></td>
+        <td><b>Idade</b></td>
+        <td><%= @pacient.age_in_words %></td>
+      </tr>
+      <tr>
+        <td><b>Nome do responsável</b></td>
+        <td><%= @pacient.parent_name %></td>
+        <td><b>Telefone</b></td>
+        <td><%= @pacient.phone %></td>
+      </tr>
+      <tr>
+        <td><b>E-mail</b></td>
+        <td><%= @pacient.email %></td>
+        <td><b>Convênio</b></td>
+        <td><%= @pacient.health_insurance %></td>
+      </tr>
+    </tbody>
+  </table>      
+  
+  <h3>Histórico de consultas</h3>
+  <% @record.appointments.each do |appointment| %>
+    <p>
+      <table style="border: 1px black solid">
+        <tbody>
+          <tr style="border: 1px grey solid">
+            <td style="border: 1px grey solid;"><b>Data e hora</b></td>
+            <td style="border: 1px grey solid;"><%= l(appointment.scheduled_at) %></td>
+            <td style="border: 1px grey solid;"><b>Status</b></td>
+            <td style="border: 1px grey solid;"><%= appointment.status.text %></td>
+          </tr>
+          <tr style="border: 1px gray solid">
+            <td style="border: 1px grey solid;"><b>Problemas / Sintomas</b></td>
+            <td style="border: 1px grey solid;"><%= appointment.record_entry.try(:problems) %></td>
+            <td style="border: 1px grey solid;"><b>Diagnóstico</b></td>
+            <td style="border: 1px grey solid;"><%= appointment.record_entry.try(:diagnosis) %></td>
+          </tr>
+          <tr style="border: 1px gray solid">
+            <td style="border: 1px grey solid;"><b>Prescrição / Recomendações</b></td>
+            <td style="border: 1px grey solid;"><%= appointment.record_entry.try(:prescription) %></td>
+            <td style="border: 1px grey solid;"><b>Anexos</b></td>
+            <td style="border: 1px grey solid;">
+              [lista de anexos aqui]
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </p>
+  <% end %>
+</body>
+</html>

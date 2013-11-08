@@ -41,8 +41,8 @@
                 <td> <%= record.pacient.name %></td>
                 <td> <%= date_format(record.last_appointment.try(:scheduled_at)) %> </td>
                 <td> <%= record.status.text %></td>
-                <% if can? :manage, Record %>
-                  <td>
+                <td>
+                  <% if can? :manage, Record %>
                     <%= link_to edit_record_path(record), title: "Editar" do %>
                       <i class="icon-pencil icon-large" style="padding-right: 5px"></i>
                     <% end %>
@@ -55,8 +55,11 @@
                         <i class="icon-undo icon-large" style="padding-right: 5px"></i>
                       <% end %>
                     <% end %>
-                  </td>
-                <% end %>
+                  <% end %>
+                  <%= link_to export_record_path(record), title: "Exportar PDF" do %>
+                    <i class="icon-file-text icon-large" style="padding-right: 5px"></i>
+                  <% end %>
+                </td>
               </tr>
             <% end %>
           </tbody>

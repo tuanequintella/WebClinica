@@ -3,6 +3,7 @@ pt-BR:
     index: Lista
     new: Criando
     edit: Editando
+    import: Importar
     links:
       index: Listar
       new: Criar

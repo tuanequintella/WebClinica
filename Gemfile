@@ -18,6 +18,8 @@ gem 'enumerize'
 gem 'validates_timeliness'
 gem 'paperclip'
 gem 'whenever'
+gem 'nokogiri'
+gem 'pdfkit'
 
 group :development, :test do
   gem 'mailcatcher'

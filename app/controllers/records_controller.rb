@@ -48,7 +48,8 @@ class RecordsController < ApplicationController
     timestamp = Time.now.to_i.to_s
     html = render_to_string(layout: false, template: "records/show.html.erb")
     kit = PDFKit.new(html, :page_size => 'Letter')
-    
+    kit.stylesheets << "#{Rails.root.to_s}/app/assets/stylesheets/pdf_export.css"
+
     filename = "record" + @record.id.to_s + "_" + timestamp + ".pdf"
 
     send_data(kit.to_pdf, :filename => filename, :type => 'application/pdf')

@@ -1,0 +1,7 @@
+table.pdf-table {
+  border: 1px black solid;
+}
+
+table.pdf-table > tbody > tr > td {
+  border: 1px gray solid;
+}

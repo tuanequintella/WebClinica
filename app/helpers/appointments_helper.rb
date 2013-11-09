@@ -1,7 +1,13 @@
 module AppointmentsHelper
-  def today_appointments(doctor)
-    current_apps = doctor.agenda.appointments.with_status(:pending, :pacient_arrived, :on_going)
-    current_apps.select{ |ap| ap.scheduled_at <= 2.hours.from_now && ap.scheduled_at >= 3.hours.ago }
+  def today_appointments(doctor, profile)
+    current_apps = []
+    if profile == :secretary
+      current_apps = doctor.agenda.appointments.with_status(:pending, :pacient_arrived, :on_going)
+      current_apps = current_apps.select{ |ap| ap.scheduled_at <= 2.hours.from_now && ap.scheduled_at >= 3.hours.ago }
+    elsif profile == :doctor
+      current_apps = agenda.appointments.select{ |ap| ap.scheduled_at <= 2.hours.from_now && ap.scheduled_at >= 2.hours.ago }
+    end
+    current_apps.sort_by{ |app| app.scheduled_at }
   end
 
   def icon_for_status(status)

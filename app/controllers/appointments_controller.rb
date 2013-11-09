@@ -5,8 +5,6 @@ class AppointmentsController < ApplicationController
   
   def index
     if current_user.is_a? Doctor
-      agenda = Agenda.where(doctor_id: current_user.id).first
-      @appointments = agenda.appointments.select{ |ap| ap.scheduled_at <= 2.hours.from_now && ap.scheduled_at >= 2.hours.ago }
       render :doctor_index
     else
       @doctors = Doctor.active

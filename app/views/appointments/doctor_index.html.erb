@@ -22,7 +22,7 @@
       <div id="day-agenda" class="accordion-body collapse in body">  
         <table class="table table-striped table-bordered table-condensed">
           <tbody>
-            <% @appointments.each do |appointment| %>
+            <% today_appointments(current_user, :doctor).each do |appointment| %>
               <tr>
                 <td title="<%= appointment.status.text %>"> <%= icon_for_status(appointment.status) %></td>
                 <td> <%= appointment.scheduled_at.strftime("%H:%M") %> </td>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Médico</Data></Cell>
+        <Cell><Data ss:Type="String">Convênio</Data></Cell>
+        <Cell><Data ss:Type="String">Data</Data></Cell>
+        <Cell><Data ss:Type="String">Status</Data></Cell>
+        <Cell><Data ss:Type="String">Paciente</Data></Cell>
+        <Cell><Data ss:Type="String">CID</Data></Cell>
+      </Row>
+    <% @appointments.sort_by{ |app| app.scheduled_at }.each do |appointment| %>
+      <Row>
+        <Cell><Data ss:Type="String"><%= appointment.agenda.try(:doctor).try(:name) %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= appointment.health_insurance.try(:name) %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= l(appointment.scheduled_at.to_date) %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= appointment.status.text %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= appointment.record.pacient.name %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= appointment.record_entry.try(:cid).try(:code) %></Data></Cell>
+      </Row>
+    <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

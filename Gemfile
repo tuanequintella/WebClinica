@@ -20,6 +20,7 @@ gem 'paperclip'
 gem 'whenever'
 gem 'nokogiri'
 gem 'pdfkit'
+gem 'ransack'
 
 group :development, :test do
   gem 'mailcatcher'

@@ -40,7 +40,7 @@
                   <th style="width: 7%">Mais</th>
                 </thead>
                 <tbody>
-                  <% @record.appointments.each do |appointment| %>
+                  <% @record.appointments.sort_by{ |app| app.scheduled_at }.each do |appointment| %>
                     <tr>
                       <% if appointment.scheduled_at.to_date > Date.today %>
                         <td title="<%= appointment.status.text %>"> <%= icon_for_status(appointment.status) %></td>

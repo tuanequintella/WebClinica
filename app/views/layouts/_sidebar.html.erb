@@ -30,7 +30,8 @@
                 <% if can? :read, Agenda %>
                     <li><%= link_to agendas_path do %><i class="icon-calendar"></i> Agendamento<% end %></li>
                 <% end %>
-                <li><%= link_to appointments_path do %><i class="icon-time"></i> Execução</a><% end %></li>
+                <li><%= link_to day_index_appointments_path do %><i class="icon-time"></i> Execução</a><% end %></li>
+                <li><%= link_to appointments_path do %><i class="icon-file-text"></i> Relatório</a><% end %></li>
             </ul>
         </li>
     <% end %>

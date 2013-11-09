@@ -53,6 +53,7 @@ WebClinica::Application.routes.draw do
 
   resources :appointments do
     collection do
+      get 'day_index' => 'appointments#day_index'
       get 'update_status' => 'appointments#update_status'
     end
   end

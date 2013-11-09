@@ -1,14 +1,33 @@
 #encoding: utf-8
 class AppointmentsController < ApplicationController
-  authorize_resource
-  respond_to :html, :json
+  #authorize_resource
+  respond_to :html, :json, :xls
   
-  def index
+  def index   
+    if params[:q].blank?
+      @q = Appointment.search(params[:q])  
+      @appointments = []
+    else
+      params[:q][:scheduled_at_lteq] += " 23:59"
+      @q = Appointment.search(params[:q])
+      params[:q][:scheduled_at_lteq] = params[:q][:scheduled_at_lteq].split(" ")[0]
+
+      @appointments = @q.result(distinct: true)
+      @appointments = @appointments.reject{ |app| app.agenda_id.blank? }
+    end
+
+    respond_to do |format|
+      format.html
+      format.xls
+    end
+  end
+
+  def day_index
     if current_user.is_a? Doctor
-      render :doctor_index
+      render :doctor_day_index
     else
       @doctors = Doctor.active
-      render :secretary_index
+      render :secretary_day_index
     end
   end
 
@@ -43,7 +62,7 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.find(params[:id])
     @appointment.update_attributes(status: params[:status])
     
-    redirect_to appointments_path
+    redirect_to day_index_appointments_path
   end
 
   def update

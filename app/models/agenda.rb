@@ -10,12 +10,18 @@ class Agenda < ActiveRecord::Base
 
   accepts_nested_attributes_for :available_days
 
+  scope :active, where(active: true)
+
   def deactivate!
     self.active = false
   end
 
   def activate!
     self.active = true
+  end
+
+  def doctor_name
+    doctor.name
   end
 
   def week (string_date)

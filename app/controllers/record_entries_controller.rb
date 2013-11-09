@@ -29,7 +29,7 @@ class RecordEntriesController < ApplicationController
     @record = @appointment.record
     if @record_entry.save
       flash[:success] = 'Consulta salva com sucesso.'
-      redirect_to appointments_path
+      redirect_to day_index_appointments_path
     else
       render :new
     end
@@ -55,7 +55,7 @@ class RecordEntriesController < ApplicationController
     else
       if @record_entry.save
         flash[:success] = 'Consulta salva com sucesso.'
-        redirect_to appointments_path
+        redirect_to day_index_appointments_path
       else
         render :new
       end

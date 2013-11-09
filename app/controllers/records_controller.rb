@@ -50,7 +50,7 @@ class RecordsController < ApplicationController
     kit = PDFKit.new(html, :page_size => 'Letter')
     kit.stylesheets << "#{Rails.root.to_s}/app/assets/stylesheets/pdf_export.css"
 
-    filename = "record" + @record.id.to_s + "_" + timestamp + ".pdf"
+    filename = "prontuario" + @record.to_s + "_" + timestamp + ".pdf"
 
     send_data(kit.to_pdf, :filename => filename, :type => 'application/pdf')
     return

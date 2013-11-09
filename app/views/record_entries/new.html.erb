@@ -35,7 +35,7 @@
           <th style="width: 7%">Mais</th>
         </thead>
         <tbody>
-          <% @record.appointments.with_status(:finished).reject{ |app| app == @appointment }.last(3).each do |prev_app| %>
+          <% short_history(@record, @appointment).each do |prev_app| %>
             <tr>
               <td><%= l(prev_app.scheduled_at.to_date) %></td>
               <td><%= prev_app.record_entry.try(:diagnosis) %></td>

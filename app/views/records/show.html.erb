@@ -36,7 +36,7 @@
     </table>      
     
     <h3>Histórico de consultas</h3>
-    <% @record.appointments.each do |appointment| %>
+    <% @record.appointments.sort_by{ |app| app.scheduled_at }.each do |appointment| %>
       <% entry = appointment.record_entry %>
       <p>
         <table class="pdf-table">

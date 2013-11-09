@@ -5,20 +5,16 @@
     <%= f.input :prescription, as: :text, input_html: {value: @record_entry.prescription, disabled: true, style: "width: 80%", rows: 3} %>
     <%= f.input :cid, as: :string, required: false, input_html: {value: @record_entry.cid.try(:to_s), disabled: true} %>
     
-    <%= f.simple_fields_for(:appointment_attachments, :html => { :class => 'form-horizontal' }) do |atch_form| %>
-      <div class="span4">
-        <%= link_to atch_form.object.file.url, target: "_blank" do %>
-          <figure>
-            <%= image_tag atch_form.object.image_url(:thumb), class: "media-object img-polaroid user-img", title: atch_form.object.file_file_name %>
-            <figcaption>
-              <% if atch_form.object.file_file_name.size > 10 %>
-                <%= atch_form.object.file_file_name.first(10) + "..." %>
-              <% else %>
-                <%= atch_form.object.file_file_name %>
-              <% end %>
-            </figcaption>
-          </figure>
-        <% end %>
+    <% @record_entry.appointment_attachments.each do |attachment| %>
+      <div class="span5">
+        <figure>
+          <%= link_to attachment.file.url, target: "_blank" do %>
+            <%= image_tag attachment.image_url(:thumb), class: "media-object img-polaroid user-img", title: attachment.file_file_name %>
+          <% end %>
+          <figcaption>
+            <%= attachment.notes %>
+          </figcaption>
+        </figure>
       </div>
     <% end %>    
   </fieldset>

@@ -57,7 +57,14 @@ class Pacient < ActiveRecord::Base
   end
 
   def age_in_years
-    age[:years].to_s + " anos"
+    idade = age[:years]
+    if idade == 1
+      idade.to_s + " ano"
+    elsif idade < 1
+      "Menos de 1 ano"
+    else
+      idade.to_s + " anos"
+    end
   end
 
   def self.params_search(params)

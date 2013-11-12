@@ -39,7 +39,7 @@
               </tr>
             </thead>
             <tbody>
-              <% @record_entries.each do |entry| %>
+              <% @record_entries.sort_by{ |e| e.appointment.scheduled_at }.each do |entry| %>
                 <tr>
                   <td> <%= entry.appointment.record.pacient.name %> </td>
                   <td> <%= entry.appointment.scheduled_at.strftime("%m/%Y") %> </td>

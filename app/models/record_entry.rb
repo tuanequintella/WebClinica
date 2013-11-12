@@ -9,4 +9,10 @@ class RecordEntry < ActiveRecord::Base
   accepts_nested_attributes_for :appointment_attachments, allow_destroy: true
 
   validates_presence_of :cid
+
+  def self.params_search(params)
+    entries = RecordEntry.where(cid_id: params[:cid_id]).all
+    entries = entries.select{|entry| entry.appointment.scheduled_at.to_date >= params[:date_from].to_date && entry.appointment.scheduled_at.to_date <= params[:date_to].to_date}
+    entries.uniq
+  end
 end

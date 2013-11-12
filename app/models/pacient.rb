@@ -56,7 +56,23 @@ class Pacient < ActiveRecord::Base
     I18n.t('datetime.distance_in_words.x_years', :count => my_age[:years] ) + " " + I18n.t('datetime.distance_in_words.x_months', :count => my_age[:months] )
   end
 
-  def self.search (term)
+  def age_in_years
+    age[:years]
+  end
+
+  def self.params_search(params)
+    entries = RecordEntry.includes(appointment: [:record]).where(cid_id: params[:cid_id]).all
+    records = entries.map(&:appointment).map(&:record)
+
+    start_date = (Date.today - params[:age_from].to_i.years) rescue Date.today
+    end_date = (Date.today - params[:age_to].to_i.years) rescue Date.today
+    pacients = Pacient.where('birthdate <= ? AND birthdate >= ?', start_date, end_date).all
+
+    records = records.select{|rec| rec.pacient.in? pacients}
+    result = records.map(&:pacient).uniq
+  end
+
+  def self.quick_search (term)
     if term.present?
       where("name LIKE ?", "%#{term}%")
     else

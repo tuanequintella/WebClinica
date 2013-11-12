@@ -1,0 +1,54 @@
+<%= icon_title_for("Estatísticas", "icon-bar-chart") %>
+<div class="row-fluid">
+  <div class="span12">
+    <div class="box dark">
+      <header>
+        <div class="icons"><i class="icon-file-text"></i></div>
+        <h5>Filtrar dados</h5>
+        <!-- .toolbar -->
+        <div class="toolbar">
+          <ul class="nav">
+            <li>
+              <a class="accordion-toggle minimize-box" data-toggle="collapse" href="#div-1">
+                <i class="icon-chevron-up"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!-- /.toolbar -->
+      </header>
+      <div id="div-1" class="accordion-body collapse in body">
+        <%= render partial: 'shared/alerts' %>
+        <div class="row-fluid">
+          <div class="span10">
+            <h5>Idades por CID</h5></header>
+            <%= simple_form_for(:age_search, url: age_statistics_path, method: :get, :html => { :class => 'form-inline' }) do |f| %>
+              <%= f.label :age_from, "Idade a partir de", style: "margin-right: 5px; margin-bottom: 15px" %>
+              <%= f.number_field :age_from, class: "input-small" %>
+              <%= f.label :age_to, "até", style: "margin-right: 5px; margin-left: 10px" %>
+              <%= f.number_field :age_to, class: "input-small" %>
+              <%= f.label :cids_id, "Com o CID", style: "margin-right: 5px; margin-left: 10px"%>
+              <%= f.select :cid_id, options_from_collection_for_select(Cid.all, "id", "to_s"), include_blank: false %>
+              <%= f.submit "Buscar", style: "margin-right: 5px; margin-left: 10px;" %>
+            <% end %>
+          </div>
+        </div>
+        <hr />
+        <div class="row-fluid">
+          <div class="span10">
+            <h5>Época de ocorrências por CID</h5>
+            <%= simple_form_for(:time_search, url: time_statistics_path, method: :get, :html => { :class => 'form-inline' }) do |f| %>
+              <%= f.label :date_from, "Data a partir de", style: "margin-right: 5px; margin-bottom: 15px" %>
+              <%= f.text_field :date_from, class: "input-small datepicker" %>
+              <%= f.label :date_to, "até", style: "margin-right: 5px; margin-left: 10px" %>
+              <%= f.text_field :date_to, class: "input-small datepicker" %>
+              <%= f.label :cid_id, "Com o CID", style: "margin-right: 5px; margin-left: 10px"%>
+              <%= f.select :cid_id, options_from_collection_for_select(Cid.all, "id", "to_s"), include_blank: false %>
+              <%= f.submit "Buscar", style: "margin-right: 5px; margin-left: 10px;" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

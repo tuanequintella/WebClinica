@@ -27,6 +27,13 @@ WebClinica::Application.routes.draw do
     end
   end
 
+  resources :statistics, only: [:index] do
+    collection do
+      get 'age'
+      get 'time'
+    end
+  end
+
   resources :agendas do
     get 'recreate' => 'agendas#recreate'
   end

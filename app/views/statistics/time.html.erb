@@ -1,0 +1,58 @@
+<%= icon_title_for("Estatísticas", "icon-bar-chart") %>
+<div class="row-fluid">
+  <div class="span12">
+    <div class="box dark">
+      <header>
+        <div class="icons"><i class="icon-file-text"></i></div>
+        <h5>Época de ocorrências por CID</h5>
+        <!-- .toolbar -->
+        <div class="toolbar">
+          <ul class="nav">
+            <li>
+              <a class="accordion-toggle minimize-box" data-toggle="collapse" href="#div-1">
+                <i class="icon-chevron-up"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!-- /.toolbar -->
+      </header>
+      <div id="div-1" class="accordion-body collapse in body">        
+        <p>
+          <div style="margin-bottom: 13px">
+            <%= link_to statistics_path(request.params), class: "btn" do %>
+              <i class="icon-reply"></i> Voltar
+            <% end %>
+            <%= link_to time_statistics_path(request.params.merge({format: "xls"})), class: "btn btn-success" do %>
+              <i class="icon-download-alt"></i> Exportar planilha
+            <% end %>
+          </div>
+        </p>
+
+        <p>
+          <table class="table table-striped table-bordered table-condensed">
+            <thead>
+              <tr>
+                <th> Paciente </th>
+                <th> Data da ocorrência </th>
+                <th> CID </th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @record_entries.each do |entry| %>
+                <tr>
+                  <td> <%= entry.appointment.record.pacient.name %> </td>
+                  <td> <%= entry.appointment.scheduled_at.strftime("%m/%Y") %> </td>
+                  <td> <%= entry.cid.code %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </p>
+        <p>
+        (gráfico aqui)
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

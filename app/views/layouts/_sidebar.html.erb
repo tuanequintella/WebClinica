@@ -6,6 +6,7 @@
         <ul class="collapse in" id="general-nav">
             <li><%= link_to root_path do %><i class="icon-laptop"></i> Meu Dashboard<% end %></li>
             <li><%= link_to office_path do %><i class="icon-home"></i> A Clínica<% end %></li>
+            <li><%= link_to statistics_path do %><i class="icon-bar-chart"></i> Estatísticas<% end %></li>
         </ul>
     </li>
     <% if can? :read, Pacient %>

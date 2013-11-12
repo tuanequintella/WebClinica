@@ -54,6 +54,7 @@ GEM
       multi_json (~> 1.0)
     faraday (0.8.8)
       multipart-post (~> 1.2.0)
+    googlecharts (1.6.8)
     haml (4.0.3)
       tilt
     hike (1.2.3)
@@ -208,6 +209,7 @@ DEPENDENCIES
   cancan
   coffee-rails (~> 3)
   enumerize
+  googlecharts
   haml
   jquery-rails
   jquery-ui-rails

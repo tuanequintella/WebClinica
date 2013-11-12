@@ -20,7 +20,7 @@ class Cid < ActiveRecord::Base
       doc = Nokogiri::XML(file)
 
       doc.css('categoria').each do |category_node|
-        cid = Cid.where(code: category_node['codcat']).first_or_create(name: category_node.children.css('nome').inner_text)
+        cid = Cid.where(code: category_node['codcat']).first_or_create(name: category_node.children.css('nome').first.inner_text)
         unless cid.save
           raise cid.errors.full_messages
         end

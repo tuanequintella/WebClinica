@@ -28,7 +28,7 @@
             <% end %>
           </div>
         </p>
-
+        <% dates_list = [] %>
         <p>
           <table class="table table-striped table-bordered table-condensed">
             <thead>
@@ -43,14 +43,24 @@
                 <tr>
                   <td> <%= entry.appointment.record.pacient.name %> </td>
                   <td> <%= entry.appointment.scheduled_at.strftime("%m/%Y") %> </td>
+                  <% dates_list << entry.appointment.scheduled_at.strftime("%m/%Y") %>
                   <td> <%= entry.cid.code %></td>
                 </tr>
               <% end %>
             </tbody>
           </table>
         </p>
-        <p>
-        (gráfico aqui)
+         <p>
+          <% begin %>
+            <% TCPSocket.new 'google.com', 80 %>
+            <% data = Statistics.calculate_percentages_and_labels(dates_list) %>
+            <% chart_url = Gchart.line(theme: :keynote, :data => data.values, bg: "F5F5F5", :title => 'Destribuição do CID ' + @cid.code + ' no tempo', :size => '500x300', :labels => data.keys) %>
+            <center>
+              <%= image_tag(chart_url) %>
+            </center>
+          <% rescue SocketError %>
+            <center>(Sem internet para gerar o gráfico)</center> 
+          <% end %>
         </p>
       </div>
     </div>

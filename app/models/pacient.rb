@@ -57,7 +57,7 @@ class Pacient < ActiveRecord::Base
   end
 
   def age_in_years
-    age[:years]
+    age[:years].to_s + " anos"
   end
 
   def self.params_search(params)

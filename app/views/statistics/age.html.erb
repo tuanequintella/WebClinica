@@ -1,4 +1,5 @@
 <%= icon_title_for("Estatísticas", "icon-bar-chart") %>
+
 <div class="row-fluid">
   <div class="span12">
     <div class="box dark">
@@ -42,14 +43,23 @@
                 <tr>
                   <td> <%= pacient.name %> </td>
                   <td> <%= pacient.age_in_years %> </td>
-                  <td> <%= @cid.code %></td>
+                  <td> <%= @cid.to_s %></td>
                 </tr>
               <% end %>
             </tbody>
           </table>
         </p>
         <p>
-        (gráfico aqui)
+          <% begin %>
+            <% TCPSocket.new 'google.com', 80 %>
+            <% data = Statistics.calculate_percentages_and_labels(@pacients.map(&:age_in_years)) %>
+            <% chart_url = Gchart.pie_3d(theme: :pastel, :data => data.values, bg: "F5F5F5", :title => 'Destribuição de idade com o CID ' + @cid.code, :size => '500x300', :labels => data.keys) %>
+            <center>
+              <%= image_tag(chart_url) %>
+            </center>
+          <% rescue SocketError %>
+            <center>(Sem internet para gerar o gráfico)</center> 
+          <% end %>
         </p>
       </div>
     </div>

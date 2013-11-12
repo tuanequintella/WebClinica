@@ -60,6 +60,8 @@ class Pacient < ActiveRecord::Base
     idade = age[:years]
     if idade == 1
       idade.to_s + " ano"
+    elsif idade < 1
+      "Menos de 1 ano"
     else
       idade.to_s + " anos"
     end

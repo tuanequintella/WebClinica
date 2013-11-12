@@ -1,6 +1,7 @@
 #encoding: utf-8
 class StatisticsController < ApplicationController
-  #authorize_resource
+  require 'socket'
+  require "gchart"
   respond_to :html, :xls
 
   def index; end
@@ -24,6 +25,7 @@ class StatisticsController < ApplicationController
   def time
     if params[:time_search][:date_from].present? && params[:time_search][:date_to].present?
       @record_entries = RecordEntry.params_search(params[:time_search]) 
+      @cid = Cid.find(params[:time_search][:cid_id])
 
       respond_to do |format|
         format.html

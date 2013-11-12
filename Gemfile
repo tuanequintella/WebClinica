@@ -21,6 +21,7 @@ gem 'whenever'
 gem 'nokogiri'
 gem 'pdfkit'
 gem 'ransack'
+gem 'googlecharts'
 
 group :development, :test do
   gem 'mailcatcher'

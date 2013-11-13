@@ -73,6 +73,11 @@
       language: 'pt-BR',
       endDate: new Date()
     });
+
+    var fixed_hi = "<%= HealthInsurance.where(name: 'Sem convênio (particular)').first.id %>"
+    $('input#doctor_health_insurance_ids_'+fixed_hi).attr('checked', 'checked')
+    $('input#doctor_health_insurance_ids_'+fixed_hi).attr('disabled', 'disabled')
+    
   });
 </script>
       

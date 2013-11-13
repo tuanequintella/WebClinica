@@ -12,6 +12,8 @@ class DoctorsController < ApplicationController
   end
 
   def create
+    fixed_hi = HealthInsurance.where(name: 'Sem convênio (particular)').first.id
+    params[:doctor][:health_insurance_ids] = (params[:doctor][:health_insurance_ids] + [fixed_hi.to_s]).uniq
     @doctor = Doctor.new(params[:doctor])
     @doctor.activate!
     @doctor.agenda.activate!
@@ -20,7 +22,7 @@ class DoctorsController < ApplicationController
       flash[:success] = 'Cadastrado com sucesso.'
       redirect_to doctors_path
     else
-		  render :new
+      render :new
     end
   end
 
@@ -35,6 +37,9 @@ class DoctorsController < ApplicationController
   def update
     @doctor = Doctor.find_by_id(params[:id])
     params[:doctor].delete :username
+    fixed_hi = HealthInsurance.where(name: 'Sem convênio (particular)').first.id
+    params[:doctor][:health_insurance_ids] = (params[:doctor][:health_insurance_ids] + [fixed_hi.to_s]).uniq
+
     @doctor.update_attributes(params[:doctor])
     if @doctor.save
       flash[:success] = 'Atualizado com sucesso.'

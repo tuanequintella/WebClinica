@@ -3,7 +3,7 @@ class Cid < ActiveRecord::Base
 
   attr_accessible :code, :name
 
-  has_many :record_entries
+  has_many :record_entries, dependent: :restrict
   validates_presence_of :code, :name
   validates_uniqueness_of :code
 

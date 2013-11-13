@@ -24,13 +24,18 @@ class Doctor < User
   end
 
   def deactivate!
+    if agenda.appointments.select{|app| app.scheduled_at > Time.now}.any?
+      return false
+    end
     self.agenda.deactivate!
     self.active = false
+    self.save
   end
   
   def activate!
     self.agenda.activate!
     self.active = true
+    self.save
   end
 
 end

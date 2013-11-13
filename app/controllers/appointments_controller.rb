@@ -96,7 +96,11 @@ class AppointmentsController < ApplicationController
     if @appointment.record.status.new?
       @appointment.record.deactivate!
     end
-    @appointment.destroy
+    if @appointment.destroy
+      flash[:success] = 'Desmarcado com sucesso'
+    else
+      flash[:error] = 'Erro ao tentar desmarcar'
+    end
 
     redirect_to agendas_path(:id => agenda, :date => date)
   end

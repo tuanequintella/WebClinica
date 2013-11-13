@@ -13,10 +13,18 @@ class Appointment < ActiveRecord::Base
 
   has_one :record_entry
 
+  before_destroy :check_destroyable
   before_save :update_record_status
 
   I18N_PATH = 'activerecord.attributes.appointment.'
   
+  def check_destroyable
+    if record_entry.present? || scheduled_at < Time.now
+      return false
+    end
+    true
+  end
+
   def update_record_status
     if status_changed? && status.finished?
       if record.status.new?

@@ -47,10 +47,12 @@ class User < ActiveRecord::Base
   
   def deactivate!
     self.active = false
+    self.save
   end
   
   def activate!
     self.active = true
+    self.save
   end
 
 end

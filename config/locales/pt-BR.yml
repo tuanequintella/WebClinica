@@ -124,6 +124,14 @@ pt-BR:
       too_short: ! 'é muito curto (mínimo: %{count} caracteres)'
       wrong_length: não possui o tamanho esperado (%{count} caracteres)
       cpf: não é um CPF válido
+      invalid_date: "não é uma data válida"
+      invalid_time: "não é um horário válido"
+      invalid_datetime: "não representa data e hora válidas"
+      is_at: "deve ser %{restriction}"
+      before: "deve ser antes de %{restriction}"
+      on_or_before: "deve ser igual ou antes de %{restriction}"
+      after: "deve ser depois de %{restriction}"
+      on_or_after: "deve ser igual ou após %{restriction}"
     template:
       body: ! 'Por favor, verifique o(s) seguinte(s) campo(s):'
       header:

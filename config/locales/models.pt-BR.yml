@@ -13,6 +13,9 @@ pt-BR:
       agenda:
         one: Agenda
         other: Agendas
+      available_day:
+        one: Dia de trabalho
+        other: Dias de trabalho
       appointment:
         one: Consulta
         other: Consultas
@@ -124,6 +127,13 @@ pt-BR:
         interval_end_time: Fim do intervalo
       agenda:
         default_meeting_length: Duração da consulta
+        available_days: Dias de trabalho
+      available_days:
+        day: Dia da semana
+        work_start_time: Entrada
+        work_end_time: Saída
+        interval_start_time: Intervalo
+        interval_end_time: Fim do intervalo
       appointment:
         agenda: Agenda
         record: Ficha

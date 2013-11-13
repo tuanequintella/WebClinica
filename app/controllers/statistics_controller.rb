@@ -2,7 +2,7 @@
 class StatisticsController < ApplicationController
   require 'socket'
   require "gchart"
-  respond_to :html, :xls
+  respond_to :html, :xlsx
 
   def index; end
 
@@ -13,7 +13,7 @@ class StatisticsController < ApplicationController
 
       respond_to do |format|
         format.html
-        format.xls
+        format.xlsx { render xlsx: "age", disposition: "attachment", filename: "idades_cid" + @cid.code + "_" + Time.now.to_i.to_s + ".xlsx" }
       end
 
     else
@@ -29,7 +29,7 @@ class StatisticsController < ApplicationController
 
       respond_to do |format|
         format.html
-        format.xls
+        format.xlsx { render xlsx: "time", disposition: "attachment", filename: "tempo_cid" + @cid.code + "_" + Time.now.to_i.to_s + ".xlsx" }
       end
 
     else

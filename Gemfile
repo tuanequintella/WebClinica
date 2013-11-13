@@ -22,6 +22,7 @@ gem 'nokogiri'
 gem 'pdfkit'
 gem 'ransack'
 gem 'googlecharts'
+gem 'axlsx_rails'
 
 group :development, :test do
   gem 'mailcatcher'

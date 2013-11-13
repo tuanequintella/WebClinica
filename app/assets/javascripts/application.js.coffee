@@ -25,7 +25,7 @@ $ ->
 
 $ ->
   $('.datepicker').datepicker({language: 'pt-BR', endDate: new Date(), todayHighlight: true, autoclose: true })
-  $('.timepicker').timepicker({minuteStep: 5, showMeridian: false})
+  $('.timepicker').timepicker({minuteStep: 5, showMeridian: false, defaultTime: false})
   $('.dropdown-toggle').dropdown()
   $('.select2').select2()
 

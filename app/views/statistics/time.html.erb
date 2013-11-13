@@ -23,7 +23,7 @@
             <%= link_to statistics_path(request.params), class: "btn" do %>
               <i class="icon-reply"></i> Voltar
             <% end %>
-            <%= link_to time_statistics_path(request.params.merge({format: "xls"})), class: "btn btn-success" do %>
+            <%= link_to time_statistics_path(request.params.merge({format: "xlsx"})), class: "btn btn-success", target: "_blank" do %>
               <i class="icon-download-alt"></i> Exportar planilha
             <% end %>
           </div>
@@ -54,7 +54,7 @@
           <% begin %>
             <% TCPSocket.new 'google.com', 80 %>
             <% data = Statistics.calculate_percentages_and_labels(dates_list) %>
-            <% chart_url = Gchart.line(theme: :keynote, :data => data.values, bg: "F5F5F5", :title => 'Destribuição do CID ' + @cid.code + ' no tempo', :size => '500x300', :labels => data.keys) %>
+            <% chart_url = Gchart.line(theme: :keynote, :data => data.values, bg: "F5F5F5", :title => 'Destribuição do CID ' + @cid.code + ' no tempo', :size => '500x300', :labels => data.keys, :axis_with_labels => ['x', 'y'], :axis_range => [nil, [0, data.values.max, 10]]) %>
             <center>
               <%= image_tag(chart_url) %>
             </center>

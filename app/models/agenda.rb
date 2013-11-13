@@ -6,18 +6,26 @@ class Agenda < ActiveRecord::Base
 
   belongs_to :doctor
   has_many :available_days
+  validate :available_days_amount
   has_many :appointments
 
   accepts_nested_attributes_for :available_days
 
   scope :active, where(active: true)
 
+  def available_days_amount
+    errors.add(:base, "Máximo de 7 dias da semana") if available_days.length > 7
+    errors.add(:base, "Dia da semana duplicado") if available_days.map(&:day).uniq != available_days.map(&:day)
+  end
+
   def deactivate!
     self.active = false
+    self.save
   end
 
   def activate!
     self.active = true
+    self.save
   end
 
   def doctor_name

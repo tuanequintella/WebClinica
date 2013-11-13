@@ -24,7 +24,7 @@
             <%= link_to statistics_path(request.params), class: "btn" do %>
               <i class="icon-reply"></i> Voltar
             <% end %>
-            <%= link_to age_statistics_path(request.params.merge({format: "xls"})), class: "btn btn-success" do %>
+            <%= link_to age_statistics_path(request.params.merge({format: "xlsx"})), class: "btn btn-success", target: "_blank" do %>
               <i class="icon-download-alt"></i> Exportar planilha
             <% end %>
           </div>

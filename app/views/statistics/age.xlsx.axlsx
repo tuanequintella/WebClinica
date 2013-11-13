@@ -1,0 +1,41 @@
+wb = xlsx_package.workbook
+style_shout = wb.styles.add_style sz: 16, b: true, alignment: { horizontal: :center }
+style_bold = wb.styles.add_style b: true, alignment: { horizontal: :center }
+
+wb.add_worksheet(:name => "Idades por CID") do |sheet|
+  sheet.add_row ["Idade por CID"]
+  sheet.merge_cells("A1:C1")
+  sheet["A1"].style = style_shout
+
+  sheet.add_row ["Paciente", "Idade", "CID"]
+  sheet["A2"].style = style_bold
+  sheet["B2"].style = style_bold
+  sheet["C2"].style = style_bold
+  
+  @pacients.each do |pacient|
+    sheet.add_row [pacient.name, pacient.age_in_years, @cid.to_s]
+  end
+
+  sheet.add_row
+  sheet.add_row ["Porcentagens"]
+  sheet.merge_cells("A" + (@pacients.size + 4).to_s + ":B" + (@pacients.size + 4).to_s)
+  sheet["A" + (@pacients.size + 4).to_s].style = style_bold
+
+  data = Statistics.calculate_percentages_and_labels(@pacients.map(&:age_in_years))
+  data.each_pair do |age, percentage|
+    sheet.add_row [age, percentage]
+  end
+
+  sheet.add_chart(Axlsx::Pie3DChart,
+                  :start_at => [0,@pacients.size + 5 + data.keys.size],
+                  :end_at => [6, @pacients.size + data.keys.size + 20],
+                  :title => 'Destribuição de idade com o CID ' + @cid.code) do |chart|
+      
+      labels_cells = "A" + (@pacients.size + 5).to_s + ":A" + (@pacients.size + 4 + data.keys.size).to_s
+      data_cells = "B" + (@pacients.size + 5).to_s + ":B" + (@pacients.size + 4 + data.keys.size).to_s
+    chart.add_series( :data => sheet[data_cells],
+                     :labels => sheet[labels_cells], 
+                     :colors => pick_colors(data.keys.size))
+  end
+  
+end

@@ -13,6 +13,8 @@ class AvailableDay < ActiveRecord::Base
   validates_time :interval_end_time, :after => :interval_start_time, :before => :work_end_time
   validates_time :work_end_time, :after => :interval_end_time
 
+  validates_associated :agenda
+
   I18N_PATH = 'activerecord.attributes.available_day.'
 
 end

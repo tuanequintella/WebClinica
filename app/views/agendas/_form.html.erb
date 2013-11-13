@@ -1,3 +1,14 @@
+
+<% if ag_form.object.errors.any? %>
+  <div class="alert alert-danger bs-alert-old-docs">
+    <ul>
+      <% ag_form.object.errors.full_messages.each do |msg| %>
+        <li> <%= msg %> </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <div class="control-group">
   <%= ag_form.label :default_meeting_length %>
   <div class="controls">

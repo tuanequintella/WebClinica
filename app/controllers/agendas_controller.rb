@@ -1,7 +1,6 @@
 #encoding: utf-8
 class AgendasController < ApplicationController
   
-
   def index
     if params[:id]
       @agenda = Agenda.find(params[:id])
@@ -32,7 +31,11 @@ class AgendasController < ApplicationController
   def update
     @agenda = Agenda.find_by_id(params[:id])
     @agenda.update_attributes(params[:agenda])
-    redirect_to agendas_path(id: @agenda)
+    if @agenda.save
+      redirect_to agendas_path(id: @agenda)
+    else
+      render :edit, :layout => !request.xhr?
+    end
   end
 
   def destroy

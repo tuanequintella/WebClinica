@@ -42,10 +42,9 @@ class HealthInsurancesController < ApplicationController
       flash[:error] = 'Não é possível desativar todos os convênios.'
       redirect_to health_insurances_path
     else
-      @health_insurance = HealthInsurance.find_by_id(params[:id])
-      @health_insurance.deactivate!
+      @health_insurance = HealthInsurance.find(params[:id])
       
-      if @health_insurance.save
+      if @health_insurance.deactivate!
         flash[:success] = 'Desativado com sucesso'
       else
         flash[:error] = 'Erro ao tentar desativar'

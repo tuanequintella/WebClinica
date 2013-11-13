@@ -19,6 +19,9 @@ class Agenda < ActiveRecord::Base
   end
 
   def deactivate!
+    if appointments.select{|app| app.scheduled_at > Time.now}.any?
+      return false
+    end
     self.active = false
     self.save
   end

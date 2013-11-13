@@ -19,7 +19,7 @@
     <%= f.input :birthdate, as: :string, :input_html => {:class => 'datepicker', 'data-date'=> doctor.birthdate, 'data-date-format'=>"dd/mm/yyyy"} %>
     <%= f.input :crm %>
     <%= f.input :gradyear, as: :string, :input_html => {:class => 'datepicker', 'data-date'=> doctor.gradyear, 'data-date-format'=>"dd/mm/yyyy"}  %>
-    <%= f.association :occupations, :as => :check_boxes  %>
+    <%= f.association :occupations, :as => :check_boxes, collection: Occupation.active.all  %>
     <div class="control-group">
       <%= f.label :appointmentprice %>
       <div class="controls">
@@ -28,7 +28,7 @@
         </div>
       </div>
     </div>
-    <%= f.association :health_insurances, :as => :check_boxes %>
+    <%= f.association :health_insurances, :as => :check_boxes, collection: HealthInsurance.active.all %>
     <%= render partial: '/contact_infos/form', locals: {f: f} %>
 
     <!-- INFOS DA AGENDA -->

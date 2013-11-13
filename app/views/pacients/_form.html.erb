@@ -19,7 +19,7 @@
     <%= f.input :parent_rg %>
     <%= f.input :parent_cpf %>
 
-    <%= f.association :health_insurance, :include_blank => 'Selecione uma opção' %>
+    <%= f.association :health_insurance, collection: HealthInsurance.active.all, :include_blank => 'Selecione uma opção'  %>
     <%= f.input :address, :input_html => {:class => 'input-large'} %>
     <%= f.input :phone %>
     <%= f.input :email %>

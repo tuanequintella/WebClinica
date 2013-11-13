@@ -45,9 +45,8 @@ class AdminsController < ApplicationController
       redirect_to admins_path
     else
       @admin = Admin.find_by_id(params[:id])
-      @admin.deactivate!
       
-      if @admin.save
+      if @admin.deactivate!
         flash[:success] = 'Desativado com sucesso'
       else
         flash[:error] = 'Erro ao tentar desativar'

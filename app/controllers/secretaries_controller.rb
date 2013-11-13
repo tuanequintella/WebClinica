@@ -45,9 +45,8 @@ class SecretariesController < ApplicationController
 
   def destroy
     @secretary = Secretary.find_by_id(params[:id])
-    @secretary.deactivate!
-
-    if @secretary.save
+    
+    if @secretary.deactivate!
       flash[:success] = 'Desativado com sucesso'
     else
       flash[:error] = 'Erro ao tentar desativar'

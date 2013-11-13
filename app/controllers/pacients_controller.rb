@@ -55,9 +55,9 @@ class PacientsController < ApplicationController
 
   def destroy
     @pacient = Pacient.find_by_id(params[:id])
-    @pacient.record.deactivate!
     
-    if @pacient.record.save
+    
+    if @pacient.record.deactivate!
       flash[:success] = 'Desativado com sucesso'
     else
       flash[:error] = 'Erro ao tentar desativar'

@@ -42,10 +42,9 @@ class OccupationsController < ApplicationController
       flash[:error] = 'Não é possível desativar todas as especialidades.'
       redirect_to occupations_path
     else
-      @occupation = Occupation.find_by_id(params[:id])
-      @occupation.deactivate!
+      @occupation = Occupation.find(params[:id])
       
-      if @occupation.save
+      if @occupation.deactivate!
         flash[:success] = 'Desativada com sucesso'
       else
         flash[:error] = 'Erro ao tentar desativar'

@@ -10,8 +10,8 @@ class Doctor < User
   validates :cpf, :presence => true, :cpf => true
 
   has_many :contact_infos, :as => :reachable
-  has_and_belongs_to_many :health_insurances, :join_table => :doctors_health_insurances
-  has_and_belongs_to_many :occupations, :join_table => :doctors_occupations
+  has_and_belongs_to_many :health_insurances, :join_table => :doctors_health_insurances, foreign_key: :doctor_id
+  has_and_belongs_to_many :occupations, :join_table => :doctors_occupations, foreign_key: :doctor_id
   has_one :agenda
 
   accepts_nested_attributes_for :contact_infos, :allow_destroy => true

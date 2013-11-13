@@ -40,9 +40,9 @@ class AgendasController < ApplicationController
 
   def destroy
     @agenda = Agenda.find(params[:id])
-    @agenda.deactivate!
+    
 
-    if(@agenda.save)
+    if @agenda.deactivate!
       flash[:success] = "Agenda desativada com sucesso"
     else
       flash[:error] = "Erro ao desativar agenda"

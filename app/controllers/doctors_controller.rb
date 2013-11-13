@@ -51,10 +51,9 @@ class DoctorsController < ApplicationController
 
   def destroy
     @doctor = Doctor.find_by_id(params[:id])
-    @doctor.deactivate!
-    @doctor.agenda.deactivate!
     
-    if @doctor.save
+    if @doctor.deactivate!
+      @doctor.agenda.deactivate!
       flash[:success] = 'Desativado com sucesso'
     else
       flash[:error] = 'Erro ao tentar desativar'

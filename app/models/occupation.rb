@@ -1,7 +1,7 @@
 class Occupation < ActiveRecord::Base
   attr_accessible :name, :active
 
-  has_and_belongs_to_many :doctors, :join_table => :doctors_occupations, :class_name => "User"
+  has_and_belongs_to_many :doctors, :join_table => :doctors_occupations, :class_name => "Doctor"
 
   scope :active, where(active: true)
 

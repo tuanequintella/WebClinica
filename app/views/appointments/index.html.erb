@@ -36,7 +36,7 @@
         <p>
           <% if @appointments.any? %>
             <div style="margin-bottom: 13px">
-              <%= link_to appointments_path(request.params.merge({format: "xls"})), class: "btn btn-success" do %>
+              <%= link_to appointments_path(request.params.merge({format: "xls"})), class: "btn btn-success", target: "_blank" do %>
                 <i class="icon-download-alt"></i> Exportar planilha
               <% end %>
             </div>

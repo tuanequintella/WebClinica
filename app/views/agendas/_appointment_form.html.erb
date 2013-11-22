@@ -12,9 +12,10 @@
 
         <%= f.fields_for :record do |rec_f| %>
           <%= rec_f.fields_for :pacient do |pac_f| %>
-            <%= pac_f.input :name %>
+            <%= pac_f.input :first_name, label: "Nome" %>
+            <%= pac_f.input :surname, label: "Sobrenome" %>
             <%= f.association :health_insurance, :collection => @agenda.doctor.health_insurances, :include_blank => :false %>
-            <%= pac_f.input :phone %>
+            <%= pac_f.input :phone, label: "Telefone" %>
           <% end %>
 
           <%= rec_f.input :status, collection: Record.status.options, :include_blank => false, :disabled => true, selected: :new %>

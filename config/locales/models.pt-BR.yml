@@ -91,6 +91,8 @@ pt-BR:
         phone: Telefone
       pacient:
         name: Nome completo
+        first_name: Nome
+        surname: Sobrenome
         cpf: CPF
         rg: RG
         birthdate: Data de nascimento

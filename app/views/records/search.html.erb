@@ -1,11 +1,11 @@
 <% @records.each do |record| %>
   <tr>
-    <td> <%= link_to record.id, record_path(record) %> </td>
+    <td> <%= record.to_s %> </td>
     <td> <%= record.pacient.name %></td>
     <td> <%= date_format(record.last_appointment.try(:scheduled_at)) %> </td>
     <td> <%= record.status.text %></td>
-    <% if can? :manage, Record %>
-      <td>
+    <td>
+      <% if can? :manage, Record %>
         <%= link_to edit_record_path(record), title: "Editar" do %>
           <i class="icon-pencil icon-large" style="padding-right: 5px"></i>
         <% end %>
@@ -18,7 +18,10 @@
             <i class="icon-undo icon-large" style="padding-right: 5px"></i>
           <% end %>
         <% end %>
-      </td>
-    <% end %>
+      <% end %>
+      <%= link_to export_record_path(record), title: "Exportar PDF" do %>
+        <i class="icon-download-alt icon-large" style="padding-right: 5px"></i>
+      <% end %>
+    </td>
   </tr>
 <% end %>

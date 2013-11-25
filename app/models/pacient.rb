@@ -6,6 +6,8 @@ class Pacient < ActiveRecord::Base
   validates :rg, :cpf, :presence => { :if => :overage? }
   validates :parent_name, :parent_rg, :parent_cpf, :presence => { :unless => :overage? }
   
+  before_save :update_metaphones
+
   belongs_to :health_insurance
   has_many :contact_infos, :as => :reachable
   has_one :record
@@ -18,6 +20,11 @@ class Pacient < ActiveRecord::Base
 
   def name
     [first_name, surname].join(" ")
+  end
+
+  def update_metaphones
+    self.first_name_metaphone = MetaphoneBr.metaphone_ptbr(first_name)
+    self.surname_metaphone = MetaphoneBr.metaphone_ptbr(surname)
   end
 
   def overage?
@@ -97,25 +104,24 @@ class Pacient < ActiveRecord::Base
       similar_results = Pacient.all.select do |p|
 
         # calcula similaridade do primeiro nome com o termo buscado
-        first_name_metaphone = MetaphoneBr.metaphone_ptbr(p.first_name)
-        sw = SmithWaterman.new(first_name_metaphone, term_metaphone)
+        sw = SmithWaterman.new(p.first_name_metaphone, term_metaphone)
         sw.align!
-        first_rel_score = sw.score.to_f / (first_name_metaphone.size + term_metaphone.size)
+        first_rel_score = sw.score.to_f / (p.first_name_metaphone.size + term_metaphone.size)
         
         if (first_rel_score >= 0.65)
-          puts "\nPrimeiro nome: #{p.first_name} => Metaphone: " + first_name_metaphone
-          puts "\nScore entre " + first_name_metaphone + " e " + term_metaphone + ": " + first_rel_score.to_s
+          puts "\nPrimeiro nome: #{p.first_name} => Metaphone: #{p.first_name_metaphone}"
+          puts "\nScore entre " + p.first_name_metaphone + " e " + term_metaphone + ": " + first_rel_score.to_s
         end
 
         # calcula similaridade do último nome com o termo buscado
         last_name = p.surname.split(" ").last
-        last_name_metaphone = MetaphoneBr.metaphone_ptbr(last_name)
+        last_name_metaphone = p.surname_metaphone.split(" ").last
         sw = SmithWaterman.new(last_name_metaphone, term_metaphone)
         sw.align!
         last_rel_score = sw.score.to_f / (last_name_metaphone.size + term_metaphone.size)
         
         if (last_rel_score >= 0.65)
-          puts "\nUltimo nome: #{last_name} => Metaphone: " + last_name_metaphone
+          puts "\nUltimo nome: #{last_name} => Metaphone: #{last_name_metaphone}"
           puts "\nScore entre " + last_name_metaphone + " e " + term_metaphone + ": " + last_rel_score.to_s
         end
 

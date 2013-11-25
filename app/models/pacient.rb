@@ -1,6 +1,6 @@
 class Pacient < ActiveRecord::Base
   attr_accessible :first_name, :surname, :cpf, :rg, :birthdate, :health_insurance, :address, :phone, :email, :parent_name, :parent_rg, :parent_cpf,:health_insurance_id, :contact_infos_attributes, :record_attributes
-  attr_accessor :contact_infos_attributes, :record_attributes
+  attr_accessor :contact_infos_attributes, :record_attributes, :sw_score
 
   validates_presence_of :name, :email, :address, :phone, :birthdate, :health_insurance
   validates :rg, :cpf, :presence => { :if => :overage? }
@@ -85,7 +85,50 @@ class Pacient < ActiveRecord::Base
 
   def self.quick_search (term)
     if term.present?
-      where("first_name LIKE ? OR surname LIKE ?", "%#{term}%", "%#{term}%")
+      puts "\n\nTERMO: #{term}" 
+      first_results = Pacient.where("first_name LIKE ? OR surname LIKE ?", "%#{term}%", "%#{term}%")
+      puts "\n\nResultados que contem o termo:\n"
+      puts first_results.map(&:name).to_s
+
+      puts "\n\nResultados similares:\n"
+      term_metaphone = MetaphoneBr.metaphone_ptbr(term)
+      puts "\nMetaphone do termo: " + term_metaphone
+
+      similar_results = Pacient.all.select do |p|
+
+        # calcula similaridade do primeiro nome com o termo buscado
+        first_name_metaphone = MetaphoneBr.metaphone_ptbr(p.first_name)
+        sw = SmithWaterman.new(first_name_metaphone, term_metaphone)
+        sw.align!
+        first_rel_score = sw.score.to_f / (first_name_metaphone.size + term_metaphone.size)
+        
+        if (first_rel_score >= 0.65)
+          puts "\nPrimeiro nome: #{p.first_name} => Metaphone: " + first_name_metaphone
+          puts "\nScore entre " + first_name_metaphone + " e " + term_metaphone + ": " + first_rel_score.to_s
+        end
+
+        # calcula similaridade do último nome com o termo buscado
+        last_name = p.surname.split(" ").last
+        last_name_metaphone = MetaphoneBr.metaphone_ptbr(last_name)
+        sw = SmithWaterman.new(last_name_metaphone, term_metaphone)
+        sw.align!
+        last_rel_score = sw.score.to_f / (last_name_metaphone.size + term_metaphone.size)
+        
+        if (last_rel_score >= 0.65)
+          puts "\nUltimo nome: #{last_name} => Metaphone: " + last_name_metaphone
+          puts "\nScore entre " + last_name_metaphone + " e " + term_metaphone + ": " + last_rel_score.to_s
+        end
+
+        p.sw_score = [first_rel_score, last_rel_score].max
+
+        # regra do select
+        (first_rel_score >= 0.65 || last_rel_score >= 0.65)
+      end
+
+      # orderna por ordem decrescente de pontuação
+      similar_results = similar_results.sort_by{ |p| p.sw_score }.reverse
+
+      result = (first_results + similar_results).uniq
     else
       all
     end

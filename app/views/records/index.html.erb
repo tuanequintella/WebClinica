@@ -35,7 +35,7 @@
             </tr>
           </thead>
           <tbody>
-            <% @records.each do |record| %>
+            <% @records.sort_by{ |r| r.pacient.name }.each do |record| %>
               <tr>
                 <td> <%= record.to_s %> </td>
                 <td> <%= record.pacient.name %></td>

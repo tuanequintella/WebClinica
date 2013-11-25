@@ -8,7 +8,7 @@ class RecordsController < ApplicationController
   end
 
   def search
-    @records = Pacient.includes(:record).search(params[:pacient][:name]).map(&:record)
+    @records = Pacient.includes(:record).quick_search(params[:pacient][:first_name]).map(&:record)
     render :search, :layout => false
   end
 

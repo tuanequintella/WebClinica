@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131107033940) do
+ActiveRecord::Schema.define(:version => 20131122003132) do
 
   create_table "agendas", :force => true do |t|
     t.integer  "doctor_id"
@@ -101,7 +101,7 @@ ActiveRecord::Schema.define(:version => 20131107033940) do
   end
 
   create_table "pacients", :force => true do |t|
-    t.string   "name"
+    t.string   "first_name"
     t.string   "cpf"
     t.string   "rg"
     t.date     "birthdate"
@@ -112,8 +112,11 @@ ActiveRecord::Schema.define(:version => 20131107033940) do
     t.string   "parent_name"
     t.string   "parent_rg"
     t.string   "parent_cpf"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+    t.string   "surname"
+    t.string   "first_name_metaphone"
+    t.string   "surname_metaphone"
   end
 
   create_table "record_entries", :force => true do |t|

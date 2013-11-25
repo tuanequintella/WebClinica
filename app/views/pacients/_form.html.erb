@@ -7,8 +7,9 @@
       </div>
     <% end %>
     <br />
-    <%= f.input :name, :input_html => {:class => 'input-large'} %>
-    <%= f.input :birthdate, :as => :string, :input_html => {:class => 'datepicker', 'data-date'=> pacient.birthdate, 'data-date-format'=>"dd/mm/yyyy"} %>
+    <%= f.input :first_name %>
+    <%= f.input :surname %>
+    <%= f.input :birthdate, :as => :string, :input_html => {value: date_format(pacient.birthdate), :class => 'datepicker', 'data-date'=> date_format(pacient.birthdate), 'data-date-format'=>"dd/mm/yyyy" } %>
 
     <!-- caso overage? -->
     <%= f.input :cpf %>

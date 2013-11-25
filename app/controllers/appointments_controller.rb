@@ -43,7 +43,7 @@ class AppointmentsController < ApplicationController
 
     if @appointment.record.blank?
       pacient = Pacient.new(record_params[:pacient])
-      unless pacient.name.blank? || pacient.phone.blank?
+      unless pacient.first_name.blank? || pacient.surname.blank? || pacient.phone.blank?
         record = Record.create(status: :new)
         pacient.record = record
         pacient.save(:validate => false)

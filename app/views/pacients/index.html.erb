@@ -23,7 +23,7 @@
       <div id="div-1" class="accordion-body collapse in body">  
         <%= render partial: 'shared/alerts' %> 
         <%= form_for(Pacient.new, :url => search_pacients_path, :html => { :class => 'search form-inline' }) do |f| %>
-          <%= f.text_field :name, :placeholder => "Buscar por nome" %>
+          <%= f.text_field :first_name, :placeholder => "Buscar por nome" %>
         <% end %>
         <table class="table table-striped table-bordered table-condensed">
           <thead>
@@ -36,7 +36,7 @@
             </tr>
           </thead>
           <tbody>
-            <% @pacients.each do |pacient| %>
+            <% @pacients.sort_by{ |p| p.name }.each do |pacient| %>
               <tr>
                 <td> <%= link_to pacient.name, pacient_path(pacient) %> </td>
                 <td> <%= pacient.email %></td>

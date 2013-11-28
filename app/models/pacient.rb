@@ -1,5 +1,5 @@
 class Pacient < ActiveRecord::Base
-  attr_accessible :first_name, :surname, :cpf, :rg, :birthdate, :health_insurance, :address, :phone, :email, :parent_name, :parent_rg, :parent_cpf,:health_insurance_id, :contact_infos_attributes, :record_attributes
+  attr_accessible :name, :cpf, :rg, :birthdate, :health_insurance, :address, :phone, :email, :parent_name, :parent_rg, :parent_cpf,:health_insurance_id, :contact_infos_attributes, :record_attributes
   attr_accessor :contact_infos_attributes, :record_attributes, :sw_score
 
   validates_presence_of :name, :email, :address, :phone, :birthdate, :health_insurance
@@ -18,13 +18,8 @@ class Pacient < ActiveRecord::Base
     self.name
   end
 
-  def name
-    [first_name, surname].join(" ")
-  end
-
   def update_metaphones
-    self.first_name_metaphone = MetaphoneBr.metaphone_ptbr(first_name)
-    self.surname_metaphone = MetaphoneBr.metaphone_ptbr(surname)
+    self.name_metaphone = MetaphoneBr.metaphone_ptbr(self.name)
   end
 
   def overage?
@@ -93,7 +88,7 @@ class Pacient < ActiveRecord::Base
   def self.quick_search (term)
     if term.present?
       puts "\n\nTERMO: #{term}" 
-      first_results = Pacient.where("first_name LIKE ? OR surname LIKE ?", "%#{term}%", "%#{term}%")
+      first_results = Pacient.where("name LIKE ?", "%#{term}%")
       puts "\n\nResultados que contem o termo:\n"
       puts first_results.map(&:name).to_s
 
@@ -103,32 +98,25 @@ class Pacient < ActiveRecord::Base
 
       similar_results = Pacient.all.select do |p|
 
-        # calcula similaridade do primeiro nome com o termo buscado
-        sw = SmithWaterman.new(p.first_name_metaphone, term_metaphone)
-        sw.align!
-        first_rel_score = sw.score.to_f / (p.first_name_metaphone.size + term_metaphone.size)
-        
-        if (first_rel_score >= 0.65)
-          puts "\nPrimeiro nome: #{p.first_name} => Metaphone: #{p.first_name_metaphone}"
-          puts "\nScore entre " + p.first_name_metaphone + " e " + term_metaphone + ": " + first_rel_score.to_s
+        names_scores = {}
+        p.name_metaphone.split(" ").each do |name|
+          # calcula similaridade do primeiro nome com o termo buscado
+          sw = SmithWaterman.new(name, term_metaphone)
+          sw.align!
+          first_rel_score = sw.score.to_f / (name.size + term_metaphone.size)
+          names_scores[name] = first_rel_score
         end
 
-        # calcula similaridade do último nome com o termo buscado
-        last_name = p.surname.split(" ").last
-        last_name_metaphone = p.surname_metaphone.split(" ").last
-        sw = SmithWaterman.new(last_name_metaphone, term_metaphone)
-        sw.align!
-        last_rel_score = sw.score.to_f / (last_name_metaphone.size + term_metaphone.size)
-        
-        if (last_rel_score >= 0.65)
-          puts "\nUltimo nome: #{last_name} => Metaphone: #{last_name_metaphone}"
-          puts "\nScore entre " + last_name_metaphone + " e " + term_metaphone + ": " + last_rel_score.to_s
+        max_score = names_scores.values.max 
+        if (max_score >= 0.65)
+          puts "\nNome: #{p.name} => Metaphone do nome mais similar: " + names_scores.key(max_score)
+          puts "Score entre " + names_scores.key(max_score) + " e " + term_metaphone + ": " + max_score.to_s
         end
 
-        p.sw_score = [first_rel_score, last_rel_score].max
+        p.sw_score = max_score
 
         # regra do select
-        (first_rel_score >= 0.65 || last_rel_score >= 0.65)
+        (max_score >= 0.65)
       end
 
       # orderna por ordem decrescente de pontuação
@@ -136,7 +124,7 @@ class Pacient < ActiveRecord::Base
 
       result = (first_results + similar_results).uniq
     else
-      all
+      all.sort_by{|p| p.name}
     end
   end
   

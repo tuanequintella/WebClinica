@@ -4,11 +4,15 @@ class RecordsController < ApplicationController
   respond_to :html, :json
 
   def index
-    @records = Record.all
+    if params[:name]
+      @records = Pacient.includes(:record).quick_search(params[:name]).map(&:record)
+    else
+      @records = Record.all
+    end
   end
 
   def search
-    @records = Pacient.includes(:record).quick_search(params[:pacient][:first_name]).map(&:record)
+    @records = Pacient.includes(:record).quick_search(params[:pacient][:name]).map(&:record)
     render :search, :layout => false
   end
 

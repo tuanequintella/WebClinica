@@ -59,7 +59,7 @@
           <%= f.input :problems, as: :text, input_html: {style: "width: 80%", rows: 3} %>
           <%= f.input :diagnosis, as: :text, input_html: {style: "width: 80%", rows: 3} %>
           <%= f.input :prescription, as: :text, input_html: {style: "width: 80%", rows: 3} %>
-          <%= f.association :cid, value_method: :id, label_method: :to_s %>
+          <%= f.association :cid, value_method: :id, label_method: :to_s, input_html: { class: "select2" } %>
         <% else %>
           <%= f.input :problems, as: :text, input_html: {value: @record_entry.problems, disabled: true, style: "width: 80%", rows: 3} %>
           <%= f.input :diagnosis, as: :text, input_html: {value: @record_entry.diagnosis, disabled: true, style: "width: 80%", rows: 3} %>

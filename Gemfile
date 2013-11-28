@@ -23,6 +23,7 @@ gem 'pdfkit'
 gem 'ransack'
 gem 'googlecharts'
 gem 'axlsx_rails'
+gem "select2-rails"
 
 group :development, :test do
   gem 'mailcatcher'

@@ -101,7 +101,7 @@ ActiveRecord::Schema.define(:version => 20131122003132) do
   end
 
   create_table "pacients", :force => true do |t|
-    t.string   "first_name"
+    t.string   "name"
     t.string   "cpf"
     t.string   "rg"
     t.date     "birthdate"
@@ -112,11 +112,9 @@ ActiveRecord::Schema.define(:version => 20131122003132) do
     t.string   "parent_name"
     t.string   "parent_rg"
     t.string   "parent_cpf"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
-    t.string   "surname"
-    t.string   "first_name_metaphone"
-    t.string   "surname_metaphone"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.string   "name_metaphone"
   end
 
   create_table "record_entries", :force => true do |t|

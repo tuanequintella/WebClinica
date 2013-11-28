@@ -7,7 +7,7 @@ class PacientsController < ApplicationController
   end
 
   def search
-    @pacients = Pacient.quick_search(params[:pacient][:first_name])
+    @pacients = Pacient.quick_search(params[:pacient][:name])
     render :search, :layout => false
   end
 

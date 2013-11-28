@@ -23,6 +23,7 @@ class Ability
       cannot :manage, HealthInsurance, :name => "Sem convênio (particular)"
       can :manage, Occupation
       can :read, Record
+      can :search, Record
       can :read, RecordEntry
       can :read, AppointmentAttachment
     end

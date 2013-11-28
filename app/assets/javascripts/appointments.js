@@ -2,10 +2,8 @@ window.appointmentsBehavior = function (){
 
   $("#appointment_record_id").on('change', function() {
     if($(this).val() == "") {
-      $("#appointment_record_pacient_first_name").val("");
-      $("#appointment_record_pacient_first_name").removeAttr('disabled');
-      $("#appointment_record_pacient_surname").val("");
-      $("#appointment_record_pacient_surname").removeAttr('disabled');
+      $("#appointment_record_pacient_name").val("");
+      $("#appointment_record_pacient_name").removeAttr('disabled');
       $("#appointment_record_pacient_phone").val("");
       $("#appointment_record_pacient_phone").removeAttr('disabled');
       $("#appointment_record_status").val("new");
@@ -17,10 +15,8 @@ window.appointmentsBehavior = function (){
         dataType: 'json'
       }).success(function(record) {
         
-        $("#appointment_record_pacient_first_name").val(record.pacient.first_name);
-        $("#appointment_record_pacient_first_name").attr('disabled','disabled');
-        $("#appointment_record_pacient_surname").val(record.pacient.surname);
-        $("#appointment_record_pacient_surname").attr('disabled','disabled');
+        $("#appointment_record_pacient_name").val(record.pacient.name);
+        $("#appointment_record_pacient_name").attr('disabled','disabled');
         $("#appointment_record_pacient_phone").val(record.pacient.phone);
         $("#appointment_record_pacient_phone").attr('disabled','disabled');
         $("#appointment_record_status").val(record.status);
@@ -73,8 +69,7 @@ window.appointmentsBehavior = function (){
 
   $("#appointment-window").on('hidden', function() {
     $("#appointment_record_id").removeAttr('disabled');
-    $("#appointment_record_pacient_first_name").removeAttr('disabled');
-    $("#appointment_record_pacient_surname").removeAttr('disabled');
+    $("#appointment_record_pacient_name").removeAttr('disabled');
     $("#appointment_record_pacient_phone").removeAttr('disabled');
     $("#appointment_health_insurance_id").removeAttr('disabled');
     $(".btn-primary").show();
@@ -93,12 +88,13 @@ window.appointmentsBehavior = function (){
     //acessando consulta no passado?
     if(appDate < now) {
       $("#appointment_record_id").attr('disabled','disabled');
-      $("#appointment_record_pacient_first_name").attr('disabled','disabled');
-      $("#appointment_record_pacient_surname").attr('disabled','disabled');
+      $("#appointment_record_pacient_name").attr('disabled','disabled');
       $("#appointment_record_pacient_phone").attr('disabled','disabled');
       $("#appointment_health_insurance_id").attr('disabled','disabled');
       $("#last_appointment_date").hide();
       $(".btn-primary").hide();
+    } else {
+      $('#appointment_record_id').select2();
     }
   });
 

@@ -35,8 +35,8 @@
               <% @health_insurances.each do |health_insurance| %>
                 <tr>
                   <td> <%= health_insurance.name %> </td>
-                  <td>
-                    <% if can? :manage, health_insurance %>
+                  <% if can? :manage, health_insurance %>
+                    <td>
                       <%= link_to edit_health_insurance_path(health_insurance), title: "Editar" do %>
                         <i class="icon-pencil icon-large" style="padding-right: 5px"></i>
                       <% end %>
@@ -49,8 +49,8 @@
                           <i class="icon-undo icon-large" style="padding-right: 5px"></i>
                         <% end %>
                       <% end %>
-                    <% end %>
-                  </td>
+                    </td>
+                  <% end %>
                 </tr>
               <% end %>
             </tbody>

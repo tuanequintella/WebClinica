@@ -9,15 +9,17 @@
   </div>
 <% end %>
 
-<div class="control-group">
-  <%= ag_form.label :default_meeting_length %>
-  <div class="controls">
-    <div class="input-append">
-      <%= ag_form.number_field :default_meeting_length, min: "5", max: "180", step: "5", class: "input-small" %>
-      <span class="add-on">minutos</span>
+<% if ag_form.object.new_record? %>
+  <div class="control-group">
+    <%= ag_form.label :default_meeting_length %>
+    <div class="controls">
+      <div class="input-append">
+        <%= ag_form.number_field :default_meeting_length, min: "5", max: "180", step: "5", class: "input-small" %>
+        <span class="add-on">minutos</span>
+      </div>
     </div>
   </div>
-</div>
+<% end %>
 
 <%= ag_form.simple_fields_for :available_days do |avd_form| %>
   <div class="row-fluid">

@@ -26,6 +26,7 @@ class Ability
       can :search, Record
       can :manage, RecordEntry
       can :manage, AppointmentAttachment
+      can :manage, Cid
     end
 
     if user.is_a? Doctor

@@ -26,7 +26,7 @@ class PacientsController < ApplicationController
         re = RecordEntry.new(appointment_id: ap.id, :diagnosis => "(Registrado antes da implantação do sistema)")
         re.save(validate: false)
         @pacient.record.save
-        flash[:warning] = I18n.t('activerecord.attributes.record.warning', :id => "%04d" % @pacient.record.id)
+        flash[:success] = "Paciente cadastrado com sucesso"
       end
       redirect_to pacients_path
     else

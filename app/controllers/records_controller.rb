@@ -41,7 +41,8 @@ class RecordsController < ApplicationController
   def update_appointment_status
     @record = Record.find(params[:record_id])
     @appointment = Appointment.find(params[:appointment_id])
-    @appointment.update_attributes(status: params[:status])
+    @appointment.status = params[:status]
+    @appointment.save(validate: false)
     
     redirect_to edit_record_path(@record)
   end
@@ -54,7 +55,7 @@ class RecordsController < ApplicationController
     kit = PDFKit.new(html, :page_size => 'Letter')
     kit.stylesheets << "#{Rails.root.to_s}/app/assets/stylesheets/pdf_export.css"
 
-    filename = "prontuario" + @record.to_s + "_" + timestamp + ".pdf"
+    filename = @record.pacient.name.split(" ").first + "_" + @record.pacient.name.split(" ").last + "_" + timestamp + ".pdf"
 
     send_data(kit.to_pdf, :filename => filename, :type => 'application/pdf')
     return

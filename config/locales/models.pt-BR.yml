@@ -38,11 +38,6 @@ pt-BR:
         one: CID
         other: CIDs
     attributes:
-      record:
-        status: Status
-        description: Anotações
-        record_entries: Consultas
-        appointments: Consultas
       cid:
         code: Código
         name: Nome
@@ -104,16 +99,17 @@ pt-BR:
         parent_name: Nome do responsável
         parent_rg: RG do responsável
         parent_cpf: CPF do responsável
-        record_id: Nº da ficha
+        record_code: Nº da ficha
         record_status: Status da ficha
       record:
         last_appointment: Última consulta
         pacient_name: Nome
         pacient_phone: Telefone
         appointments: Consultas
-        id: Número da ficha
+        code: Nº da ficha
         status: Status da ficha
         warning:  Paciente cadastrado! Nº da ficha %{id}. ALTERE A NUMERAÇÃO NA FICHA EM PAPEL!
+        record_entries: Consultas        
       available_day:
         sunday: Domingo
         monday: Segunda

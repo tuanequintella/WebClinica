@@ -34,6 +34,7 @@
             <thead>
               <tr>
                 <th> Paciente </th>
+                <th> Status </th>
                 <th> Data da ocorrência </th>
                 <th> CID </th>
               </tr>
@@ -42,6 +43,7 @@
               <% @record_entries.sort_by{ |e| e.appointment.scheduled_at }.each do |entry| %>
                 <tr>
                   <td> <%= entry.appointment.record.pacient.name %> </td>
+                  <td> <%= entry.appointment.record.status.text %> </td>
                   <td> <%= entry.appointment.scheduled_at.strftime("%m/%Y") %> </td>
                   <% dates_list << entry.appointment.scheduled_at.strftime("%m/%Y") %>
                   <td> <%= entry.cid.code %></td>

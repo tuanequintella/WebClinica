@@ -8,13 +8,13 @@ namespace :jobs do
         if (record.appointments.empty?)
           if (record.created_at < 2.years.ago)
             record.deactivate!
-            Rails.logger.info("Record " + ("%4d"%record.id) + ", pacient " +
+            Rails.logger.info("Record " + record.id + ", pacient " +
                               record.pacient.name + " deactivated by 2 year inactivity")
             count = count + 1
           end
         elsif (record.appointments.last.scheduled_at < 2.years.ago)
           record.deactivate!
-          Rails.logger.info("Record " + ("%4d"%record.id) + ", pacient " +
+          Rails.logger.info("Record " + record.id + ", pacient " +
                             record.pacient.name + " deactivated by 2 year inactivity")
           count = count + 1
         end
@@ -22,13 +22,13 @@ namespace :jobs do
         if (record.appointments.empty?)
           if (record.created_at < 5.years.ago)
             record.deactivate!
-            Rails.logger.info("Record " + ("%4d"%record.id) + ", pacient " +
+            Rails.logger.info("Record " + record.id + ", pacient " +
                               record.pacient.name + " deactivated by 5 year inactivity")
             count = count + 1
           end
         elsif (record.appointments.last.scheduled_at < 5.years.ago)
           record.deactivate!
-          Rails.logger.info("Record " + ("%4d"%record.id) + ", pacient " +
+          Rails.logger.info("Record " + record.id + ", pacient " +
                             record.pacient.name + " deactivated by 5 year inactivity")
           count = count + 1
         end

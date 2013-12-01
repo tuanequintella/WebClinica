@@ -5,7 +5,7 @@
     <div class="box dark">
       <header>
         <div class="icons"><i class="icon-file"></i></div>
-        <h5><%= @record.to_s + " - " + @record.pacient.name %></h5>
+        <h5><%= @record.to_s %></h5>
         <!-- .toolbar -->
         <div class="toolbar">
           <ul class="nav">
@@ -92,7 +92,7 @@
                   <% end %>
                 </tbody>
               </table>
-              <%= link_to records_path, class: "btn" do %>
+              <%= link_to pacients_path, class: "btn" do %>
                 <i class="icon-reply"></i> Voltar
               <% end %>
             </div>

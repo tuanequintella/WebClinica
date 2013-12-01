@@ -35,13 +35,6 @@ class Pacient < ActiveRecord::Base
     record.active?
   end
 
-  def self.records_list
-    list = []
-    Pacient.all.each do |p|
-      list << [p.name, p.record.id]
-    end
-    list
-  end
 
   def age
     return {:years => 0, :months => 0} if birthdate.nil?

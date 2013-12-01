@@ -4,7 +4,7 @@
     <div class="box dark">
       <header>
         <div class="icons"><i class="icon-info-sign"></i></div>
-        <h5><%= @pacient.name %></h5>
+        <h5><%= @pacient.record.to_s %></h5>
         <!-- .toolbar -->
         <div class="toolbar">
           <ul class="nav">
@@ -25,9 +25,9 @@
       <div id="div-1" class="accordion-body collapse in body">
         <%= simple_form_for @pacient, class: "form-horizontal" do |f| %>
           <div class="control-group">
-            <%= f.label :record_id, required: false, class: "control-label" %>
+            <%= f.label :record_code, required: false, class: "control-label" %>
             <div class="controls">
-              <div><%= '%04d' % @pacient.record.id  %></div>
+              <div><%= @pacient.record.code  %></div>
             </div>
           </div>
           <div class="control-group">

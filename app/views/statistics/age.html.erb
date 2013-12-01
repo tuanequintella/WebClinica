@@ -34,6 +34,7 @@
             <thead>
               <tr>
                 <th> Paciente </th>
+                <th> Status </th>
                 <th> Idade </th>
                 <th> CID </th>
               </tr>
@@ -42,6 +43,7 @@
               <% @pacients.each do |pacient| %>
                 <tr>
                   <td> <%= pacient.name %> </td>
+                  <td> <%= pacient.record.status.text %> </td>
                   <td> <%= pacient.age_in_years %> </td>
                   <td> <%= @cid.to_s %></td>
                 </tr>

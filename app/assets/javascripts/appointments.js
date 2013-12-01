@@ -95,6 +95,7 @@ window.appointmentsBehavior = function (){
       $(".btn-primary").hide();
     } else {
       $('#appointment_record_id').select2();
+      $('#appointment_record_id').addClass("input-large");
     }
   });
 

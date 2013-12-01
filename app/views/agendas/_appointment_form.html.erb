@@ -8,12 +8,12 @@
       <fieldset>        
         <%= f.input :scheduled_at, as: :string, input_html: { readonly: true }%>
         <%= f.association :agenda, :as => :hidden, input_html: { value: @agenda.id } %>
-        <%= f.association :record, :include_blank=> "Novo paciente", :label_method => :id_and_pacient, input_html: { class: "select2 input-large" } %>
+        <%= f.association :record, :include_blank=> "Novo paciente", :label_method => :id_and_pacient %>
 
         <%= f.fields_for :record do |rec_f| %>
           <%= rec_f.fields_for :pacient do |pac_f| %>
             <%= pac_f.input :name, label: "Nome" %>
-            <%= f.association :health_insurance, :collection => @agenda.doctor.health_insurances, :include_blank => :false %>
+            <%= f.association :health_insurance, :collection => @agenda.doctor.health_insurances, :include_blank => false %>
             <%= pac_f.input :phone, label: "Telefone" %>
           <% end %>
 

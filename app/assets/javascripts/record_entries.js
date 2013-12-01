@@ -1,4 +1,7 @@
 $(function() {
+  $('.select2').select2();
+  $('.select2').addClass("input-large");
+  
   $("a.history-link").on('click', function (e) {
     entry_id = $(e.currentTarget).data("entry");
     $.ajax({

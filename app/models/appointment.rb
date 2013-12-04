@@ -43,6 +43,10 @@ class Appointment < ActiveRecord::Base
     end
   end
 
+  def time_only
+    self.scheduled_at.change(day: 1, month: 1, year: 2000)
+  end
+
   def self.past_status_values
     ["finished","pacient_absent"]
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131122003132) do
+ActiveRecord::Schema.define(:version => 20131204044344) do
 
   create_table "agendas", :force => true do |t|
     t.integer  "doctor_id"
@@ -43,12 +43,12 @@ ActiveRecord::Schema.define(:version => 20131122003132) do
   create_table "available_days", :force => true do |t|
     t.integer  "agenda_id"
     t.integer  "day"
-    t.time     "work_start_time"
-    t.time     "work_end_time"
-    t.time     "interval_start_time"
-    t.time     "interval_end_time"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.time     "work_start_t"
+    t.time     "work_end_t"
+    t.time     "interval_start_t"
+    t.time     "interval_end_t"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "cids", :force => true do |t|

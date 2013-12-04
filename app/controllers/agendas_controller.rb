@@ -30,11 +30,20 @@ class AgendasController < ApplicationController
 
   def update
     @agenda = Agenda.find_by_id(params[:id])
+
+    params[:agenda][:available_days_attributes].each_pair do |day, attrs|
+      attrs["work_start_t"] = Time.zone.parse(attrs["work_start_t"])
+      attrs["interval_start_t"] = Time.zone.parse(attrs["interval_start_t"]) unless attrs["interval_start_t"].blank? 
+      attrs["interval_end_t"] = Time.zone.parse(attrs["interval_end_t"]) unless attrs["interval_end_t"].blank?
+      attrs["work_end_t"] = Time.zone.parse(attrs["work_end_t"])
+    end
+    
     @agenda.update_attributes(params[:agenda])
+    
     if @agenda.save
-      redirect_to agendas_path(id: @agenda)
+      render json: {url: agendas_path(:id => @agenda_id)}
     else
-      render :edit, :layout => !request.xhr?
+      render json: { errors: true, messages: @agenda.errors.full_messages }
     end
   end
 

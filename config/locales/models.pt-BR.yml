@@ -120,18 +120,26 @@ pt-BR:
         saturday: Sábado
         day: Dia da semana
         work_start_time: Entrada
+        work_start_t: Entrada
         work_end_time: Saída
+        work_end_t: Saída
         interval_start_time: Intervalo
+        interval_start_t: Intervalo
         interval_end_time: Fim do intervalo
+        interval_end_t: Fim do intervalo
       agenda:
         default_meeting_length: Duração da consulta
         available_days: Dias de trabalho
       available_days:
         day: Dia da semana
         work_start_time: Entrada
+        work_start_t: Entrada
         work_end_time: Saída
+        work_end_t: Saída
         interval_start_time: Intervalo
+        interval_start_t: Intervalo
         interval_end_time: Fim do intervalo
+        interval_end_t: Fim do intervalo
       appointment:
         agenda: Agenda
         record: Ficha

@@ -9,7 +9,7 @@ class Agenda < ActiveRecord::Base
   validate :available_days_amount
   has_many :appointments
 
-  accepts_nested_attributes_for :available_days
+  accepts_nested_attributes_for :available_days, allow_destroy: true
 
   scope :active, where(active: true)
 
@@ -42,15 +42,16 @@ class Agenda < ActiveRecord::Base
   end
 
   def time_array(week)
+    
     d = [available_days.map(&:work_start_time).min]
     d << available_days.map(&:work_end_time).max
+
     week.each do |day|
-     # d += appointments_for_day(day).map(&:scheduled_at).map(&:to_time)
-     #TODO: pegar só o horário da consulta, e não data e hora, senão a consulta sempre será o max_value do array
+     d += appointments_for_day(day).map(&:time_only).map(&:localtime)
     end
 
     start_of_shift = Date.today.beginning_of_day + d.min.hour.hours + d.min.min.minutes - (default_meeting_length).minutes
-    end_of_shift = Date.today.beginning_of_day + d.max.hour.hours + d.max.min.minutes + (2 * default_meeting_length).minutes
+    end_of_shift = Date.today.beginning_of_day + d.max.hour.hours + d.max.min.minutes + (default_meeting_length).minutes
 
     time_array = []
 
@@ -67,13 +68,14 @@ class Agenda < ActiveRecord::Base
     week_day = available_days.where(:day => datetime.wday).first
 
     if not(week_day.nil?)
+      now = Time.now
       start_time = time_in_milis(week_day.work_start_time)
       end_time = time_in_milis(week_day.work_end_time)
-      interval_start = time_in_milis(week_day.interval_start_time)
-      interval_end = time_in_milis(week_day.interval_end_time)
+      interval_start = time_in_milis(week_day.interval_start_time) rescue now
+      interval_end = time_in_milis(week_day.interval_end_time) rescue now
       time = time_in_milis(datetime)
 
-      return ( time.between?(start_time, end_time) && not(time.between?(interval_start, interval_end)) )
+      return ( time.between?(start_time, end_time - 1.minute) && not(time.between?(interval_start, interval_end - 1.minute)) )
     else
       return false
     end

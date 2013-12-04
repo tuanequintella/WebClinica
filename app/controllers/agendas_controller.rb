@@ -37,11 +37,11 @@ class AgendasController < ApplicationController
       attrs["interval_end_t"] = Time.zone.parse(attrs["interval_end_t"]) unless attrs["interval_end_t"].blank?
       attrs["work_end_t"] = Time.zone.parse(attrs["work_end_t"])
     end
-    
+
     @agenda.update_attributes(params[:agenda])
     
     if @agenda.save
-      render json: {url: agendas_path(:id => @agenda_id)}
+      render json: {url: agendas_path(:id => @agenda.id)}
     else
       render json: { errors: true, messages: @agenda.errors.full_messages }
     end

@@ -14,6 +14,14 @@ class DoctorsController < ApplicationController
   def create
     fixed_hi = HealthInsurance.where(name: 'Sem convênio (particular)').first.id
     params[:doctor][:health_insurance_ids] = (params[:doctor][:health_insurance_ids] + [fixed_hi.to_s]).uniq
+    
+    params[:doctor][:agenda_attributes][:available_days_attributes].each_pair do |day, attrs|
+      attrs["work_start_t"] = Time.zone.parse(attrs["work_start_t"])
+      attrs["interval_start_t"] = Time.zone.parse(attrs["interval_start_t"]) unless attrs["interval_start_t"].blank? 
+      attrs["interval_end_t"] = Time.zone.parse(attrs["interval_end_t"]) unless attrs["interval_end_t"].blank?
+      attrs["work_end_t"] = Time.zone.parse(attrs["work_end_t"])
+    end
+
     @doctor = Doctor.new(params[:doctor])
     @doctor.activate!
     @doctor.agenda.activate!

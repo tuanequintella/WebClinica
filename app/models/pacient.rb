@@ -92,18 +92,24 @@ class Pacient < ActiveRecord::Base
       similar_results = Pacient.all.select do |p|
 
         names_scores = {}
-        p.name_metaphone.split(" ").each do |name|
-          # calcula similaridade do primeiro nome com o termo buscado
-          sw = SmithWaterman.new(name, term_metaphone)
-          sw.align!
-          first_rel_score = sw.score.to_f / (name.size + term_metaphone.size)
-          names_scores[name] = first_rel_score
+        term_metaphone.split(" ").each do |term_word|
+          p.name_metaphone.split(" ").each do |name|
+            # calcula similaridade do primeiro nome com o termo buscado
+            sw = SmithWaterman.new(name, term_word)
+            sw.align!
+            rel_score = sw.score.to_f / (name.size + term_word.size)
+            if names_scores[name].present?
+              names_scores[name] = [names_scores[name], rel_score].max
+            else
+              names_scores[name] = rel_score
+            end
+          end
         end
 
         max_score = names_scores.values.max 
         if (max_score >= 0.65)
           puts "\nNome: #{p.name} => Metaphone do nome mais similar: " + names_scores.key(max_score)
-          puts "Score entre " + names_scores.key(max_score) + " e " + term_metaphone + ": " + max_score.to_s
+          puts "Maior score entre " + p.name_metaphone + " e " + term_metaphone + ": " + max_score.to_s
         end
 
         p.sw_score = max_score

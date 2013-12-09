@@ -18,10 +18,10 @@ class PacientsController < ApplicationController
 
   def create
     @pacient = Pacient.new(params[:pacient])
-    
+
     if @pacient.save
       unless(@pacient.record.status.new?)
-        ap = Appointment.new(:status => :finished, :scheduled_at => params[:last_appointment_date], :record => @pacient.record)
+        ap = Appointment.new(:status => :finished, :scheduled_at => @pacient.record.last_appointment_date, :record => @pacient.record)
         ap.save(validate: false)
         re = RecordEntry.new(appointment_id: ap.id, :diagnosis => "(Registrado antes da implantação do sistema)")
         re.save(validate: false)

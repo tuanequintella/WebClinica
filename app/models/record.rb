@@ -2,8 +2,8 @@
 class Record < ActiveRecord::Base
   extend Enumerize
 
-  attr_accessible :status, :description, :pacient, :code
-  attr_accessor :record_entries_attributes
+  attr_accessible :status, :description, :pacient, :code, :last_appointment_date
+  attr_accessor :record_entries_attributes, :last_appointment_date
 
   belongs_to :pacient
   has_many :appointments
@@ -13,11 +13,16 @@ class Record < ActiveRecord::Base
   accepts_nested_attributes_for :record_entries, :allow_destroy => false
   validates_presence_of :status
   validates_presence_of :code, on: :create, if: lambda { self.status.regular? }
+  validates_presence_of :last_appointment_date, unless: lambda { self.status.new? }
   
   I18N_PATH = 'activerecord.attributes.record.'
 
   def last_appointment
     appointments.with_status(:finished).order("scheduled_at DESC").first
+  end
+
+  def last_appointment_date
+    last_appointment.scheduled_at unless last_appointment.blank?
   end
 
   def deactivate!
@@ -39,7 +44,7 @@ class Record < ActiveRecord::Base
   
   def to_s
     if code?
-      code + " " + pacient.name
+      code + " - " + pacient.name
     else
       pacient.name
     end

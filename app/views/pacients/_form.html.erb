@@ -2,13 +2,9 @@
   <fieldset>
     <%= f.simple_fields_for :record do |rec_form| %>
       <%= rec_form.input :status, :include_blank => "Selecione um status" %> 
-      <div class="control-group" id="last_appointment">
-        <%= label_tag :last_appointment_date, "Última consulta", class: "control-label" %>
-        <div class="controls">
-          <%= text_field_tag :last_appointment_date, (pacient.record.last_appointment ? l(pacient.record.last_appointment.scheduled_at.to_date) : nil), :placeholder => "Selecione a data", :class => 'datepicker', 'data-date'=> pacient.record.last_appointment.try(:scheduled_at), 'data-date-format'=>"dd/mm/yyyy" %>
-        </div>
-      </div>
-      <%= rec_form.input :code %> 
+      <div id="last_appointment">
+      <%= rec_form.input :last_appointment_date, as: :string, required: true, :placeholder => "Selecione a data", input_html: {value: date_format(pacient.record.last_appointment_date), :class => 'datepicker', 'data-date'=> pacient.record.last_appointment_date, 'data-date-format'=>"dd/mm/yyyy"} %>
+      <%= rec_form.input :code, required: true %> 
     <% end %>
     <br />
     <%= f.input :name %>
@@ -51,10 +47,10 @@
 
     $("#pacient_record_attributes_status").on('change', function () {
       if($(this).val()=='new' || $(this).val()=="") {
-        $('div#last_appointment').hide();
+        $('div.pacient_record_last_appointment_date').hide();
       }
       else {
-        $('div#last_appointment').show();
+        $('div.pacient_record_last_appointment_date').show();
       }
       if($(this).val()=='regular') {
         $('div.pacient_record_code').show();

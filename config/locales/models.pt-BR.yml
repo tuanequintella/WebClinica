@@ -102,6 +102,7 @@ pt-BR:
         record_code: Nº da ficha
         record_status: Status da ficha
       record:
+        last_appointment_date: Última consulta
         last_appointment: Última consulta
         pacient_name: Nome
         pacient_phone: Telefone

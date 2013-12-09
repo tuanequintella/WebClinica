@@ -1,5 +1,5 @@
 <ul id="menu" class="unstyled accordion collapse in">
-    <li class="accordion-group active">
+    <li class="accordion-group">
         <a data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#general-nav">
             <i class="icon-dashboard icon-large"></i> Geral
         </a>
@@ -21,7 +21,7 @@
             <a data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#appointments-nav">
                 <i class="icon-paste icon-large"></i> Consultas
             </a>
-            <ul class="collapse " id="appointments-nav">
+            <ul class="collapse in" id="appointments-nav">
                 <% if can? :read, Agenda %>
                     <li><%= link_to agendas_path do %><i class="icon-calendar"></i> Agendamento<% end %></li>
                 <% end %>
@@ -35,7 +35,7 @@
             <a data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#settings-nav">
                 <i class="icon-cog icon-large"></i> Cadastros
             </a>
-            <ul class="collapse " id="settings-nav">
+            <ul class="collapse in" id="settings-nav">
                 <% if can? :read, Admin %>
                     <li><%= link_to admins_path do %><i class="icon-user"></i> Administradores<% end %></li>
                 <% end %>

@@ -20,25 +20,30 @@ wb.add_worksheet(:name => "Época de ocorrências por CID") do |sheet|
   end
 
   sheet.add_row
-  sheet.add_row ["Porcentagens"]
+  sheet.add_row ["Ocorrências"]
   sheet.merge_cells("A" + (@record_entries.size + 4).to_s + ":B" + (@record_entries.size + 4).to_s)
   sheet["A" + (@record_entries.size + 4).to_s].style = style_bold
 
-  data = Statistics.calculate_percentages_and_labels(dates_list)
-  data.each_pair do |month, percentage|
-    sheet.add_row [month, percentage]
+  data = Statistics.calculate_amount_and_labels(dates_list)
+  data.each_pair do |month, amount|
+    sheet.add_row [month, amount]
   end
   
+  sheet.add_row [""]
+  sheet.add_row ["Data inicial:", params[:time_search][:date_from], "Data final:", params[:time_search][:date_to]]
+  sheet.add_row ["Emitido em:", l(Time.now)]
+
+
   sheet.add_chart(Axlsx::LineChart, :title => 'Destribuição do CID ' + @cid.code + ' no tempo', :rotX => 30, :rotY => 20) do |chart|
-      chart.start_at(0, (@record_entries.size + 5 + data.keys.size))
-      chart.end_at(6, (@record_entries.size + data.keys.size + 20))
+      chart.start_at(0, (@record_entries.size + 8 + data.keys.size))
+      chart.end_at(6, (@record_entries.size + data.keys.size + 22))
       
       data_cells = "B" + (@record_entries.size + 5).to_s + ":B" + (@record_entries.size + 4 + data.keys.size).to_s
       label_cells = "A" + (@record_entries.size + 5).to_s + ":A" + (@record_entries.size + 4 + data.keys.size).to_s
       
       chart.add_series :data => sheet[data_cells], labels: sheet[label_cells], :color => pick_colors(1)[0], :title => sheet["C3"]
       chart.catAxis.title = 'Meses'
-      chart.valAxis.title = 'Ocorrências (%)'
+      chart.valAxis.title = 'Ocorrências'
   end
 
 end

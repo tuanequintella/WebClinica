@@ -25,10 +25,13 @@ wb.add_worksheet(:name => "Idades por CID") do |sheet|
   data.each_pair do |age, percentage|
     sheet.add_row [age, percentage]
   end
+  sheet.add_row [""]
+  sheet.add_row ["Idade min:", params[:age_search][:age_from], "Idade max:", params[:age_search][:age_to]]
+  sheet.add_row ["Emitido em:", l(Time.now)]
 
   sheet.add_chart(Axlsx::Pie3DChart,
-                  :start_at => [0,@pacients.size + 5 + data.keys.size],
-                  :end_at => [6, @pacients.size + data.keys.size + 20],
+                  :start_at => [0,@pacients.size + 8 + data.keys.size],
+                  :end_at => [6, @pacients.size + data.keys.size + 22],
                   :title => 'Destribuição de idade com o CID ' + @cid.code) do |chart|
       
       labels_cells = "A" + (@pacients.size + 5).to_s + ":A" + (@pacients.size + 4 + data.keys.size).to_s
@@ -37,5 +40,5 @@ wb.add_worksheet(:name => "Idades por CID") do |sheet|
                      :labels => sheet[labels_cells], 
                      :colors => pick_colors(data.keys.size))
   end
-  
+
 end

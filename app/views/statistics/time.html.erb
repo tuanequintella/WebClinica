@@ -28,6 +28,12 @@
             <% end %>
           </div>
         </p>
+        <p>
+          <br />
+          <b> Data inicial: </b> <%= params[:time_search][:date_from] %><br />
+          <b> Data final: </b> <%= params[:time_search][:date_to] %>
+          <br /><br />
+        </p>
         <% dates_list = [] %>
         <p>
           <table class="table table-striped table-bordered table-condensed">

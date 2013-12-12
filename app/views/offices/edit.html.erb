@@ -20,6 +20,7 @@
       
       <div id="div-1" class="accordion-body collapse in body">
         <%= simple_nested_form_for @office, class: "form-horizontal" do |f| %>
+          <%= f.input :name %>
           <%= f.input :email %>
           <%= f.input :address, as: :text, input_html: { rows: 3 } %>
           <%= f.input :phone %>

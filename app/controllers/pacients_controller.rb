@@ -3,11 +3,11 @@ class PacientsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @pacients = Pacient.all
+    @pacients = Pacient.all.sort_by{ |p| [p.active_number, p.name] }
   end
 
   def search
-    @pacients = Pacient.quick_search(params[:pacient][:first_name])
+    @pacients = Pacient.quick_search(params[:pacient][:name])
     render :search, :layout => false
   end
 
@@ -18,15 +18,15 @@ class PacientsController < ApplicationController
 
   def create
     @pacient = Pacient.new(params[:pacient])
-    
+
     if @pacient.save
       unless(@pacient.record.status.new?)
-        ap = Appointment.new(:status => :finished, :scheduled_at => params[:last_appointment_date], :record => @pacient.record)
+        ap = Appointment.new(:status => :finished, :scheduled_at => @pacient.record.last_appointment_date, :record => @pacient.record)
         ap.save(validate: false)
         re = RecordEntry.new(appointment_id: ap.id, :diagnosis => "(Registrado antes da implantação do sistema)")
         re.save(validate: false)
         @pacient.record.save
-        flash[:warning] = I18n.t('activerecord.attributes.record.warning', :id => "%04d" % @pacient.record.id)
+        flash[:success] = "Paciente cadastrado com sucesso"
       end
       redirect_to pacients_path
     else

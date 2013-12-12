@@ -28,19 +28,23 @@ class Appointment < ActiveRecord::Base
   def update_record_status
     if status_changed? && status.finished?
       if record.status.new?
-        record.status = :beginner
+        record.status = :regular
         record.save
       elsif record.status.inactive?
         record.status = :regular
         record.save
       elsif record.status.beginner?
         apps = record.appointments.select{ |ap| ap.status.finished? }
-        if apps.size >= 3
+        if apps.size >= 4
           record.status = :regular
           record.save
         end
       end
     end
+  end
+
+  def time_only
+    self.scheduled_at.change(day: 1, month: 1, year: 2000)
   end
 
   def self.past_status_values

@@ -3,7 +3,7 @@ class HealthInsurancesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @health_insurances = HealthInsurance.all
+    @health_insurances = HealthInsurance.all.sort_by{ |p| [p.active_number, p.name] }
   end
 
   def new

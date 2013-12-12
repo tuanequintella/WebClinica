@@ -13,6 +13,11 @@ pt-BR:
         new: "Nova ficha"
         regular: "Regular"
         beginner: "Primeiras vezes"
+    agenda:
+        show_weekend:
+            none: Não mostrar
+            saturday: Sábado
+            both: Sábado e domingo
     available_day:
       day:
         sunday: "Domingo"

@@ -4,7 +4,7 @@
     <div class="box dark">
       <header>
         <div class="icons"><i class="icon-info-sign"></i></div>
-        <h5><%= @pacient.name %></h5>
+        <h5><%= @pacient.record.to_s %></h5>
         <!-- .toolbar -->
         <div class="toolbar">
           <ul class="nav">
@@ -25,86 +25,86 @@
       <div id="div-1" class="accordion-body collapse in body">
         <%= simple_form_for @pacient, class: "form-horizontal" do |f| %>
           <div class="control-group">
-            <%= f.label :record_id, required: false, class: "control-label" %>
+            <%= f.label :record_code, required: false, class: "control-label bold-label" %>
             <div class="controls">
-              <div><%= '%04d' % @pacient.record.id  %></div>
+              <div><%= @pacient.record.code  %></div>
             </div>
           </div>
           <div class="control-group">
-            <%= f.label :record_status, required: false, class: "control-label" %>
+            <%= f.label :record_status, required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= @pacient.record.status.text %></div>
             </div>
           </div>
           <div class="control-group">
-            <%= f.label :email, required: false, class: "control-label" %>
+            <%= f.label :email, required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= @pacient.email %></div>
             </div>
           </div>
           <div class="control-group">
-            <%= f.label :cpf, required: false, class: "control-label" %>
+            <%= f.label :cpf, required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= @pacient.cpf %></div>
             </div>
           </div>
           <div class="control-group">
-            <%= f.label :rg, required: false, class: "control-label" %>
+            <%= f.label :rg, required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= @pacient.rg %></div>
             </div>
           </div>
           <div class="control-group">
-            <%= f.label :birthdate, required: false, class: "control-label" %>
+            <%= f.label :birthdate, required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= (@pacient.birthdate ? l(@pacient.birthdate) : "") %></div>
             </div>
           </div>
           <div class="control-group">
-            <%= f.label "Idade", required: false, class: "control-label" %>
+            <%= f.label "Idade", required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= (@pacient.birthdate ? @pacient.age_in_words : "") %></div>
             </div>
           </div>
           <div class="control-group">
-            <%= f.label :health_insurance, required: false, class: "control-label" %>
+            <%= f.label :health_insurance, required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= @pacient.health_insurance.try(:name) %></div>
             </div>
           </div>
           <div class="control-group">
-            <%= f.label :address, required: false, class: "control-label" %>
+            <%= f.label :address, required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= @pacient.address %></div>
             </div>
           </div>
           <div class="control-group">
-            <%= f.label :phone, required: false, class: "control-label" %>
+            <%= f.label :phone, required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= @pacient.phone %></div>
             </div>
           </div>
           <div class="control-group">
-            <%= f.label :parent_name, required: false, class: "control-label" %>
+            <%= f.label :parent_name, required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= @pacient.parent_name %></div>
             </div>
           </div>
           <div class="control-group">
-            <%= f.label :parent_rg, required: false, class: "control-label" %>
+            <%= f.label :parent_rg, required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= @pacient.parent_rg %></div>
             </div>
           </div>
           <div class="control-group">
-            <%= f.label :parent_cpf, required: false, class: "control-label" %>
+            <%= f.label :parent_cpf, required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= @pacient.parent_cpf %></div>
             </div>
           </div>
           <%- @pacient.contact_infos.each do |cinfo| %>
             <div class="control-group">
-              <%= f.label I18n.t('activerecord.attributes.contact_info.type.' + cinfo.type), required: false, class: "control-label" %>
+              <%= f.label I18n.t('activerecord.attributes.contact_info.type.' + cinfo.type), required: false, class: "control-label bold-label" %>
               <div class="controls">
                 <div><%= cinfo.value %></div>
               </div>

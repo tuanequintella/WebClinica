@@ -28,7 +28,7 @@
               <%= f.label :age_to, "até", style: "margin-right: 5px; margin-left: 10px" %>
               <%= f.number_field :age_to, class: "input-small" %>
               <%= f.label :cid_id, "Com o CID", style: "margin-right: 5px; margin-left: 10px"%>
-              <%= f.select :cid_id, options_from_collection_for_select(Cid.all, "id", "to_s"), include_blank: false %>
+              <%= f.select :cid_id, options_from_collection_for_select(Cid.all, "id", "to_s"), {}, {class: "select2", include_blank: false} %>
               <%= f.submit "Buscar", style: "margin-right: 5px; margin-left: 10px;" %>
             <% end %>
           </div>
@@ -43,7 +43,7 @@
               <%= f.label :date_to, "até", style: "margin-right: 5px; margin-left: 10px" %>
               <%= f.text_field :date_to, class: "input-small datepicker", 'data-date-format'=>"dd/mm/yyyy" %>
               <%= f.label :cid_id, "Com o CID", style: "margin-right: 5px; margin-left: 10px"%>
-              <%= f.select :cid_id, options_from_collection_for_select(Cid.all, "id", "to_s"), include_blank: false %>
+              <%= f.select :cid_id, options_from_collection_for_select(Cid.all, "id", "to_s"), {}, {class: "select2", include_blank: false} %>
               <%= f.submit "Buscar", style: "margin-right: 5px; margin-left: 10px;" %>
             <% end %>
           </div>

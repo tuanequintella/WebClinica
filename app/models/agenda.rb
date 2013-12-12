@@ -1,6 +1,8 @@
 class Agenda < ActiveRecord::Base
+  extend Enumerize
+
   attr_accessor :available_days_attributes
-  attr_accessible :default_meeting_length, :available_days_attributes, :active
+  attr_accessible :default_meeting_length, :available_days_attributes, :active, :show_weekend
 
   I18N_PATH = 'activerecord.attributes.agenda.'
 
@@ -9,7 +11,9 @@ class Agenda < ActiveRecord::Base
   validate :available_days_amount
   has_many :appointments
 
-  accepts_nested_attributes_for :available_days
+  enumerize :show_weekend, in: [:none, :saturday, :both], default: :none
+
+  accepts_nested_attributes_for :available_days, allow_destroy: true
 
   scope :active, where(active: true)
 
@@ -38,19 +42,28 @@ class Agenda < ActiveRecord::Base
   def week (string_date)
     date = string_date.to_date
 
-    (date.beginning_of_week...date.end_of_week).to_a
+    if self.show_weekend.both?
+      (date.beginning_of_week..date.end_of_week).to_a
+    elsif self.show_weekend.saturday?
+      (date.beginning_of_week...date.end_of_week).to_a
+    else
+      array = (date.beginning_of_week...date.end_of_week).to_a
+      array.pop
+      array
+    end
   end
 
   def time_array(week)
+    
     d = [available_days.map(&:work_start_time).min]
     d << available_days.map(&:work_end_time).max
+
     week.each do |day|
-     # d += appointments_for_day(day).map(&:scheduled_at).map(&:to_time)
-     #TODO: pegar só o horário da consulta, e não data e hora, senão a consulta sempre será o max_value do array
+     d += appointments_for_day(day).map(&:time_only).map(&:localtime)
     end
 
     start_of_shift = Date.today.beginning_of_day + d.min.hour.hours + d.min.min.minutes - (default_meeting_length).minutes
-    end_of_shift = Date.today.beginning_of_day + d.max.hour.hours + d.max.min.minutes + (2 * default_meeting_length).minutes
+    end_of_shift = Date.today.beginning_of_day + d.max.hour.hours + d.max.min.minutes + (default_meeting_length).minutes
 
     time_array = []
 
@@ -67,13 +80,14 @@ class Agenda < ActiveRecord::Base
     week_day = available_days.where(:day => datetime.wday).first
 
     if not(week_day.nil?)
+      now = Time.now
       start_time = time_in_milis(week_day.work_start_time)
       end_time = time_in_milis(week_day.work_end_time)
-      interval_start = time_in_milis(week_day.interval_start_time)
-      interval_end = time_in_milis(week_day.interval_end_time)
+      interval_start = time_in_milis(week_day.interval_start_time) rescue now
+      interval_end = time_in_milis(week_day.interval_end_time) rescue now
       time = time_in_milis(datetime)
 
-      return ( time.between?(start_time, end_time) && not(time.between?(interval_start, interval_end)) )
+      return ( time.between?(start_time, end_time - 1.minute) && not(time.between?(interval_start, interval_end - 1.minute)) )
     else
       return false
     end

@@ -2,7 +2,7 @@
 <div class="box dark">
   <header>
     <div class="icons"><i class="icon-file"></i></div>
-    <h5><%= @record.to_s + " - " + @record.pacient.name %></h5>
+    <h5><%= @record.to_s %></h5>
     <!-- .toolbar -->
     <div class="toolbar">
       <ul class="nav">
@@ -59,7 +59,7 @@
           <%= f.input :problems, as: :text, input_html: {style: "width: 80%", rows: 3} %>
           <%= f.input :diagnosis, as: :text, input_html: {style: "width: 80%", rows: 3} %>
           <%= f.input :prescription, as: :text, input_html: {style: "width: 80%", rows: 3} %>
-          <%= f.association :cid, value_method: :id, label_method: :to_s %>
+          <%= f.association :cid, value_method: :id, label_method: :to_s, input_html: { class: "select2" } %>
         <% else %>
           <%= f.input :problems, as: :text, input_html: {value: @record_entry.problems, disabled: true, style: "width: 80%", rows: 3} %>
           <%= f.input :diagnosis, as: :text, input_html: {value: @record_entry.diagnosis, disabled: true, style: "width: 80%", rows: 3} %>
@@ -115,12 +115,12 @@
   </div>
 </div>
 
-<div id="entry-window" style="width: 700px; max-height: 600px;" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="entry-window" style="width: 700px; max-height: 570px;" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     <h3 id="myModalLabel">Detalhes da consulta</h3>
   </div>
-  <div class="modal-body" id="entry-body">
+  <div class="modal-body" style="max-height: 488px" id="entry-body">
   </div>
   <div class="modal-footer">
     <a href="#" data-dismiss="modal" class="btn">Fechar</a>

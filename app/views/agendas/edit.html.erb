@@ -4,7 +4,27 @@
     
   </fieldset>
   <div class="form-actions">
-    <%= ag_form.button :submit, "Salvar" %>
+    <%= ag_form.button :submit, "Salvar", id: "btn-edit-agenda" %>
     <%= link_to "Cancelar", agendas_path(id: @agenda), :class => :btn %>
   </div>
 <% end %>
+
+<div id="errors-window" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Erros</h3>
+  </div>
+    <div class="modal-body">
+      Não foi possível salvar a agenda. Confira os erros: 
+      <font color="red">
+        <div id="agenda-errors">
+          
+        </div>
+      </font>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
+    </div>
+</div>
+
+<%= javascript_include_tag :edit_agenda %>

@@ -3,7 +3,7 @@ class OccupationsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @occupations = Occupation.all
+    @occupations = Occupation.all.sort_by{ |p| [p.active_number, p.name] }
   end
 
   def new

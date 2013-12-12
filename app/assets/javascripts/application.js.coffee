@@ -12,6 +12,8 @@
 #= require jquery
 #= require jquery_ujs
 #= require jquery_nested_form
+#= require select2
+#= require select2_locale_pt-BR
 # require_tree .
 
 $ ->
@@ -28,6 +30,7 @@ $ ->
   $('.timepicker').timepicker({minuteStep: 5, showMeridian: false, defaultTime: false})
   $('.dropdown-toggle').dropdown()
   $('.select2').select2()
+  $('.select2').addClass("input-large")
 
 $(document).on 'nested:fieldAdded', (event) ->
   fields = event.field
@@ -40,3 +43,4 @@ $(document).on 'nested:fieldAdded', (event) ->
   timeFields.timepicker({minuteStep: 5, showMeridian: false, defaultTime: '12:00'})
   dropFields.dropdown()
   selectFields.select2()
+  selectFields.addClass("input-large")

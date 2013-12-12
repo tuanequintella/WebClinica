@@ -11,14 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131122003132) do
+ActiveRecord::Schema.define(:version => 20131212134852) do
 
   create_table "agendas", :force => true do |t|
     t.integer  "doctor_id"
     t.integer  "default_meeting_length"
     t.boolean  "active"
-    t.datetime "created_at",             :null => false
-    t.datetime "updated_at",             :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+    t.string   "show_weekend",           :default => "none"
   end
 
   create_table "appointment_attachments", :force => true do |t|
@@ -43,12 +44,12 @@ ActiveRecord::Schema.define(:version => 20131122003132) do
   create_table "available_days", :force => true do |t|
     t.integer  "agenda_id"
     t.integer  "day"
-    t.time     "work_start_time"
-    t.time     "work_end_time"
-    t.time     "interval_start_time"
-    t.time     "interval_end_time"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.time     "work_start_t"
+    t.time     "work_end_t"
+    t.time     "interval_start_t"
+    t.time     "interval_end_t"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "cids", :force => true do |t|
@@ -101,7 +102,7 @@ ActiveRecord::Schema.define(:version => 20131122003132) do
   end
 
   create_table "pacients", :force => true do |t|
-    t.string   "first_name"
+    t.string   "name"
     t.string   "cpf"
     t.string   "rg"
     t.date     "birthdate"
@@ -112,11 +113,9 @@ ActiveRecord::Schema.define(:version => 20131122003132) do
     t.string   "parent_name"
     t.string   "parent_rg"
     t.string   "parent_cpf"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
-    t.string   "surname"
-    t.string   "first_name_metaphone"
-    t.string   "surname_metaphone"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.string   "name_metaphone"
   end
 
   create_table "record_entries", :force => true do |t|

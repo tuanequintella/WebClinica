@@ -2,13 +2,11 @@
   <fieldset>
     <%= f.simple_fields_for :record do |rec_form| %>
       <%= rec_form.input :status, :include_blank => "Selecione um status" %> 
-      <div class="controls" id="last_appointment">
-        <%= text_field_tag :last_appointment_date, (pacient.record.last_appointment ? l(pacient.record.last_appointment.scheduled_at.to_date) : nil), :placeholder => "Data da última consulta", :class => 'datepicker', 'data-date'=> pacient.record.last_appointment.try(:scheduled_at), 'data-date-format'=>"dd/mm/yyyy" %>
-      </div>
+      <%= rec_form.input :last_appointment_date, as: :string, :placeholder => (rec_form.object.new_record? ? "Selecione a data": "(sem consulta)"), input_html: {value: date_format(pacient.record.last_appointment.try(:scheduled_at)), :class => 'datepicker', 'data-date-format'=>"dd/mm/yyyy", disabled: !rec_form.object.new_record? } %>
+      <%= rec_form.input :code %> 
     <% end %>
     <br />
-    <%= f.input :first_name %>
-    <%= f.input :surname %>
+    <%= f.input :name %>
     <%= f.input :birthdate, :as => :string, :input_html => {value: date_format(pacient.birthdate), :class => 'datepicker', 'data-date'=> date_format(pacient.birthdate), 'data-date-format'=>"dd/mm/yyyy" } %>
 
     <!-- caso overage? -->
@@ -20,7 +18,7 @@
     <%= f.input :parent_rg %>
     <%= f.input :parent_cpf %>
 
-    <%= f.association :health_insurance, collection: HealthInsurance.active.all, :include_blank => 'Selecione uma opção'  %>
+    <%= f.association :health_insurance, collection: HealthInsurance.active.all, :include_blank => 'Selecione uma opção' %>
     <%= f.input :address, :input_html => {:class => 'input-large'} %>
     <%= f.input :phone %>
     <%= f.input :email %>
@@ -48,10 +46,16 @@
 
     $("#pacient_record_attributes_status").on('change', function () {
       if($(this).val()=='new' || $(this).val()=="") {
-        $('div#last_appointment').hide();
+        $('div.pacient_record_last_appointment_date').hide();
       }
       else {
-        $('div#last_appointment').show();
+        $('div.pacient_record_last_appointment_date').show();
+      }
+      if($(this).val()=='regular') {
+        $('div.pacient_record_code').show();
+      }
+      else {
+        $('div.pacient_record_code').hide();
       }
     });
 

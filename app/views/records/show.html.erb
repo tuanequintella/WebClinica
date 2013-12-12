@@ -3,17 +3,23 @@
     <meta name="pdfkit-orientation" content="Portrait"/>
   </head>
   <body>
-    <h2><%= Record.model_name.human + " " + @record.to_s + " - " + @record.pacient.name %></h2>
+    <h2><%= Record.model_name.human + ": " + @record.to_s %></h2>
     
     <h3>Dados cadastrais</h3>
     <table>
       <thead>
+        <th style="width: 35%"></th>
         <th style="width: 25%"></th>
-        <th style="width: 25%"></th>
-        <th style="width: 25%"></th>
-        <th style="width: 25%"></th>
+        <th style="width: 20%"></th>
+        <th style="width: 20%"></th>
       </thead>
       <tbody>
+        <tr>
+          <td><b>Emitido em</b></td>
+          <td><%= l(Time.now) %></td>
+          <td></td>
+          <td></td>
+        </tr>
         <tr>
           <td><b>Status da ficha</b></td>
           <td><%= @record.status.text %></td>

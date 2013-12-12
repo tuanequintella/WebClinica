@@ -24,7 +24,7 @@
             <%= f.label :agenda_id_eq, "Médico", style: "margin-right: 5px; margin-bottom: 15px" %>
             <%= f.select :agenda_id_eq, options_from_collection_for_select(Agenda.active, "id", "doctor_name", (params[:q][:agenda_id_eq] rescue nil)), include_blank: "Todos" %>
             <%= f.label :health_insurance_id_eq, "Convênio", style: "margin-right: 5px; margin-left: 10px" %>
-            <%= f.select :health_insurance_id_eq, options_from_collection_for_select(HealthInsurance.all, "id", "name", (params[:q][:health_insurance_id_eq] rescue nil)), include_blank: "Todos" %>
+            <%= f.select :health_insurance_id_eq, options_from_collection_for_select(HealthInsurance.active.all, "id", "name", (params[:q][:health_insurance_id_eq] rescue nil)), include_blank: "Todos" %>
             <%= f.label :scheduled_at_gteq, "De", style: "margin-right: 5px; margin-left: 10px"%>
             <%= f.text_field :scheduled_at_gteq, :class => 'input-medium datepicker', 'value'=> (params[:q][:scheduled_at_gteq] rescue nil), 'data-date-format'=>"dd/mm/yyyy" %>
             <%= f.label :scheduled_at_lteq, "Até", style: "margin-right: 5px; margin-left: 10px" %>

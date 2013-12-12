@@ -25,68 +25,68 @@
       <div id="div-1" class="accordion-body collapse in body">
         <%= simple_form_for @doctor, class: "form-horizontal" do |f| %>
           <div class="control-group">
-            <%= f.label :username, required: false, class: "control-label" %>
+            <%= f.label :username, required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= @doctor.username %></div>
             </div>
           </div>
           <div class="control-group">
-            <%= f.label :email, required: false, class: "control-label" %>
+            <%= f.label :email, required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= @doctor.email %></div>
             </div>
           </div>
           <div class="control-group">
-            <%= f.label :cpf, required: false, class: "control-label" %>
+            <%= f.label :cpf, required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= @doctor.cpf %></div>
             </div>
           </div>
           <div class="control-group">
-            <%= f.label :rg, required: false, class: "control-label" %>
+            <%= f.label :rg, required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= @doctor.rg %></div>
             </div>
           </div>
           <div class="control-group">
-            <%= f.label :birthdate, required: false, class: "control-label" %>
+            <%= f.label :birthdate, required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= l @doctor.birthdate %></div>
             </div>
           </div>
           <div class="control-group">
-            <%= f.label :crm, required: false, class: "control-label" %>
+            <%= f.label :crm, required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= @doctor.crm %></div>
             </div>
           </div>
           <div class="control-group">
-            <%= f.label :gradyear, required: false, class: "control-label" %>
+            <%= f.label :gradyear, required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= (@doctor.gradyear ? l(@doctor.gradyear) : nil) %></div>
             </div>
           </div>
           <div class="control-group">
-            <%= f.label :occupations, required: false, class: "control-label" %>
+            <%= f.label :occupations, required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= @doctor.occupations.join(", ") %></div>
             </div>
           </div>
           <div class="control-group">
-            <%= f.label :appointmentprice, required: false, class: "control-label" %>
+            <%= f.label :appointmentprice, required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= number_to_currency @doctor.appointmentprice %></div>
             </div>
           </div>
           <div class="control-group">
-            <%= f.label :health_insurances, required: false, class: "control-label" %>
+            <%= f.label :health_insurances, required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= @doctor.health_insurances.join(", ") %></div>
             </div>
           </div>
           <%- @doctor.contact_infos.each do |cinfo| %>
             <div class="control-group">
-              <%= f.label I18n.t('activerecord.attributes.contact_info.type.' + cinfo.type), required: false, class: "control-label" %>
+              <%= f.label I18n.t('activerecord.attributes.contact_info.type.' + cinfo.type), required: false, class: "control-label bold-label" %>
               <div class="controls">
                 <div><%= cinfo.value %></div>
               </div>

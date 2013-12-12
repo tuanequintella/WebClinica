@@ -38,11 +38,6 @@ pt-BR:
         one: CID
         other: CIDs
     attributes:
-      record:
-        status: Status
-        description: Anotações
-        record_entries: Consultas
-        appointments: Consultas
       cid:
         code: Código
         name: Nome
@@ -104,16 +99,18 @@ pt-BR:
         parent_name: Nome do responsável
         parent_rg: RG do responsável
         parent_cpf: CPF do responsável
-        record_id: Nº da ficha
+        record_code: Nº da ficha
         record_status: Status da ficha
       record:
+        last_appointment_date: Última consulta
         last_appointment: Última consulta
         pacient_name: Nome
         pacient_phone: Telefone
         appointments: Consultas
-        id: Número da ficha
+        code: Nº da ficha
         status: Status da ficha
         warning:  Paciente cadastrado! Nº da ficha %{id}. ALTERE A NUMERAÇÃO NA FICHA EM PAPEL!
+        record_entries: Consultas        
       available_day:
         sunday: Domingo
         monday: Segunda
@@ -124,18 +121,27 @@ pt-BR:
         saturday: Sábado
         day: Dia da semana
         work_start_time: Entrada
+        work_start_t: Entrada
         work_end_time: Saída
+        work_end_t: Saída
         interval_start_time: Intervalo
+        interval_start_t: Intervalo
         interval_end_time: Fim do intervalo
+        interval_end_t: Fim do intervalo
       agenda:
+        show_weekend: Mostrar fim de semana
         default_meeting_length: Duração da consulta
         available_days: Dias de trabalho
       available_days:
         day: Dia da semana
         work_start_time: Entrada
+        work_start_t: Entrada
         work_end_time: Saída
+        work_end_t: Saída
         interval_start_time: Intervalo
+        interval_start_t: Intervalo
         interval_end_time: Fim do intervalo
+        interval_end_t: Fim do intervalo
       appointment:
         agenda: Agenda
         record: Ficha

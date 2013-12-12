@@ -1,25 +1,18 @@
 <ul id="menu" class="unstyled accordion collapse in">
-    <li class="accordion-group active">
+    <li class="accordion-group">
         <a data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#general-nav">
             <i class="icon-dashboard icon-large"></i> Geral
         </a>
         <ul class="collapse in" id="general-nav">
-            <li><%= link_to root_path do %><i class="icon-laptop"></i> Meu Dashboard<% end %></li>
             <li><%= link_to office_path do %><i class="icon-home"></i> A Clínica<% end %></li>
             <li><%= link_to statistics_path do %><i class="icon-bar-chart"></i> Estatísticas<% end %></li>
         </ul>
     </li>
-    <% if can? :read, Pacient %>
+    <% if can? :read, Pacient %> 
         <li class="accordion-group">
-            <a data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#pacients-nav">
+            <a href="/pacients" data-parent="#menu" class="accordion-toggle">
                 <i class="icon-group icon-large"></i> Pacientes
             </a>
-            <ul class="collapse " id="pacients-nav">
-                <li><%= link_to pacients_path do %><i class="icon-user"></i> Cadastros<% end %></li>
-                <% if can? :read, Record %>
-                    <li><%= link_to records_path do %><i class="icon-paste"></i> Prontuários<% end %></li>
-                <% end %>
-            </ul>
         </li>
     <% end %>
     <% if can? :read, Appointment %>
@@ -27,7 +20,7 @@
             <a data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#appointments-nav">
                 <i class="icon-paste icon-large"></i> Consultas
             </a>
-            <ul class="collapse " id="appointments-nav">
+            <ul class="collapse in" id="appointments-nav">
                 <% if can? :read, Agenda %>
                     <li><%= link_to agendas_path do %><i class="icon-calendar"></i> Agendamento<% end %></li>
                 <% end %>
@@ -41,7 +34,7 @@
             <a data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#settings-nav">
                 <i class="icon-cog icon-large"></i> Cadastros
             </a>
-            <ul class="collapse " id="settings-nav">
+            <ul class="collapse in" id="settings-nav">
                 <% if can? :read, Admin %>
                     <li><%= link_to admins_path do %><i class="icon-user"></i> Administradores<% end %></li>
                 <% end %>

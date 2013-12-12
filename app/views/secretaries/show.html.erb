@@ -25,38 +25,38 @@
       <div id="div-1" class="accordion-body collapse in body">
         <%= simple_form_for @secretary, class: "form-horizontal" do |f| %>
           <div class="control-group">
-            <%= f.label :username, required: false, class: "control-label" %>
+            <%= f.label :username, required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= @secretary.username %></div>
             </div>
           </div>
           <div class="control-group">
-            <%= f.label :email, required: false, class: "control-label" %>
+            <%= f.label :email, required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= @secretary.email %></div>
             </div>
           </div>
           <div class="control-group">
-            <%= f.label :cpf, required: false, class: "control-label" %>
+            <%= f.label :cpf, required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= @secretary.cpf %></div>
             </div>
           </div>
           <div class="control-group">
-            <%= f.label :rg, required: false, class: "control-label" %>
+            <%= f.label :rg, required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= @secretary.rg %></div>
             </div>
           </div>
           <div class="control-group">
-            <%= f.label :birthdate, required: false, class: "control-label" %>
+            <%= f.label :birthdate, required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= l @secretary.birthdate %></div>
             </div>
           </div>
           <%- @secretary.contact_infos.each do |cinfo| %>
             <div class="control-group">
-              <%= f.label I18n.t('activerecord.attributes.contact_info.type.' + cinfo.type), required: false, class: "control-label" %>
+              <%= f.label I18n.t('activerecord.attributes.contact_info.type.' + cinfo.type), required: false, class: "control-label bold-label" %>
               <div class="controls">
                 <div><%= cinfo.value %></div>
               </div>

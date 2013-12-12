@@ -20,6 +20,12 @@ class HealthInsurance < ActiveRecord::Base
     self.save
   end
 
+  def active_number
+    return 0 if self.name == "Sem convênio (particular)"
+    return 1 if self.active?
+    2
+  end
+
   def to_s
   	self.name
   end

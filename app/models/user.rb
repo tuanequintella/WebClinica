@@ -45,6 +45,11 @@ class User < ActiveRecord::Base
     end
   end
   
+  def active_number
+    return 1 if self.active?
+    2
+  end
+
   def deactivate!
     self.active = false
     self.save

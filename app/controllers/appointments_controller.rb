@@ -43,7 +43,7 @@ class AppointmentsController < ApplicationController
 
     if @appointment.record.blank?
       pacient = Pacient.new(record_params[:pacient])
-      unless pacient.first_name.blank? || pacient.surname.blank? || pacient.phone.blank?
+      unless pacient.name.blank? || pacient.phone.blank?
         record = Record.create(status: :new)
         pacient.record = record
         pacient.save(:validate => false)
@@ -92,14 +92,15 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.find(params[:id])
     agenda = @appointment.agenda
     date = @appointment.scheduled_at
-    #if it was the first appointment, no need to mantain the pacient's record 
-    if @appointment.record.status.new?
-      @appointment.record.deactivate!
+    record = @appointment.record
+
+    unless @appointment.destroy
+      flash[:error] = 'Erro ao tentar desmarcar'    
     end
-    if @appointment.destroy
-      flash[:success] = 'Desmarcado com sucesso'
-    else
-      flash[:error] = 'Erro ao tentar desmarcar'
+
+    #if it was the first appointment, no need to mantain the pacient's record 
+    if record.status.new?
+      record.deactivate!
     end
 
     redirect_to agendas_path(:id => agenda, :date => date)

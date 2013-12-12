@@ -38,7 +38,7 @@
             </tr>
           </thead>
           <tbody>
-            <% @pacients.sort_by{ |p| p.name }.each do |pacient| %>
+            <% @pacients.each do |pacient| %>
               <tr>
                 <td> <%= pacient.record.code %> </td>
                 <td> <%= link_to pacient.name, pacient_path(pacient) %> </td>

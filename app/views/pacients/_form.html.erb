@@ -2,9 +2,8 @@
   <fieldset>
     <%= f.simple_fields_for :record do |rec_form| %>
       <%= rec_form.input :status, :include_blank => "Selecione um status" %> 
-      <div id="last_appointment">
-      <%= rec_form.input :last_appointment_date, as: :string, required: true, :placeholder => "Selecione a data", input_html: {value: date_format(pacient.record.last_appointment_date), :class => 'datepicker', 'data-date'=> pacient.record.last_appointment_date, 'data-date-format'=>"dd/mm/yyyy"} %>
-      <%= rec_form.input :code, required: true %> 
+      <%= rec_form.input :last_appointment_date, as: :string, :placeholder => (rec_form.object.new_record? ? "Selecione a data": "(sem consulta)"), input_html: {value: date_format(pacient.record.last_appointment.try(:scheduled_at)), :class => 'datepicker', 'data-date-format'=>"dd/mm/yyyy", disabled: !rec_form.object.new_record? } %>
+      <%= rec_form.input :code %> 
     <% end %>
     <br />
     <%= f.input :name %>

@@ -3,7 +3,7 @@ class DoctorsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @doctors = Doctor.all
+    @doctors = Doctor.all.sort_by{ |p| [p.active_number, p.name] }
   end
 
   def new

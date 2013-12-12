@@ -3,7 +3,7 @@ class SecretariesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @secretaries = Secretary.all
+    @secretaries = Secretary.all.sort_by{ |p| [p.active_number, p.name] }
   end
 
   def new

@@ -18,6 +18,11 @@ class Occupation < ActiveRecord::Base
     self.save
   end
 
+  def active_number
+    return 1 if self.active?
+    2
+  end
+
   def to_s
   	self.name
   end

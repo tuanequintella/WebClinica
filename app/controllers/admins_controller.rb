@@ -3,7 +3,7 @@ class AdminsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @admins = Admin.all
+    @admins = Admin.all.sort_by{ |p| [p.active_number, p.name] }
   end
 
   def new

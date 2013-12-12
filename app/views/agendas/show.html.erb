@@ -1,5 +1,5 @@
-<div class="agenda">
-  <% if @agenda.active?  && can?(:read, @agenda) %>
+<div>
+  <% if can?(:read, @agenda) %>
     <table class="table table-bordered table-condensed">
       <thead>
         <tr>
@@ -96,7 +96,7 @@
       </tbody>
     </table>
   <% else %>
-    Essa não é uma agenda ativa ou você não tem permissão para vê-la.
+    Você não tem permissão para ver esta agenda.
   <% end %>
 </div>
 

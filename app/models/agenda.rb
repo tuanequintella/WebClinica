@@ -1,6 +1,8 @@
 class Agenda < ActiveRecord::Base
+  extend Enumerize
+
   attr_accessor :available_days_attributes
-  attr_accessible :default_meeting_length, :available_days_attributes, :active
+  attr_accessible :default_meeting_length, :available_days_attributes, :active, :show_weekend
 
   I18N_PATH = 'activerecord.attributes.agenda.'
 
@@ -8,6 +10,8 @@ class Agenda < ActiveRecord::Base
   has_many :available_days
   validate :available_days_amount
   has_many :appointments
+
+  enumerize :show_weekend, in: [:none, :saturday, :both], default: :none
 
   accepts_nested_attributes_for :available_days, allow_destroy: true
 
@@ -38,7 +42,15 @@ class Agenda < ActiveRecord::Base
   def week (string_date)
     date = string_date.to_date
 
-    (date.beginning_of_week...date.end_of_week).to_a
+    if self.show_weekend.both?
+      (date.beginning_of_week..date.end_of_week).to_a
+    elsif self.show_weekend.saturday?
+      (date.beginning_of_week...date.end_of_week).to_a
+    else
+      array = (date.beginning_of_week...date.end_of_week).to_a
+      array.pop
+      array
+    end
   end
 
   def time_array(week)

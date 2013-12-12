@@ -11,14 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131204044344) do
+ActiveRecord::Schema.define(:version => 20131212134852) do
 
   create_table "agendas", :force => true do |t|
     t.integer  "doctor_id"
     t.integer  "default_meeting_length"
     t.boolean  "active"
-    t.datetime "created_at",             :null => false
-    t.datetime "updated_at",             :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+    t.string   "show_weekend",           :default => "none"
   end
 
   create_table "appointment_attachments", :force => true do |t|

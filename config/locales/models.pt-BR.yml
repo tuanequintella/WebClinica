@@ -129,6 +129,7 @@ pt-BR:
         interval_end_time: Fim do intervalo
         interval_end_t: Fim do intervalo
       agenda:
+        show_weekend: Mostrar fim de semana
         default_meeting_length: Duração da consulta
         available_days: Dias de trabalho
       available_days:

@@ -47,29 +47,5 @@ class AgendasController < ApplicationController
     end
   end
 
-  def destroy
-    @agenda = Agenda.find(params[:id])
-    
-
-    if @agenda.deactivate!
-      flash[:success] = "Agenda desativada com sucesso"
-    else
-      flash[:error] = "Erro ao desativar agenda"
-    end
-    redirect_to edit_doctor_path(@agenda.doctor)
-  end
-
-  def recreate
-    @agenda = Agenda.find(params[:agenda_id])
-    @agenda.activate!
-
-    if(@agenda.save)
-      flash[:success] = "Agenda reativada com sucesso"
-    else
-      flash[:error] = "Erro ao reativar agenda"
-    end
-    redirect_to edit_doctor_path(@agenda.doctor)
-  end
-
 end
 

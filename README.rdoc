@@ -1,24 +1,31 @@
-Este repositório refere-se ao Trabalho de Conclusão de Curso da Graduação em Engenharia de Computação da PUC-Campinas, ano de 2012.
+Este projeto refere-se ao Trabalho de Conclusão de Curso da Graduação em Engenharia de Computação da PUC-Campinas, ano de 2013.
 Aluna: Tuane Quintella de Andrade  RA: 08106239
 Projeto: WebClinica
-Descrição: Sistema Web para gestão de consultório pediátrico.
+Descrição: Sistema Web para gestão de clínica médica.
 
-Pré-Requisitos:
-- Tutorial: http://gist.github.com/2376711
-- E mais o NodeJS:
-  $ sudo apt-get install nodejs
+Dependências do projeto:
+- Pacotes auxiliares
+  $ sudo apt-get install build-essential openssl libcurl4-openssl-dev libreadline6 libreadline6-dev curl zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev automake libtool bison libbz2-dev libmysqlclient-dev
+- MySQL
+  $ sudo apt-get install mysql-client mysql-server
+- Ruby 2.0.0 (eu, pessoalmente, instalo via gerenciador de versões Rbenv: https://github.com/sstephenson/rbenv#installation)
+- Gem bundler
+  $ gem install bundler
 
-Instalação:
+Setup e execução do projeto:
 1. Faça o clone / download do projeto para uma máquina com linux
 2. Abra o terminal, vá até o diretório do projeto baixado e instale as Gems necessárias com o comando
   $ bundle install
 3. Crie o banco de dados com os comandos
-  $ bundle exec rake db:create
-  $ bundle exec rake db:migrate
-4. Crie um usuário Administrador inicial com o comando
-  $ bundle exec rake create_admin
-5. Crie uma clínica incial com o comando
-  $ bundle exec rake create_office 
-6. Inicie o servidor com o comando
+  $ bundle exec rake db:create db:migrate
+4. Faça o setup inicial (criar um usuário administrador e a clínica) com o comando
+  $ bundle exec rake setup:all 
+5. Inicie o servidor com o comando
   $ rails s
-7. Abra o browser e entre no endereço: http://localhost:3000
+6. Abra o browser e entre no endereço: http://localhost:3000
+
+7. Caso precise alterar o setup inicial sem acessar o sistema via browser, utilize os comandos
+  7.1. Para criar / alterar admins:
+    $ bundle exec rake setup:admin
+  7.2. Para alterar a clínica
+    $ bundle exec rake setup: office

@@ -26,26 +26,26 @@
         <%= render partial: 'shared/alerts' %> 
         <%= simple_form_for @office, class: "form-horizontal" do |f| %>
           <div class="control-group">
-            <%= f.label :email, required: false, class: "control-label" %>
+            <%= f.label :email, required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= @office.email %></div>
             </div>
           </div>
           <div class="control-group">
-            <%= f.label :address, required: false, class: "control-label" %>
+            <%= f.label :address, required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= @office.address %></div>
             </div>
           </div>
           <div class="control-group">
-            <%= f.label :phone, required: false, class: "control-label" %>
+            <%= f.label :phone, required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= @office.phone %></div>
             </div>
           </div>
           <%- @office.contact_infos.each do |cinfo| %>
             <div class="control-group">
-              <%= f.label I18n.t('activerecord.attributes.contact_info.type.' + cinfo.type), required: false, class: "control-label" %>
+              <%= f.label I18n.t('activerecord.attributes.contact_info.type.' + cinfo.type), required: false, class: "control-label bold-label" %>
               <div class="controls">
                 <div><%= cinfo.value %></div>
               </div>

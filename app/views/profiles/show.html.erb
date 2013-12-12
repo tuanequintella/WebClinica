@@ -24,63 +24,63 @@
         <%= render partial: 'shared/alerts' %> 
         <%= simple_form_for @user, class: "form-horizontal" do |f| %>
           <div class="control-group">
-            <%= f.label :username, required: false, class: "control-label" %>
+            <%= f.label :username, required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= @user.username %></div>
             </div>
           </div>
           <div class="control-group">
-            <%= f.label :email, required: false, class: "control-label" %>
+            <%= f.label :email, required: false, class: "control-label bold-label" %>
             <div class="controls">
               <div><%= @user.email %></div>
             </div>
           </div>
           <% unless @user.is_a? Admin %>
             <div class="control-group">
-              <%= f.label :cpf, required: false, class: "control-label" %>
+              <%= f.label :cpf, required: false, class: "control-label bold-label" %>
               <div class="controls">
                 <div><%= @user.cpf %></div>
               </div>
             </div>
             <div class="control-group">
-              <%= f.label :rg, required: false, class: "control-label" %>
+              <%= f.label :rg, required: false, class: "control-label bold-label" %>
               <div class="controls">
                 <div><%= @user.rg %></div>
               </div>
             </div>
             <div class="control-group">
-              <%= f.label :birthdate, required: false, class: "control-label" %>
+              <%= f.label :birthdate, required: false, class: "control-label bold-label" %>
               <div class="controls">
                 <div><%= l @user.birthdate %></div>
               </div>
             </div>
             <% if @user.is_a? Doctor %>
               <div class="control-group">
-                <%= f.label :crm, required: false, class: "control-label" %>
+                <%= f.label :crm, required: false, class: "control-label bold-label" %>
                 <div class="controls">
                   <div><%= @user.crm %></div>
                 </div>
               </div>
               <div class="control-group">
-                <%= f.label :gradyear, required: false, class: "control-label" %>
+                <%= f.label :gradyear, required: false, class: "control-label bold-label" %>
                 <div class="controls">
                   <div><%= @user.try(:gradyear).try(:year) %></div>
                 </div>
               </div>
               <div class="control-group">
-                <%= f.label :occupations, required: false, class: "control-label" %>
+                <%= f.label :occupations, required: false, class: "control-label bold-label" %>
                 <div class="controls">
                   <div><%= @user.occupations.join(", ") %></div>
                 </div>
               </div>
               <div class="control-group">
-                <%= f.label :appointmentprice, required: false, class: "control-label" %>
+                <%= f.label :appointmentprice, required: false, class: "control-label bold-label" %>
                 <div class="controls">
                   <div><%= number_to_currency @user.appointmentprice %></div>
                 </div>
               </div>
               <div class="control-group">
-                <%= f.label :health_insurances, required: false, class: "control-label" %>
+                <%= f.label :health_insurances, required: false, class: "control-label bold-label" %>
                 <div class="controls">
                   <div><%= @user.health_insurances.join(", ") %></div>
                 </div>
@@ -88,7 +88,7 @@
             <% end %>
             <%- @user.contact_infos.each do |cinfo| %>
               <div class="control-group">
-                <%= f.label I18n.t('activerecord.attributes.contact_info.type.' + cinfo.type), required: false, class: "control-label" %>
+                <%= f.label I18n.t('activerecord.attributes.contact_info.type.' + cinfo.type), required: false, class: "control-label bold-label" %>
                 <div class="controls">
                   <div><%= cinfo.value %></div>
                 </div>

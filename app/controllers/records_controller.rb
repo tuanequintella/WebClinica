@@ -16,10 +16,11 @@ class RecordsController < ApplicationController
   #   render :search, :layout => false
   # end
 
-  # def show
-  #   @record = Record.find_by_id(params[:id])
-  #   respond_with @record
-  # end
+  def show
+    @record = Record.find_by_id(params[:id])
+    @record.parse_health_insurances_options(params[:doctor_id])
+    respond_with @record
+  end
 
   def edit
     @record = Record.find_by_id(params[:id])

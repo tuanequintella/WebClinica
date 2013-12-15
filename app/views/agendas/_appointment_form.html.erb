@@ -1,4 +1,4 @@
-<div id="appointment-window" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="appointment-window" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3 id="myModalLabel">Consulta</h3>
@@ -8,11 +8,11 @@
       <fieldset>        
         <%= f.input :scheduled_at, as: :string, input_html: { readonly: true }%>
         <%= f.association :agenda, :as => :hidden, input_html: { value: @agenda.id } %>
-        <%= f.association :record, collection: Record.all.sort_by{|r| r.pacient.name}, :include_blank=> "Novo paciente", :label_method => :to_s %>
+        <%= f.association :record, collection: Record.all.sort_by{|r| r.pacient.name}, label: "Paciente", :include_blank=> "Novo registro", :label_method => :pacient, input_html: { class: 'select2', style: "width: 280px" } %>
 
         <%= f.fields_for :record do |rec_f| %>
           <%= rec_f.fields_for :pacient do |pac_f| %>
-            <%= pac_f.input :name, label: "Nome" %>
+            <%= pac_f.input :name, label: "Nome", input_html: { style: "width: 267px" } %>
             <%= f.association :health_insurance, :collection => @agenda.doctor.health_insurances, :include_blank => false %>
             <%= pac_f.input :phone, label: "Telefone" %>
           <% end %>

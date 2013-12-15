@@ -1,27 +1,49 @@
-window.appointmentsBehavior = function (){
+window.appointmentsBehavior = function (doctor_id){
 
-  $("#appointment_record_id").on('change', function() {
+  window.allHiOptions = $("#appointment_health_insurance_id option");
+  
+  $("#appointment_record_id").on('change', function(e, callback) {
     if($(this).val() == "") {
       $("#appointment_record_pacient_name").val("");
+      $("div.appointment_record_pacient_name").show();
       $("#appointment_record_pacient_name").removeAttr('disabled');
       $("#appointment_record_pacient_phone").val("");
       $("#appointment_record_pacient_phone").removeAttr('disabled');
       $("#appointment_record_status").val("new");
-      //resetar health_insurances
+      //reseta health_insurances
+      $('#appointment_health_insurance_id').html("")
+      for (i = 0; i < window.allHiOptions.length; i++) {   
+        $('#appointment_health_insurance_id')
+           .append($("<option></option>")
+           .attr("value",window.allHiOptions[i].value)
+           .text(window.allHiOptions[i].text)); 
+      }
+
       $("#last_appointment_date").hide();
     }else {
       $.ajax({
-        url: "/records/" + $(this).val(),
+        url: "/records/" + $(this).val() + "?doctor_id=" + doctor_id,
         dataType: 'json'
       }).success(function(record) {
         
         $("#appointment_record_pacient_name").val(record.pacient.name);
         $("#appointment_record_pacient_name").attr('disabled','disabled');
+        $("div.appointment_record_pacient_name").hide();
         $("#appointment_record_pacient_phone").val(record.pacient.phone);
         $("#appointment_record_pacient_phone").attr('disabled','disabled');
         $("#appointment_record_status").val(record.status);
-        //filtrar health_insurances
-
+        
+        //filtra health_insurances
+        $("#appointment_health_insurance_id").html("");
+        $.each(record.health_insurances_options, function(id, name) {   
+          $('#appointment_health_insurance_id')
+             .append($("<option></option>")
+             .attr("value",id)
+             .text(name)); 
+        });
+        if(callback != null) {
+          callback();
+        }
         if(record.last_appointment != null) {
           $("#record_last_appointment_date").val(record.last_appointment.localized_date);
           $("#last_appointment_date").show();
@@ -95,7 +117,6 @@ window.appointmentsBehavior = function (){
       $(".btn-primary").hide();
     } else {
       $('#appointment_record_id').select2();
-      $('#appointment_record_id').addClass("input-large");
     }
   });
 
@@ -120,9 +141,11 @@ window.appointmentsBehavior = function (){
       url: "/appointments/" + app_id,
       dataType: 'json'
     }).success(function(appointment) {
+        setHealthInsurance = function() {
+          $("#appointment_health_insurance_id").val(appointment.health_insurance_id);  
+        }
         $("#appointment_record_id").val(appointment.record_id);
-        $("#appointment_record_id").trigger("change");
-        $("#appointment_health_insurance_id").val(appointment.health_insurance_id);
+        $("#appointment_record_id").trigger("change", setHealthInsurance);
       });
     $("#appointment-window").modal(); 
   });

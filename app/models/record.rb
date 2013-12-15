@@ -3,7 +3,7 @@ class Record < ActiveRecord::Base
   extend Enumerize
 
   attr_accessible :status, :description, :pacient, :code, :last_appointment_date
-  attr_accessor :record_entries_attributes, :last_appointment_date
+  attr_accessor :record_entries_attributes, :last_appointment_date, :health_insurances_options
 
   belongs_to :pacient
   has_many :appointments
@@ -19,6 +19,13 @@ class Record < ActiveRecord::Base
 
   def last_appointment
     appointments.with_status(:finished).order("scheduled_at DESC").first
+  end
+
+  def parse_health_insurances_options(doctor_id)
+    doctor = Doctor.find(doctor_id)
+    intersec = [self.pacient.health_insurance] & doctor.health_insurances
+    intersec = intersec + [(HealthInsurance.where(name: "Sem convênio (particular)").first)]
+    self.health_insurances_options = Hash[intersec.map{|h| [h.id, h.name]}] 
   end
 
   def deactivate!
@@ -47,7 +54,8 @@ class Record < ActiveRecord::Base
   end
 
   def as_json (options = {})
-    super(options.merge!(:include => [:pacient], methods: [:last_appointment, :next_valid_appointment_date]))
+    super(options.merge!(:include => [:pacient],
+        methods: [:last_appointment, :next_valid_appointment_date, :health_insurances_options]))
   end
 
   def next_valid_appointment_date

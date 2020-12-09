@@ -4,14 +4,9 @@ Projeto: WebClinica
 Descrição: Sistema Web para gestão de clínica médica.
 
 Dependências do projeto:
-- Ubuntu 12.04+ ou Debian 7
-- Pacotes auxiliares
-  $ sudo apt-get install build-essential openssl libcurl4-openssl-dev libreadline6 libreadline6-dev curl zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev automake libtool bison libbz2-dev libmysqlclient-dev
 - MySQL
-  $ sudo apt-get install mysql-client mysql-server
-- Ruby 2.0.0 (eu, pessoalmente, instalo via gerenciador de versões Rbenv: https://github.com/sstephenson/rbenv#installation)
-- Gem bundler
-  $ gem install bundler
+- Ruby 2.0.0
+- Gems on Gemfile
 
 Setup e execução do projeto:
 1. Após instalar as dependências e fazer download do projeto, abra o terminal, vá até o diretório do projeto baixado e instale as Gems necessárias com o comando
